@@ -22,6 +22,7 @@ jobs:
       with:
         repository: 'OpenAPITools/openapi-generator'
         path: openapi-generator
+        ref: '5.4.x'
     - name: Checkout current repo
       uses: actions/checkout@v2
       with:
