@@ -41,6 +41,5 @@ public class DenoOakServerCodegen extends DefaultCodegen implements CodegenConfi
         apiPackage = "Apis";
         modelPackage = "Models";
         supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
-        // TODO: Fill this out.
     }
 }
