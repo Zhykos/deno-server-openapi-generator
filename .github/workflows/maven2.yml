@@ -1,0 +1,53 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven 2
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron:  '0 0 * * MON'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout current repo
+      uses: actions/checkout@v2
+      with:
+        path: deno-oak-openapi-generator
+    - name: Checkout OpenApi Generator repo
+      uses: actions/checkout@v2
+      with:
+        repository: 'OpenAPITools/openapi-generator'
+        path: openapi-generator
+        ref: '5.4.x'
+    - name: Set up working directory
+      run: |
+        mv -f openapi-generator/* .
+        cp -a deno-oak-openapi-generator/. .
+        rm -fr openapi-generator
+        rm -fr deno-oak-openapi-generator
+    - name: Add new data into OpenApi Generator Manifest
+      run: echo "org.openapitools.codegen.languages.DenoOakServerCodegen" >> ./modules/openapi-generator/src/main/resources/META-INF/services/org.openapitools.codegen.CodegenConfig
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn -B package -DskipTests --file pom.xml
+    - uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: ./modules/openapi-generator-cli/target/openapi-generator-cli.jar
+    # - name: Generate Pet store
+    #   run: |
+    #     chmod +x ./bin/generate-samples.sh
+    #     ./bin/generate-samples.sh bin/configs/deno-oak-petstore-new.yaml
