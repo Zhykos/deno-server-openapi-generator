@@ -5,6 +5,13 @@
 !.gitignore
 !package.json
 
+!.github/
+.github/*
+!.github/workflows/
+.github/workflows/*
+
+!.github/workflows/maven.yml
+
 !modules/
 modules/*
 !modules/openapi-generator/

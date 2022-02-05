@@ -20,7 +20,7 @@ jobs:
     - name: Checkout OpenApi Generator repo
       uses: actions/checkout@v2
       with:
-        repository: 'https://github.com/OpenAPITools/openapi-generator.git'
+        repository: 'OpenAPITools/openapi-generator'
     - name: Checkout current repo
       uses: actions/checkout@v2
     - name: Set up JDK 11
