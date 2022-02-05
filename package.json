@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-        "mvn-clean-package-no-tests": "./mvnw clean package -DskipTests",
-        "mvn-clean-package": "./mvnw clean package",
+        "mvn-clean-package-no-tests": "mvnw.cmd clean package -DskipTests",
+        "mvn-clean-package": "mvnw.cmd clean package",
         "generate-pet-store": "sh ./bin/generate-samples.sh bin/configs/deno-oak-petstore-new.yaml"
     },
     "repository": {
