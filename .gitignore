@@ -1,0 +1,37 @@
+# Ignore everything
+/*
+
+# But not these files
+!.gitignore
+
+!modules/
+modules/*
+!modules/openapi-generator/
+modules/openapi-generator/*
+!modules/openapi-generator/src/
+modules/openapi-generator/src/*
+!modules/openapi-generator/src/main/
+modules/openapi-generator/src/main/*
+!modules/openapi-generator/src/main/java/
+modules/openapi-generator/src/main/java/*
+!modules/openapi-generator/src/main/java/org/
+modules/openapi-generator/src/main/java/org/*
+!modules/openapi-generator/src/main/java/org/openapitools/
+modules/openapi-generator/src/main/java/org/openapitools/*
+!modules/openapi-generator/src/main/java/org/openapitools/codegen/
+modules/openapi-generator/src/main/java/org/openapitools/codegen/*
+!modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/
+modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/*
+
+!modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/DenoOakServerCodegen.java
+
+!modules/openapi-generator/src/main/resources/
+modules/openapi-generator/src/main/resources/*
+!modules/openapi-generator/src/main/resources/deno-oak/
+
+!bin/
+bin/*
+!bin/configs/
+bin/configs/*
+
+!bin/configs/deno-oak-petstore-new.yaml

@@ -1,0 +1,6 @@
+generatorName: deno-oak
+outputDir: samples/server/petstore/deno/oak
+inputSpec: modules/openapi-generator/src/test/resources/3_0/petstore.yaml
+templateDir: modules/openapi-generator/src/main/resources/deno-oak
+additionalProperties:
+  hideGenerationTimestamp: "true"
