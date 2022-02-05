@@ -1,0 +1,20 @@
+{
+    "name": "deno-oak-openapi-generator",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "mvn-clean-package-no-tests": "./mvnw clean package -DskipTests",
+        "mvn-clean-package": "./mvnw clean package",
+        "generate-pet-store": "sh ./bin/generate-samples.sh bin/configs/deno-oak-petstore-new.yaml"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Zhykos/deno-oak-openapi-generator.git"
+    },
+    "author": "Thomas \"Zhykos\" Cicognani",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Zhykos/deno-oak-openapi-generator/issues"
+    },
+    "homepage": "https://github.com/Zhykos/deno-oak-openapi-generator#readme"
+}
