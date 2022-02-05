@@ -35,8 +35,8 @@ public class DenoOakServerCodegen extends DefaultCodegen implements CodegenConfi
         super();
 
         outputFolder = "generated-code" + File.separator + "deno-oak";
-        modelTemplateFiles.put("model.mustache", ".zz");
-        apiTemplateFiles.put("api.mustache", ".zz");
+        modelTemplateFiles.put("model.mustache", ".ts");
+        apiTemplateFiles.put("api.mustache", ".ts");
         embeddedTemplateDir = templateDir = "deno-oak";
         apiPackage = "Apis";
         modelPackage = "Models";
