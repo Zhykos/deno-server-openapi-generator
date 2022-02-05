@@ -15,9 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DenoOakServerCodegen extends DefaultCodegen implements CodegenConfig {
-    public static final String PROJECT_NAME = "projectName";
+    // public static final String PROJECT_NAME = "projectName";
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DenoOakServerCodegen.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(DenoOakServerCodegen.class);
 
     public CodegenType getTag() {
         return CodegenType.SERVER;
