@@ -42,7 +42,7 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
-        path: ./modules/openapi-generator-cli/target/openapi-generator-cli.jar
+        path: .
     # - name: Generate Pet store
     #   run: |
     #     chmod +x ./bin/generate-samples.sh
