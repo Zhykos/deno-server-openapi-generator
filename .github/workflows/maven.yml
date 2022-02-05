@@ -44,11 +44,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package -DskipTests --file pom.xml
-    # - uses: actions/upload-artifact@v2
-    #   with:
-    #     name: my-artifact
-    #     path: ./modules/openapi-generator-cli/target/openapi-generator-cli.jar
+      run: mvn -B package --file pom.xml
     - name: Generate Pet store
       run: |
         chmod +x ./bin/generate-samples.sh
