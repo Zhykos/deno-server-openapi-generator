@@ -1,0 +1,44 @@
+/* eslint-disable no-unused-vars */
+import Service from './Service';
+
+export class {{classname}}Service {
+
+  {{#operations}}
+  {{#operation}}
+  /**
+  {{#summary}}
+  * {{{.}}}
+  {{/summary}}
+  {{#notes}}
+  * {{{.}}}
+  {{/notes}}
+  *
+  {{#allParams}}
+  * {{paramName}} {{{dataType}}} {{{description}}}{{^required}} (optional){{/required}}
+  {{/allParams}}
+  {{^returnType}}
+  * no response value expected for this operation
+  {{/returnType}}
+  {{#returnType}}
+  * returns {{{.}}}
+  {{/returnType}}
+  * */
+  {{{operationId}}} ({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{^-last}}, {{/-last}}{{#-last}} }{{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(Service.successResponse({
+      {{#allParams}}
+          {{paramName}},
+      {{/allParams}}
+        }));
+      } catch (e) {
+        reject(Service.rejectResponse(
+          e.message || 'Invalid input',
+          e.status || 405,
+        ));
+      }
+    });
+  }
+  {{/operation}}
+  {{/operations}}
+}
