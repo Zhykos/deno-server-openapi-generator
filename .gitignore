@@ -5,6 +5,11 @@
 !.gitignore
 !package.json
 
+!.vscode/
+.vscode/*
+
+!.vscode/settings.json
+
 !.github/
 .github/*
 !.github/workflows/

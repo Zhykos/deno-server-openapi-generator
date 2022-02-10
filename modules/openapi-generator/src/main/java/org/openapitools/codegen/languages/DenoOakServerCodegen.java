@@ -48,6 +48,9 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
         super.apiTemplateFiles.put("service.mustache", ".ts");
         super.embeddedTemplateDir = super.templateDir = DENO_OAK;
         super.modelPackage = "models";
+
+        super.supportingFiles.add(new SupportingFile("config.mustache", "", "config.js"));
+        super.supportingFiles.add(new SupportingFile("logger.mustache", "", "logger.js"));
         super.supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
 
         // controllers folder

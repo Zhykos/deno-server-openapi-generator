@@ -3,23 +3,9 @@
 {{#operations}}
 {{#operation}}
 {{#-first}}
-const {{classname}}Service = require('./{{classname}}Service');
+export { {{classname}}Service } from './{{classname}}Service';
 {{/-first}}
 {{/operation}}
 {{/operations}}
 {{/apis}}
 {{/apiInfo}}
-
-module.exports = {
-{{#apiInfo}}
-{{#apis}}
-{{#operations}}
-{{#operation}}
-{{#-first}}
-  {{classname}}Service,
-{{/-first}}
-{{/operation}}
-{{/operations}}
-{{/apis}}
-{{/apiInfo}}
-};

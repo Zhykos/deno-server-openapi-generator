@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
-import Service from './Service';
+import { Service } from './Service';
+{{#imports}}
+import { {{classname}} } from '../models/{{classname}}';
+{{/imports}}
 
 export class {{classname}}Service {
 
@@ -23,14 +26,14 @@ export class {{classname}}Service {
   * returns {{{.}}}
   {{/returnType}}
   * */
-  {{{operationId}}} ({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}{{^-last}}, {{/-last}}{{#-last}} }{{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
+  static {{{operationId}}} ({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}: {{{dataType}}}{{^-last}}, {{/-last}}{{#-last}} }{{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(Service.successResponse({
+        /*resolve(Service.successResponse({
       {{#allParams}}
           {{paramName}},
       {{/allParams}}
-        }));
+        }));*/
       } catch (e) {
         reject(Service.rejectResponse(
           e.message || 'Invalid input',

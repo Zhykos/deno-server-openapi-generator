@@ -1,0 +1,6 @@
+{
+    "deno.lint": true,
+    "deno.unstable": true,
+    "deno.enable": true,
+    "vsicons.presets.angular": true
+}

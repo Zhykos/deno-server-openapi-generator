@@ -1,11 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const camelCase = require('camelcase');
-const config = require('../config');
-const logger = require('../logger');
+import { join } from "https://deno.land/std@0.125.0/path/mod.ts";
+import camelcase, { camelCaseSync } from "https://deno.land/x/camelcase/mod.ts";
+import { config2 } from "../config"
 
-class Controller {
-  static sendResponse(response, payload) {
+export class Controller {
+  static sendResponse(response: any, payload: any) {
     /**
     * The default response-code is 200. We want to allow to change that. in That case,
     * payload will be an object consisting of a code and a payload. If not customized
@@ -20,7 +18,7 @@ class Controller {
     }
   }
 
-  static sendError(response, error) {
+  static sendError(response: any, error: any) {
     response.status(error.code || 500);
     if (error.error instanceof Object) {
       response.json(error.error);
@@ -40,23 +38,23 @@ class Controller {
   * @param fieldName
   * @returns {string}
   */
-  static collectFile(request, fieldName) {
+  static collectFile(request: any, fieldName: any) {
     let uploadedFileName = '';
     if (request.files && request.files.length > 0) {
-      const fileObject = request.files.find(file => file.fieldname === fieldName);
+      const fileObject = request.files.find((file: { fieldname: any; }) => file.fieldname === fieldName);
       if (fileObject) {
         const fileArray = fileObject.originalname.split('.');
         const extension = fileArray.pop();
         fileArray.push(`_${Date.now()}`);
         uploadedFileName = `${fileArray.join('')}.${extension}`;
-        fs.renameSync(path.join(config.FILE_UPLOAD_PATH, fileObject.filename),
-          path.join(config.FILE_UPLOAD_PATH, uploadedFileName));
+        Deno.renameSync(join(config2.FILE_UPLOAD_PATH, fileObject.filename),
+          join(config2.FILE_UPLOAD_PATH, uploadedFileName));
       }
     }
     return uploadedFileName;
   }
 
-  static getRequestBodyName(request) {
+  static getRequestBodyName(request: any) {
     const codeGenDefinedBodyName = request.openapi.schema['x-codegen-request-body-name'];
     if (codeGenDefinedBodyName !== undefined) {
       return codeGenDefinedBodyName;
@@ -68,12 +66,12 @@ class Controller {
     return 'body';
   }
 
-  static collectRequestParams(request) {
-    const requestParams = {};
+  static collectRequestParams(request: any) {
+    const requestParams: any = {};
     if (request.openapi.schema.requestBody !== undefined) {
       const { content } = request.openapi.schema.requestBody;
       if (content['application/json'] !== undefined) {
-        const requestBodyName = camelCase(this.getRequestBodyName(request));
+        const requestBodyName = camelcase(this.getRequestBodyName(request));
         requestParams[requestBodyName] = request.body;
       } else if (content['multipart/form-data'] !== undefined) {
         Object.keys(content['multipart/form-data'].schema.properties).forEach(
@@ -89,7 +87,7 @@ class Controller {
       }
     }
 
-    request.openapi.schema.parameters.forEach((param) => {
+    request.openapi.schema.parameters.forEach((param: any) => {
       if (param.in === 'path') {
         requestParams[param.name] = request.openapi.pathParams[param.name];
       } else if (param.in === 'query') {
@@ -101,7 +99,7 @@ class Controller {
     return requestParams;
   }
 
-  static async handleRequest(request, response, serviceOperation) {
+  static async handleRequest(request: any, response: any, serviceOperation: any) {
     try {
       const serviceResponse = await serviceOperation(this.collectRequestParams(request));
       Controller.sendResponse(response, serviceResponse);
@@ -110,5 +108,3 @@ class Controller {
     }
   }
 }
-
-module.exports = Controller;
