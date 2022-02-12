@@ -48,3 +48,16 @@ bin/*
 bin/configs/*
 
 !bin/configs/deno-oak-petstore-new.yaml
+
+!samples/
+samples/*
+!samples/server/
+samples/server/*
+!samples/server/petstore/
+samples/server/petstore/*
+!samples/server/petstore/deno/
+samples/server/petstore/deno/*
+!samples/server/petstore/deno/oak/
+samples/server/petstore/deno/oak/*
+
+!samples/server/petstore/deno/oak/*
