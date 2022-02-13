@@ -53,7 +53,9 @@ export class PetService {
    * status Array<'available' | 'pending' | 'sold'> Status values that need to be considered for filter
    * returns Array<Pet>
    */
-  static findPetsByStatus(status: Array<any>): Promise<Array<Pet>> {
+  static findPetsByStatus(
+    status: Array<"available" | "pending" | "sold">,
+  ): Promise<Array<Pet>> {
     return new Promise((resolve, reject) => {
       try {
         /*resolve(Service.successResponse({

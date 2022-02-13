@@ -1,11 +1,10 @@
 README.md
-config.js
+config.ts
 controllers/Controller.ts
 controllers/PetController.ts
 controllers/StoreController.ts
 controllers/UserController.ts
 controllers/index.ts
-logger.js
 models/ApiResponse.ts
 models/Category.ts
 models/Order.ts

@@ -5,7 +5,7 @@
     "scripts": {
         "mvn-clean-package-no-tests": "mvnw.cmd clean package -DskipTests",
         "mvn-clean-package": "mvnw.cmd clean package",
-        "generate-pet-store": "sh ./bin/generate-samples.sh bin/configs/deno-oak-petstore-new.yaml",
+        "generate-pet-store": "sh ./bin/generate-samples.sh bin/configs/deno-oak-petstore-new.yaml && npm run deno-format-sample",
         "build-then-generate": "npm run mvn-clean-package-no-tests && npm run generate-pet-store",
         "deno-format-sample": "deno fmt samples/server/petstore/deno/oak/"
     },

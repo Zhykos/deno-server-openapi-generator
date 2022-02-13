@@ -13,6 +13,6 @@
  * A tag for a pet
  */
 export class Tag {
-  "id"?: number = undefined;
-  "name"?: string = undefined;
+  "id"?: number;
+  "name"?: string;
 }

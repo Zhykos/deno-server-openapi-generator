@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { Service } from './Service';
+import { Service } from './Service.ts';
 {{#imports}}
-import { {{classname}} } from '../models/{{classname}}';
+import { {{classname}} } from '../models/{{classname}}.ts';
 {{/imports}}
 
 export class {{classname}}Service {
@@ -26,7 +26,7 @@ export class {{classname}}Service {
   * returns {{{.}}}
   {{/returnType}}
   * */
-  static {{{operationId}}} ({{#allParams}}{{#-first}}{ {{/-first}}{{paramName}}: {{{dataType}}}{{^-last}}, {{/-last}}{{#-last}} }{{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
+  static {{{operationId}}} ({{#allParams}}{{paramName}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
     return new Promise((resolve, reject) => {
       try {
         /*resolve(Service.successResponse({

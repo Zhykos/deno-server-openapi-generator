@@ -16,15 +16,15 @@ import { Tag } from "./Tag.ts";
  * A pet for sale in the pet store
  */
 export class Pet {
-  "id"?: number = undefined;
-  "category"?: Category = undefined;
-  "name"?: string = undefined;
-  "photoUrls"?: Array<string> = undefined;
-  "tags"?: Array<Tag> = undefined;
+  "id"?: number;
+  "category"?: Category;
+  "name": string;
+  "photoUrls": Array<string>;
+  "tags"?: Array<Tag>;
   /**
    * pet status in the store
    */
-  "status"?: StatusEnum = undefined;
+  "status"?: StatusEnum;
 }
 
 export enum StatusEnum {

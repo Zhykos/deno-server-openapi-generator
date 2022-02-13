@@ -13,7 +13,7 @@
  * Describes the result of uploading an image resource
  */
 export class ApiResponse {
-  "code"?: number = undefined;
-  "type"?: string = undefined;
-  "message"?: string = undefined;
+  "code"?: number;
+  "type"?: string;
+  "message"?: string;
 }

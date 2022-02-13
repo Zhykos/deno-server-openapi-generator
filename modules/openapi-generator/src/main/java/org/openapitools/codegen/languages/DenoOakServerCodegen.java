@@ -8,17 +8,16 @@ import java.util.Map;
 import java.util.Set;
 
 import org.openapitools.codegen.CodegenModel;
+import org.openapitools.codegen.CodegenProperty;
 import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.SupportingFile;
 import org.openapitools.codegen.meta.GeneratorMetadata;
 import org.openapitools.codegen.meta.Stability;
 import org.openapitools.codegen.utils.StringUtils;
 
-public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
-    // public static final String PROJECT_NAME = "projectName";
+import io.swagger.v3.oas.models.media.Schema;
 
-    // private final Logger LOGGER =
-    // LoggerFactory.getLogger(DenoOakServerCodegen.class);
+public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
 
     private static final String DENO_OAK = "deno-oak";
 
@@ -49,8 +48,7 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
         super.embeddedTemplateDir = super.templateDir = DENO_OAK;
         super.modelPackage = "models";
 
-        super.supportingFiles.add(new SupportingFile("config.mustache", "", "config.js"));
-        super.supportingFiles.add(new SupportingFile("logger.mustache", "", "logger.js"));
+        super.supportingFiles.add(new SupportingFile("config.mustache", "", "config.ts"));
         super.supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
 
         // controllers folder
@@ -77,12 +75,20 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
             final List<Map<String, Object>> models = (List<Map<String, Object>>) inner.get("models");
             for (final Map<String, Object> mo : models) {
                 final CodegenModel cm = (CodegenModel) mo.get("model");
-
-                // Add additional filename information for imports
                 mo.put("tsImports", toTsImports(cm, cm.imports));
+                updateEnumQualifiedName(cm);
             }
         }
         return result;
+    }
+
+    private static void updateEnumQualifiedName(final CodegenModel cm) {
+        for (final CodegenProperty property : cm.vars) {
+            if (property.isEnum) {
+                final String enumName = property.enumName;
+                property.datatypeWithEnum = enumName;
+            }
+        }
     }
 
     /* Copied from TypeScriptNodeClientCodegen */
@@ -105,7 +111,7 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
     }
 
     @Override
-    public String toApiName(String name) {
+    public String toApiName(final String name) {
         if (name.length() == 0) {
             return "Default";
         }
@@ -113,17 +119,16 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
     }
 
     @Override
-    public String toApiFilename(String name) {
+    public String toApiFilename(final String name) {
         return toApiName(name) + "Controller";
     }
 
     @Override
-    public String apiFilename(String templateName, String tag) {
+    public String apiFilename(final String templateName, final String tag) {
         String result = super.apiFilename(templateName, tag);
-
         if (templateName.equals("service.mustache")) {
-            String stringToMatch = File.separator + "controllers" + File.separator;
-            String replacement = File.separator + "services" + File.separator;
+            final String stringToMatch = File.separator + "controllers" + File.separator;
+            final String replacement = File.separator + "services" + File.separator;
             result = result.replace(stringToMatch, replacement).replace("Controller.ts", "Service.ts");
         }
         return result;
@@ -132,6 +137,15 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
     @Override
     public String apiFileFolder() {
         return outputFolder + File.separator + apiPackage().replace('.', File.separatorChar);
+    }
+
+    @Override
+    public String toDefaultValue(final Schema schema) {
+        String def = super.toDefaultValue(schema);
+        if ("undefined".equals(def)) {
+            return null;
+        }
+        return def;
     }
 
 }

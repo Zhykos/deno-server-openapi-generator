@@ -1,6 +1,6 @@
 import { join } from "https://deno.land/std@0.125.0/path/mod.ts";
-import camelcase, { camelCaseSync } from "https://deno.land/x/camelcase/mod.ts";
-import { config2 } from "../config"
+import { camelCaseSync } from "https://deno.land/x/camelcase@v1.0.0/mod.ts";
+import { config } from "../config.ts";
 
 export class Controller {
   static sendResponse(response: any, payload: any) {
@@ -47,8 +47,8 @@ export class Controller {
         const extension = fileArray.pop();
         fileArray.push(`_${Date.now()}`);
         uploadedFileName = `${fileArray.join('')}.${extension}`;
-        Deno.renameSync(join(config2.FILE_UPLOAD_PATH, fileObject.filename),
-          join(config2.FILE_UPLOAD_PATH, uploadedFileName));
+        Deno.renameSync(join(config.FILE_UPLOAD_PATH, fileObject.filename),
+          join(config.FILE_UPLOAD_PATH, uploadedFileName));
       }
     }
     return uploadedFileName;
@@ -71,7 +71,7 @@ export class Controller {
     if (request.openapi.schema.requestBody !== undefined) {
       const { content } = request.openapi.schema.requestBody;
       if (content['application/json'] !== undefined) {
-        const requestBodyName = camelcase(this.getRequestBodyName(request));
+        const requestBodyName = camelCaseSync(this.getRequestBodyName(request));
         requestParams[requestBodyName] = request.body;
       } else if (content['multipart/form-data'] !== undefined) {
         Object.keys(content['multipart/form-data'].schema.properties).forEach(

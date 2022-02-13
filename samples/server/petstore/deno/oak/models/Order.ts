@@ -13,14 +13,14 @@
  * An order for a pets from the pet store
  */
 export class Order {
-  "id"?: number = undefined;
-  "petId"?: number = undefined;
-  "quantity"?: number = undefined;
-  "shipDate"?: string = undefined;
+  "id"?: number;
+  "petId"?: number;
+  "quantity"?: number;
+  "shipDate"?: string;
   /**
    * Order Status
    */
-  "status"?: StatusEnum = undefined;
+  "status"?: StatusEnum;
   "complete"?: boolean = false;
 }
 
