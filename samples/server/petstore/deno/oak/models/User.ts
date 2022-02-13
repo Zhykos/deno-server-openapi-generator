@@ -12,7 +12,7 @@
 /**
  * A User who is purchasing from the pet store
  */
-export class User {
+export interface User {
   "id"?: number;
   "username"?: string;
   "firstName"?: string;

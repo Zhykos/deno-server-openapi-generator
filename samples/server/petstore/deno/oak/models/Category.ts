@@ -12,7 +12,7 @@
 /**
  * A category for a pet
  */
-export class Category {
+export interface Category {
   "id"?: number;
   "name"?: string;
 }

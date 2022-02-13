@@ -15,7 +15,7 @@ import { Tag } from "./Tag.ts";
 /**
  * A pet for sale in the pet store
  */
-export class Pet {
+export interface Pet {
   "id"?: number;
   "category"?: Category;
   "name": string;

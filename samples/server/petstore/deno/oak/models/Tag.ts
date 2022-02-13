@@ -12,7 +12,7 @@
 /**
  * A tag for a pet
  */
-export class Tag {
+export interface Tag {
   "id"?: number;
   "name"?: string;
 }
