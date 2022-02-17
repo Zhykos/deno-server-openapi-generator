@@ -1,10 +1,16 @@
 /* eslint-disable no-unused-vars */
-import { Service } from './Service.ts';
+import { I{{classname}}Service } from './I{{classname}}Service.ts';
 {{#imports}}
 import { {{classname}} } from '../models/{{classname}}.ts';
 {{/imports}}
 
 export class {{classname}}Service {
+
+  private custom{{classname}}Service: I{{classname}}Service;
+
+  constructor(custom{{classname}}Service: I{{classname}}Service) {
+    this.custom{{classname}}Service = custom{{classname}}Service;
+  }
 
   {{#operations}}
   {{#operation}}
@@ -26,19 +32,15 @@ export class {{classname}}Service {
   * returns {{{.}}}
   {{/returnType}}
   * */
-  static {{{operationId}}} ({{#allParams}}{{paramName}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
+  {{{operationId}}} ({{#allParams}}{{paramName}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-      {{#allParams}}
-          {{paramName}},
-      {{/allParams}}
-        }));*/
+        resolve(this.custom{{classname}}Service.{{{operationId}}}({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || 'Invalid input',
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || 'Invalid input',
+          code: e.status || 405,
+        });
       }
     });
   }

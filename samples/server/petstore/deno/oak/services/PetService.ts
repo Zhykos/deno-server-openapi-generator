@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
-import { Service } from "./Service.ts";
+import { IPetService } from "./IPetService.ts";
 import { ApiResponse } from "../models/ApiResponse.ts";
 import { Pet } from "../models/Pet.ts";
-import { IPetService } from "./IPetService.ts";
 
 export class PetService {
-  private petService: IPetService;
+  private customPetService: IPetService;
 
-  constructor(petService: IPetService) {
-    this.petService = petService;
+  constructor(customPetService: IPetService) {
+    this.customPetService = customPetService;
   }
 
   /**
@@ -20,12 +19,12 @@ export class PetService {
   addPet(pet: Pet): Promise<Pet> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.petService.addPet(pet));
+        resolve(this.customPetService.addPet(pet));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -39,12 +38,12 @@ export class PetService {
   deletePet(petId: number, apiKey: string): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.petService.deletePet(petId, apiKey));
+        resolve(this.customPetService.deletePet(petId, apiKey));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -60,12 +59,12 @@ export class PetService {
   ): Promise<Array<Pet>> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.petService.findPetsByStatus(status));
+        resolve(this.customPetService.findPetsByStatus(status));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -79,12 +78,12 @@ export class PetService {
   findPetsByTags(tags: Array<string>): Promise<Array<Pet>> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.petService.findPetsByTags(tags));
+        resolve(this.customPetService.findPetsByTags(tags));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -98,12 +97,12 @@ export class PetService {
   getPetById(petId: number): Promise<Pet> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.petService.getPetById(petId));
+        resolve(this.customPetService.getPetById(petId));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -116,12 +115,12 @@ export class PetService {
   updatePet(pet: Pet): Promise<Pet> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.petService.updatePet(pet));
+        resolve(this.customPetService.updatePet(pet));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -140,12 +139,12 @@ export class PetService {
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.petService.updatePetWithForm(petId, name, status));
+        resolve(this.customPetService.updatePetWithForm(petId, name, status));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -164,12 +163,14 @@ export class PetService {
   ): Promise<ApiResponse> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.petService.uploadFile(petId, additionalMetadata, file));
+        resolve(
+          this.customPetService.uploadFile(petId, additionalMetadata, file),
+        );
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }

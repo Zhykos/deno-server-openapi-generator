@@ -12,7 +12,6 @@ models/Pet.ts
 models/Tag.ts
 models/User.ts
 services/PetService.ts
-services/Service.ts
 services/StoreService.ts
 services/UserService.ts
 services/index.ts

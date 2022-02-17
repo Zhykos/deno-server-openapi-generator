@@ -1,8 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Service } from "./Service.ts";
+import { IStoreService } from "./IStoreService.ts";
 import { Order } from "../models/Order.ts";
 
 export class StoreService {
+  private customStoreService: IStoreService;
+
+  constructor(customStoreService: IStoreService) {
+    this.customStoreService = customStoreService;
+  }
+
   /**
    * Delete purchase order by ID
    * For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
@@ -10,17 +16,15 @@ export class StoreService {
    * orderId string ID of the order that needs to be deleted
    * no response value expected for this operation
    */
-  static deleteOrder(orderId: string): Promise<void> {
+  deleteOrder(orderId: string): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          orderId,
-        }));*/
+        resolve(this.customStoreService.deleteOrder(orderId));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -30,16 +34,15 @@ export class StoreService {
    *
    * returns { [key: string]: number; }
    */
-  static getInventory(): Promise<{ [key: string]: number }> {
+  getInventory(): Promise<{ [key: string]: number }> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-        }));*/
+        resolve(this.customStoreService.getInventory());
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -50,17 +53,15 @@ export class StoreService {
    * orderId number ID of pet that needs to be fetched
    * returns Order
    */
-  static getOrderById(orderId: number): Promise<Order> {
+  getOrderById(orderId: number): Promise<Order> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          orderId,
-        }));*/
+        resolve(this.customStoreService.getOrderById(orderId));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -70,17 +71,15 @@ export class StoreService {
    * order Order order placed for purchasing the pet
    * returns Order
    */
-  static placeOrder(order: Order): Promise<Order> {
+  placeOrder(order: Order): Promise<Order> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          order,
-        }));*/
+        resolve(this.customStoreService.placeOrder(order));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }

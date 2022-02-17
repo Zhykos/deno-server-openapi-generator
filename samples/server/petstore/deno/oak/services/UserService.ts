@@ -1,8 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { Service } from "./Service.ts";
+import { IUserService } from "./IUserService.ts";
 import { User } from "../models/User.ts";
 
 export class UserService {
+  private customUserService: IUserService;
+
+  constructor(customUserService: IUserService) {
+    this.customUserService = customUserService;
+  }
+
   /**
    * Create user
    * This can only be done by the logged in user.
@@ -10,17 +16,15 @@ export class UserService {
    * user User Created user object
    * no response value expected for this operation
    */
-  static createUser(user: User): Promise<void> {
+  createUser(user: User): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          user,
-        }));*/
+        resolve(this.customUserService.createUser(user));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -30,17 +34,15 @@ export class UserService {
    * user Array<User> List of user object
    * no response value expected for this operation
    */
-  static createUsersWithArrayInput(user: Array<User>): Promise<void> {
+  createUsersWithArrayInput(user: Array<User>): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          user,
-        }));*/
+        resolve(this.customUserService.createUsersWithArrayInput(user));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -50,17 +52,15 @@ export class UserService {
    * user Array<User> List of user object
    * no response value expected for this operation
    */
-  static createUsersWithListInput(user: Array<User>): Promise<void> {
+  createUsersWithListInput(user: Array<User>): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          user,
-        }));*/
+        resolve(this.customUserService.createUsersWithListInput(user));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -71,17 +71,15 @@ export class UserService {
    * username string The name that needs to be deleted
    * no response value expected for this operation
    */
-  static deleteUser(username: string): Promise<void> {
+  deleteUser(username: string): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          username,
-        }));*/
+        resolve(this.customUserService.deleteUser(username));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -91,17 +89,15 @@ export class UserService {
    * username string The name that needs to be fetched. Use user1 for testing.
    * returns User
    */
-  static getUserByName(username: string): Promise<User> {
+  getUserByName(username: string): Promise<User> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          username,
-        }));*/
+        resolve(this.customUserService.getUserByName(username));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -112,18 +108,15 @@ export class UserService {
    * password string The password for login in clear text
    * returns string
    */
-  static loginUser(username: string, password: string): Promise<string> {
+  loginUser(username: string, password: string): Promise<string> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          username,
-          password,
-        }));*/
+        resolve(this.customUserService.loginUser(username, password));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -132,16 +125,15 @@ export class UserService {
    *
    * no response value expected for this operation
    */
-  static logoutUser(): Promise<void> {
+  logoutUser(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-        }));*/
+        resolve(this.customUserService.logoutUser());
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }
@@ -153,18 +145,15 @@ export class UserService {
    * user User Updated user object
    * no response value expected for this operation
    */
-  static updateUser(username: string, user: User): Promise<void> {
+  updateUser(username: string, user: User): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          username,
-          user,
-        }));*/
+        resolve(this.customUserService.updateUser(username, user));
       } catch (e) {
-        reject(Service.rejectResponse(
-          e.message || "Invalid input",
-          e.status || 405,
-        ));
+        reject({
+          error: e.message || "Invalid input",
+          code: e.status || 405,
+        });
       }
     });
   }

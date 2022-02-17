@@ -58,11 +58,9 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
                 "controllers", "Controller.ts"));
 
         // service folder
-        supportingFiles.add(new SupportingFile("services" + File.separator + "index.mustache", "services", "index.ts"));
-        supportingFiles
-                .add(new SupportingFile("services" + File.separator + "service.mustache", "services", "Service.ts"));
+        super.supportingFiles.add(new SupportingFile("services" + File.separator + "index.mustache", "services", "index.ts"));
 
-        additionalProperties.put("implFolder", "services");
+        super.additionalProperties.put("implFolder", "services");
     }
 
     /* Copied from TypeScriptNodeClientCodegen */
