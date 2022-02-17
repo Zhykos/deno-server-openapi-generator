@@ -2,20 +2,25 @@
 import { Service } from "./Service.ts";
 import { ApiResponse } from "../models/ApiResponse.ts";
 import { Pet } from "../models/Pet.ts";
+import { IPetService } from "./IPetService.ts";
 
 export class PetService {
+  private petService: IPetService;
+
+  constructor(petService: IPetService) {
+    this.petService = petService;
+  }
+
   /**
    * Add a new pet to the store
    *
    * pet Pet Pet object that needs to be added to the store
    * returns Pet
    */
-  static addPet(pet: Pet): Promise<Pet> {
+  addPet(pet: Pet): Promise<Pet> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          pet,
-        }));*/
+        resolve(this.petService.addPet(pet));
       } catch (e) {
         reject(Service.rejectResponse(
           e.message || "Invalid input",
@@ -31,13 +36,10 @@ export class PetService {
    * apiKey string  (optional)
    * no response value expected for this operation
    */
-  static deletePet(petId: number, apiKey: string): Promise<void> {
+  deletePet(petId: number, apiKey: string): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          petId,
-          apiKey,
-        }));*/
+        resolve(this.petService.deletePet(petId, apiKey));
       } catch (e) {
         reject(Service.rejectResponse(
           e.message || "Invalid input",
@@ -53,14 +55,12 @@ export class PetService {
    * status Array<'available' | 'pending' | 'sold'> Status values that need to be considered for filter
    * returns Array<Pet>
    */
-  static findPetsByStatus(
+  findPetsByStatus(
     status: Array<"available" | "pending" | "sold">,
   ): Promise<Array<Pet>> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          status,
-        }));*/
+        resolve(this.petService.findPetsByStatus(status));
       } catch (e) {
         reject(Service.rejectResponse(
           e.message || "Invalid input",
@@ -76,12 +76,10 @@ export class PetService {
    * tags Array<string> Tags to filter by
    * returns Array<Pet>
    */
-  static findPetsByTags(tags: Array<string>): Promise<Array<Pet>> {
+  findPetsByTags(tags: Array<string>): Promise<Array<Pet>> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          tags,
-        }));*/
+        resolve(this.petService.findPetsByTags(tags));
       } catch (e) {
         reject(Service.rejectResponse(
           e.message || "Invalid input",
@@ -97,12 +95,10 @@ export class PetService {
    * petId number ID of pet to return
    * returns Pet
    */
-  static getPetById(petId: number): Promise<Pet> {
+  getPetById(petId: number): Promise<Pet> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          petId,
-        }));*/
+        resolve(this.petService.getPetById(petId));
       } catch (e) {
         reject(Service.rejectResponse(
           e.message || "Invalid input",
@@ -117,12 +113,10 @@ export class PetService {
    * pet Pet Pet object that needs to be added to the store
    * returns Pet
    */
-  static updatePet(pet: Pet): Promise<Pet> {
+  updatePet(pet: Pet): Promise<Pet> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          pet,
-        }));*/
+        resolve(this.petService.updatePet(pet));
       } catch (e) {
         reject(Service.rejectResponse(
           e.message || "Invalid input",
@@ -139,18 +133,14 @@ export class PetService {
    * status string Updated status of the pet (optional)
    * no response value expected for this operation
    */
-  static updatePetWithForm(
+  updatePetWithForm(
     petId: number,
     name: string,
     status: string,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          petId,
-          name,
-          status,
-        }));*/
+        resolve(this.petService.updatePetWithForm(petId, name, status));
       } catch (e) {
         reject(Service.rejectResponse(
           e.message || "Invalid input",
@@ -167,18 +157,14 @@ export class PetService {
    * file any file to upload (optional)
    * returns ApiResponse
    */
-  static uploadFile(
+  uploadFile(
     petId: number,
     additionalMetadata: string,
     file: any,
   ): Promise<ApiResponse> {
     return new Promise((resolve, reject) => {
       try {
-        /*resolve(Service.successResponse({
-          petId,
-          additionalMetadata,
-          file,
-        }));*/
+        resolve(this.petService.uploadFile(petId, additionalMetadata, file));
       } catch (e) {
         reject(Service.rejectResponse(
           e.message || "Invalid input",

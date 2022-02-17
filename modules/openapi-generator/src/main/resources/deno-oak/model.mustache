@@ -11,7 +11,7 @@ import { {{classname}} } from './{{filename}}.ts';
 */
 {{/description}}
 {{^isEnum}}
-export interface {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
+export class {{classname}} {{#parent}}extends {{{.}}} {{/parent}}{
 {{#vars}}
 {{#description}}
     /**
