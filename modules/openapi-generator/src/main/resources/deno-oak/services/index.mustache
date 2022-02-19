@@ -3,7 +3,8 @@
 {{#operations}}
 {{#operation}}
 {{#-first}}
-export { {{classname}}Service } from './{{classname}}Service.ts';
+export * from './{{classname}}Service.ts';
+export { {{classname}}PrivateService } from './{{classname}}PrivateService.ts';
 {{/-first}}
 {{/operation}}
 {{/operations}}

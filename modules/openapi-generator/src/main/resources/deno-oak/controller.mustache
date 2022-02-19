@@ -7,14 +7,20 @@
  */
 
 import { Controller } from './Controller.ts';
-import { {{{classname}}}Service } from '../services/{{{classname}}}Service.ts';
+import { {{{classname}}}PrivateService } from '../services/{{{classname}}}PrivateService.ts';
 
 export class {{{classname}}}Controller {
 
+  private service: {{classname}}PrivateService;
+
+  constructor(service: {{classname}}PrivateService) {
+    this.service = service;
+  }
+
   {{#operations}}
   {{#operation}}
-  static async {{operationId}}(request: any, response: any) {
-    await Controller.handleRequest(request, response, {{{classname}}}Service.{{operationId}});
+  {{operationId}}(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.{{operationId}});
   }
 
   {{/operation}}

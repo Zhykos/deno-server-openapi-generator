@@ -1,0 +1,31 @@
+{{#imports}}
+import { {{classname}} } from '../models/{{classname}}.ts';
+{{/imports}}
+
+export interface {{classname}}Service {
+
+  {{#operations}}
+  {{#operation}}
+  /**
+  {{#summary}}
+  * {{{.}}}
+  {{/summary}}
+  {{#notes}}
+  * {{{.}}}
+  {{/notes}}
+  *
+  {{#allParams}}
+  * {{paramName}} {{{dataType}}} {{{description}}}{{^required}} (optional){{/required}}
+  {{/allParams}}
+  {{^returnType}}
+  * no response value expected for this operation
+  {{/returnType}}
+  {{#returnType}}
+  * returns {{{.}}}
+  {{/returnType}}
+  * */
+  {{{operationId}}} ({{#allParams}}{{paramName}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}>;
+  {{/operation}}
+  {{/operations}}
+
+}

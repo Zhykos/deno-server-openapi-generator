@@ -2,5 +2,11 @@
     "deno.lint": true,
     "deno.unstable": true,
     "deno.enable": true,
-    "vsicons.presets.angular": true
+    "vsicons.presets.angular": true,
+    "cSpell.words": [
+        "Codegen",
+        "Deno",
+        "deps",
+        "iservice"
+    ]
 }

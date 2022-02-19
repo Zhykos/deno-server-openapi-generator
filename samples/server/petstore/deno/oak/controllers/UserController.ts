@@ -7,50 +7,50 @@
  */
 
 import { Controller } from "./Controller.ts";
-import { UserService } from "../services/UserService.ts";
+import { UserPrivateService } from "../services/UserPrivateService.ts";
 
 export class UserController {
-  static async createUser(request: any, response: any) {
-    await Controller.handleRequest(request, response, UserService.createUser);
+  private service: UserPrivateService;
+
+  constructor(service: UserPrivateService) {
+    this.service = service;
   }
 
-  static async createUsersWithArrayInput(request: any, response: any) {
-    await Controller.handleRequest(
+  createUser(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.createUser);
+  }
+
+  createUsersWithArrayInput(request: any): Promise<Response> {
+    return Controller.handleRequest(
       request,
-      response,
-      UserService.createUsersWithArrayInput,
+      this.service.createUsersWithArrayInput,
     );
   }
 
-  static async createUsersWithListInput(request: any, response: any) {
-    await Controller.handleRequest(
+  createUsersWithListInput(request: any): Promise<Response> {
+    return Controller.handleRequest(
       request,
-      response,
-      UserService.createUsersWithListInput,
+      this.service.createUsersWithListInput,
     );
   }
 
-  static async deleteUser(request: any, response: any) {
-    await Controller.handleRequest(request, response, UserService.deleteUser);
+  deleteUser(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.deleteUser);
   }
 
-  static async getUserByName(request: any, response: any) {
-    await Controller.handleRequest(
-      request,
-      response,
-      UserService.getUserByName,
-    );
+  getUserByName(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.getUserByName);
   }
 
-  static async loginUser(request: any, response: any) {
-    await Controller.handleRequest(request, response, UserService.loginUser);
+  loginUser(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.loginUser);
   }
 
-  static async logoutUser(request: any, response: any) {
-    await Controller.handleRequest(request, response, UserService.logoutUser);
+  logoutUser(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.logoutUser);
   }
 
-  static async updateUser(request: any, response: any) {
-    await Controller.handleRequest(request, response, UserService.updateUser);
+  updateUser(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.updateUser);
   }
 }

@@ -1,14 +1,13 @@
-/* eslint-disable no-unused-vars */
-import { I{{classname}}Service } from './I{{classname}}Service.ts';
+import { {{classname}}Service } from './{{classname}}Service.ts';
 {{#imports}}
 import { {{classname}} } from '../models/{{classname}}.ts';
 {{/imports}}
 
-export class {{classname}}Service {
+export class {{classname}}PrivateService {
 
-  private custom{{classname}}Service: I{{classname}}Service;
+  private custom{{classname}}Service: {{classname}}Service;
 
-  constructor(custom{{classname}}Service: I{{classname}}Service) {
+  constructor(custom{{classname}}Service: {{classname}}Service) {
     this.custom{{classname}}Service = custom{{classname}}Service;
   }
 
@@ -46,4 +45,5 @@ export class {{classname}}Service {
   }
   {{/operation}}
   {{/operations}}
+
 }

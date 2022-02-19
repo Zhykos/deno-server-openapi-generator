@@ -1,14 +1,6 @@
-/* eslint-disable no-unused-vars */
-import { IStoreService } from "./IStoreService.ts";
 import { Order } from "../models/Order.ts";
 
-export class StoreService {
-  private customStoreService: IStoreService;
-
-  constructor(customStoreService: IStoreService) {
-    this.customStoreService = customStoreService;
-  }
-
+export interface StoreService {
   /**
    * Delete purchase order by ID
    * For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
@@ -16,36 +8,14 @@ export class StoreService {
    * orderId string ID of the order that needs to be deleted
    * no response value expected for this operation
    */
-  deleteOrder(orderId: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customStoreService.deleteOrder(orderId));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  deleteOrder(orderId: string): Promise<void>;
   /**
    * Returns pet inventories by status
    * Returns a map of status codes to quantities
    *
    * returns { [key: string]: number; }
    */
-  getInventory(): Promise<{ [key: string]: number }> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customStoreService.getInventory());
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  getInventory(): Promise<{ [key: string]: number }>;
   /**
    * Find purchase order by ID
    * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
@@ -53,34 +23,12 @@ export class StoreService {
    * orderId number ID of pet that needs to be fetched
    * returns Order
    */
-  getOrderById(orderId: number): Promise<Order> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customStoreService.getOrderById(orderId));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  getOrderById(orderId: number): Promise<Order>;
   /**
    * Place an order for a pet
    *
    * order Order order placed for purchasing the pet
    * returns Order
    */
-  placeOrder(order: Order): Promise<Order> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customStoreService.placeOrder(order));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  placeOrder(order: Order): Promise<Order>;
 }

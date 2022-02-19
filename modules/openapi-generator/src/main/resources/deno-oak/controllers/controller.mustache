@@ -1,30 +1,24 @@
-import { join } from "https://deno.land/std@0.125.0/path/mod.ts";
-import { camelCaseSync } from "https://deno.land/x/camelcase@v1.0.0/mod.ts";
+import { join, camelCaseSync } from "../deps.ts";
 import { config } from "../config.ts";
+import { OpenApiRequest, ParameterObject } from "./OpenApiRequestModel.ts";
 
 export class Controller {
-  static sendResponse(response: any, payload: any) {
-    /**
-    * The default response-code is 200. We want to allow to change that. in That case,
-    * payload will be an object consisting of a code and a payload. If not customized
-    * send 200 and the payload as received in this method.
-    */
-    response.status(payload.code || 200);
-    const responsePayload = payload.payload !== undefined ? payload.payload : payload;
-    if (responsePayload instanceof Object) {
-      response.json(responsePayload);
-    } else {
-      response.end(responsePayload);
-    }
+  static sendResponse(body: any): Response {
+    return new Response(body, {
+      status: 200,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+      },
+    });
   }
 
-  static sendError(response: any, error: any) {
-    response.status(error.code || 500);
-    if (error.error instanceof Object) {
-      response.json(error.error);
-    } else {
-      response.end(error.error || error.message);
-    }
+  static sendError(error: any): Response {
+    return new Response(error, {
+      status: 500,
+      headers: {
+        "content-type": "application/json; charset=utf-8",
+      },
+    });
   }
 
   /**
@@ -66,14 +60,14 @@ export class Controller {
     return 'body';
   }
 
-  static collectRequestParams(request: any) {
+  static collectRequestParams(request: OpenApiRequest) {
     const requestParams: any = {};
-    if (request.openapi.schema.requestBody !== undefined) {
+    if (request.openapi !== undefined && request.openapi.schema.requestBody !== undefined) {
       const { content } = request.openapi.schema.requestBody;
       if (content['application/json'] !== undefined) {
         const requestBodyName = camelCaseSync(this.getRequestBodyName(request));
         requestParams[requestBodyName] = request.body;
-      } else if (content['multipart/form-data'] !== undefined) {
+      } else if (content['multipart/form-data'] !== undefined && content["multipart/form-data"].schema !== undefined) {
         Object.keys(content['multipart/form-data'].schema.properties).forEach(
           (property) => {
             const propertyObject = content['multipart/form-data'].schema.properties[property];
@@ -87,24 +81,26 @@ export class Controller {
       }
     }
 
-    request.openapi.schema.parameters.forEach((param: any) => {
-      if (param.in === 'path') {
-        requestParams[param.name] = request.openapi.pathParams[param.name];
-      } else if (param.in === 'query') {
-        requestParams[param.name] = request.query[param.name];
-      } else if (param.in === 'header') {
-        requestParams[param.name] = request.headers[param.name];
-      }
-    });
+    if (request.openapi !== undefined && request.openapi.schema !== undefined && request.openapi.schema.parameters !== undefined) {
+      request.openapi.schema.parameters.forEach((param: ParameterObject) => {
+        if (param.in === 'path') {
+          requestParams[param.name] = request.openapi.pathParams[param.name];
+        } else if (param.in === 'query') {
+          requestParams[param.name] = request.query[param.name];
+        } else if (param.in === 'header') {
+          requestParams[param.name] = request.headers[param.name];
+        }
+      });
+    }
     return requestParams;
   }
 
-  static async handleRequest(request: any, response: any, serviceOperation: any) {
+  static async handleRequest(request: any, serviceOperation: any): Promise<Response> {
     try {
-      const serviceResponse = await serviceOperation(this.collectRequestParams(request));
-      Controller.sendResponse(response, serviceResponse);
+      const serviceResponse = await serviceOperation(Controller.collectRequestParams(request));
+      return Controller.sendResponse(serviceResponse);
     } catch (error) {
-      Controller.sendError(response, error);
+      return Controller.sendError(error);
     }
   }
 }

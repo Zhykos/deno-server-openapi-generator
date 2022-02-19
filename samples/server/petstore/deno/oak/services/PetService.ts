@@ -1,33 +1,14 @@
-/* eslint-disable no-unused-vars */
-import { IPetService } from "./IPetService.ts";
 import { ApiResponse } from "../models/ApiResponse.ts";
 import { Pet } from "../models/Pet.ts";
 
-export class PetService {
-  private customPetService: IPetService;
-
-  constructor(customPetService: IPetService) {
-    this.customPetService = customPetService;
-  }
-
+export interface PetService {
   /**
    * Add a new pet to the store
    *
    * pet Pet Pet object that needs to be added to the store
    * returns Pet
    */
-  addPet(pet: Pet): Promise<Pet> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customPetService.addPet(pet));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  addPet(pet: Pet): Promise<Pet>;
   /**
    * Deletes a pet
    *
@@ -35,18 +16,7 @@ export class PetService {
    * apiKey string  (optional)
    * no response value expected for this operation
    */
-  deletePet(petId: number, apiKey: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customPetService.deletePet(petId, apiKey));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  deletePet(petId: number, apiKey: string): Promise<void>;
   /**
    * Finds Pets by status
    * Multiple status values can be provided with comma separated strings
@@ -56,18 +26,7 @@ export class PetService {
    */
   findPetsByStatus(
     status: Array<"available" | "pending" | "sold">,
-  ): Promise<Array<Pet>> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customPetService.findPetsByStatus(status));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  ): Promise<Array<Pet>>;
   /**
    * Finds Pets by tags
    * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
@@ -75,18 +34,7 @@ export class PetService {
    * tags Array<string> Tags to filter by
    * returns Array<Pet>
    */
-  findPetsByTags(tags: Array<string>): Promise<Array<Pet>> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customPetService.findPetsByTags(tags));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  findPetsByTags(tags: Array<string>): Promise<Array<Pet>>;
   /**
    * Find pet by ID
    * Returns a single pet
@@ -94,36 +42,14 @@ export class PetService {
    * petId number ID of pet to return
    * returns Pet
    */
-  getPetById(petId: number): Promise<Pet> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customPetService.getPetById(petId));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  getPetById(petId: number): Promise<Pet>;
   /**
    * Update an existing pet
    *
    * pet Pet Pet object that needs to be added to the store
    * returns Pet
    */
-  updatePet(pet: Pet): Promise<Pet> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customPetService.updatePet(pet));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  updatePet(pet: Pet): Promise<Pet>;
   /**
    * Updates a pet in the store with form data
    *
@@ -132,22 +58,7 @@ export class PetService {
    * status string Updated status of the pet (optional)
    * no response value expected for this operation
    */
-  updatePetWithForm(
-    petId: number,
-    name: string,
-    status: string,
-  ): Promise<void> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customPetService.updatePetWithForm(petId, name, status));
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  updatePetWithForm(petId: number, name: string, status: string): Promise<void>;
   /**
    * uploads an image
    *
@@ -160,18 +71,5 @@ export class PetService {
     petId: number,
     additionalMetadata: string,
     file: any,
-  ): Promise<ApiResponse> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(
-          this.customPetService.uploadFile(petId, additionalMetadata, file),
-        );
-      } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
-      }
-    });
-  }
+  ): Promise<ApiResponse>;
 }

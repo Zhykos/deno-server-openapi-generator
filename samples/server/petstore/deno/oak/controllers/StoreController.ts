@@ -7,30 +7,28 @@
  */
 
 import { Controller } from "./Controller.ts";
-import { StoreService } from "../services/StoreService.ts";
+import { StorePrivateService } from "../services/StorePrivateService.ts";
 
 export class StoreController {
-  static async deleteOrder(request: any, response: any) {
-    await Controller.handleRequest(request, response, StoreService.deleteOrder);
+  private service: StorePrivateService;
+
+  constructor(service: StorePrivateService) {
+    this.service = service;
   }
 
-  static async getInventory(request: any, response: any) {
-    await Controller.handleRequest(
-      request,
-      response,
-      StoreService.getInventory,
-    );
+  deleteOrder(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.deleteOrder);
   }
 
-  static async getOrderById(request: any, response: any) {
-    await Controller.handleRequest(
-      request,
-      response,
-      StoreService.getOrderById,
-    );
+  getInventory(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.getInventory);
   }
 
-  static async placeOrder(request: any, response: any) {
-    await Controller.handleRequest(request, response, StoreService.placeOrder);
+  getOrderById(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.getOrderById);
+  }
+
+  placeOrder(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.placeOrder);
   }
 }

@@ -7,50 +7,44 @@
  */
 
 import { Controller } from "./Controller.ts";
-import { PetService } from "../services/PetService.ts";
+import { PetPrivateService } from "../services/PetPrivateService.ts";
 
 export class PetController {
-  static async addPet(request: any, response: any) {
-    await Controller.handleRequest(request, response, PetService.addPet);
+  private service: PetPrivateService;
+
+  constructor(service: PetPrivateService) {
+    this.service = service;
   }
 
-  static async deletePet(request: any, response: any) {
-    await Controller.handleRequest(request, response, PetService.deletePet);
+  addPet(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.addPet);
   }
 
-  static async findPetsByStatus(request: any, response: any) {
-    await Controller.handleRequest(
-      request,
-      response,
-      PetService.findPetsByStatus,
-    );
+  deletePet(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.deletePet);
   }
 
-  static async findPetsByTags(request: any, response: any) {
-    await Controller.handleRequest(
-      request,
-      response,
-      PetService.findPetsByTags,
-    );
+  findPetsByStatus(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.findPetsByStatus);
   }
 
-  static async getPetById(request: any, response: any) {
-    await Controller.handleRequest(request, response, PetService.getPetById);
+  findPetsByTags(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.findPetsByTags);
   }
 
-  static async updatePet(request: any, response: any) {
-    await Controller.handleRequest(request, response, PetService.updatePet);
+  getPetById(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.getPetById);
   }
 
-  static async updatePetWithForm(request: any, response: any) {
-    await Controller.handleRequest(
-      request,
-      response,
-      PetService.updatePetWithForm,
-    );
+  updatePet(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.updatePet);
   }
 
-  static async uploadFile(request: any, response: any) {
-    await Controller.handleRequest(request, response, PetService.uploadFile);
+  updatePetWithForm(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.updatePetWithForm);
+  }
+
+  uploadFile(request: any): Promise<Response> {
+    return Controller.handleRequest(request, this.service.uploadFile);
   }
 }

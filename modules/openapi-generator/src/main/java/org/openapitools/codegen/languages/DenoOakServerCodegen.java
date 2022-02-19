@@ -45,22 +45,27 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
         super.modelTemplateFiles.put("model.mustache", ".ts");
         super.apiTemplateFiles.put("controller.mustache", ".ts");
         super.apiTemplateFiles.put("service.mustache", ".ts");
+        super.apiTemplateFiles.put("iservice.mustache", ".ts");
         super.embeddedTemplateDir = super.templateDir = DENO_OAK;
         super.modelPackage = "models";
+        super.additionalProperties.put("implFolder", "services");
 
+        // root folder
         super.supportingFiles.add(new SupportingFile("config.mustache", "", "config.ts"));
         super.supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
+        super.supportingFiles.add(new SupportingFile("deps.mustache", "", "deps.ts"));
 
         // controllers folder
         super.supportingFiles
                 .add(new SupportingFile("controllers" + File.separator + "index.mustache", "controllers", "index.ts"));
         super.supportingFiles.add(new SupportingFile("controllers" + File.separator + "controller.mustache",
                 "controllers", "Controller.ts"));
+        super.supportingFiles.add(new SupportingFile("controllers" + File.separator + "OpenApiRequestModel.mustache",
+                "controllers", "OpenApiRequestModel.ts"));
 
         // service folder
-        super.supportingFiles.add(new SupportingFile("services" + File.separator + "index.mustache", "services", "index.ts"));
-
-        super.additionalProperties.put("implFolder", "services");
+        super.supportingFiles
+                .add(new SupportingFile("services" + File.separator + "index.mustache", "services", "index.ts"));
     }
 
     /* Copied from TypeScriptNodeClientCodegen */
@@ -124,7 +129,11 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
     @Override
     public String apiFilename(final String templateName, final String tag) {
         String result = super.apiFilename(templateName, tag);
-        if (templateName.equals("service.mustache")) {
+        if ("service.mustache".equals(templateName)) {
+            final String stringToMatch = File.separator + "controllers" + File.separator;
+            final String replacement = File.separator + "services" + File.separator;
+            result = result.replace(stringToMatch, replacement).replace("Controller.ts", "PrivateService.ts");
+        } else if ("iservice.mustache".equals(templateName)) {
             final String stringToMatch = File.separator + "controllers" + File.separator;
             final String replacement = File.separator + "services" + File.separator;
             result = result.replace(stringToMatch, replacement).replace("Controller.ts", "Service.ts");
