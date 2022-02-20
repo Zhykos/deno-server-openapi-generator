@@ -1,0 +1,11 @@
+{
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.unstable": true,
+  "cSpell.words": [
+    "APIV",
+    "fieldname",
+    "OPENAPI",
+    "originalname"
+  ]
+}

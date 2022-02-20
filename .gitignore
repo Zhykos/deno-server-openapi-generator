@@ -61,9 +61,12 @@ samples/server/petstore/*
 !samples/server/petstore/deno/
 samples/server/petstore/deno/*
 
-!samples/server/petstore/deno/*
-
 !samples/server/petstore/deno/oak/
 samples/server/petstore/deno/oak/*
 
 !samples/server/petstore/deno/oak/*
+
+!samples/server/petstore/deno/agnostic/
+samples/server/petstore/deno/agnostic/*
+
+!samples/server/petstore/deno/agnostic/*
