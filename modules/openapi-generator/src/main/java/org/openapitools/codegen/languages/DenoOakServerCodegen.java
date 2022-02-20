@@ -54,6 +54,7 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
         super.supportingFiles.add(new SupportingFile("config.mustache", "", "config.ts"));
         super.supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
         super.supportingFiles.add(new SupportingFile("deps.mustache", "", "deps.ts"));
+        super.supportingFiles.add(new SupportingFile("DenoServer.mustache", "", "DenoServer.ts"));
 
         // controllers folder
         super.supportingFiles
@@ -128,17 +129,21 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
 
     @Override
     public String apiFilename(final String templateName, final String tag) {
-        String result = super.apiFilename(templateName, tag);
+        String sourceFullPath = super.apiFilename(templateName, tag);
         if ("service.mustache".equals(templateName)) {
-            final String stringToMatch = File.separator + "controllers" + File.separator;
-            final String replacement = File.separator + "services" + File.separator;
-            result = result.replace(stringToMatch, replacement).replace("Controller.ts", "PrivateService.ts");
+            final String targetPath = File.separator + "services" + File.separator;
+            sourceFullPath = modifyApiFilename(sourceFullPath, targetPath, "PrivateService.ts");
         } else if ("iservice.mustache".equals(templateName)) {
-            final String stringToMatch = File.separator + "controllers" + File.separator;
-            final String replacement = File.separator + "services" + File.separator;
-            result = result.replace(stringToMatch, replacement).replace("Controller.ts", "Service.ts");
+            final String targetPath = File.separator + "services" + File.separator;
+            sourceFullPath = modifyApiFilename(sourceFullPath, targetPath, "Service.ts");
         }
-        return result;
+        return sourceFullPath;
+    }
+
+    private static String modifyApiFilename(final String sourceFullPath, final String targetPath,
+            final String targetFilename) {
+        final String sourcePath = File.separator + "controllers" + File.separator;
+        return sourceFullPath.replace(sourcePath, targetPath).replace("Controller.ts", targetFilename);
     }
 
     @Override

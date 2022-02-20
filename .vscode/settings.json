@@ -4,6 +4,7 @@
     "deno.enable": true,
     "vsicons.presets.angular": true,
     "cSpell.words": [
+        "classname",
         "Codegen",
         "Deno",
         "deps",
