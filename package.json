@@ -11,12 +11,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Zhykos/deno-oak-openapi-generator.git"
+        "url": "git+https://github.com/Zhykos/deno-server-openapi-generator.git"
     },
     "author": "Thomas \"Zhykos\" Cicognani",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/Zhykos/deno-oak-openapi-generator/issues"
+        "url": "https://github.com/Zhykos/deno-server-openapi-generator/issues"
     },
-    "homepage": "https://github.com/Zhykos/deno-oak-openapi-generator#readme"
+    "homepage": "https://github.com/Zhykos/deno-server-openapi-generator#readme"
 }

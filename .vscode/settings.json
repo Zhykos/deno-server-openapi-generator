@@ -4,10 +4,16 @@
     "deno.enable": true,
     "vsicons.presets.angular": true,
     "cSpell.words": [
+        "Cicognani",
         "classname",
         "Codegen",
         "Deno",
         "deps",
-        "iservice"
+        "Dskip",
+        "iservice",
+        "mvnw",
+        "openapi",
+        "petstore",
+        "Zhykos"
     ]
 }
