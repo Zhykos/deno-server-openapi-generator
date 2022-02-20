@@ -13,7 +13,9 @@
         "iservice",
         "mvnw",
         "openapi",
+        "openapitools",
         "petstore",
+        "temurin",
         "Zhykos"
     ]
 }
