@@ -4,6 +4,8 @@
 {{#operation}}
 {{#-first}}
 import { {{classname}}Service } from './services/{{classname}}Service.ts';
+import { {{classname}}PrivateService } from './services/{{classname}}PrivateService.ts';
+import { {{classname}}Controller } from './controllers/{{classname}}Controller.ts';
 {{/-first}}
 {{/operation}}
 {{/operations}}
@@ -23,11 +25,24 @@ export class DenoOakServer implements DenoServer {
 
   create(port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}): DenoOakServer {
     this.port = port;
-    this.generateRoutes();
+    this.generateRoutes({{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}my{{classname}}Service{{/-first}}{{/operation}}, {{/operations}}{{/apis}}{{/apiInfo}});
     return this;
   }
 
-  private generateRoutes() {
+  private generateRoutes({{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}, {{/operations}}{{/apis}}{{/apiInfo}}) {
+    {{#apiInfo}}
+    {{#apis}}
+    {{#operations}}
+    {{#operation}}
+    {{#-first}}
+    const private{{classname}}Service = new {{classname}}PrivateService(my{{classname}}Service);
+    const private{{classname}}Controller = new {{classname}}Controller(private{{classname}}Service);
+    {{/-first}}
+    {{/operation}}
+    {{/operations}}
+    {{/apis}}
+    {{/apiInfo}}
+
     this.app.use((ctx) => {
       ctx.response.body = "Hello World!";
     });
