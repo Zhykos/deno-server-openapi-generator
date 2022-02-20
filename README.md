@@ -1,1 +1,1 @@
-# deno-oak-openapi-generator
+# deno-server-openapi-generator
