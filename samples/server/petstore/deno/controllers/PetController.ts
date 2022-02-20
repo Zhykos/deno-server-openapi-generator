@@ -6,11 +6,12 @@
  * parameters are extracted and sent to the service, and where response is handled.
  */
 
-import { Controller } from "./Controller.ts";
-import { PetPrivateService } from "../services/PetPrivateService.ts";
+import { Controller } from './Controller.ts';
+import { PetPrivateService } from '../services/PetPrivateService.ts';
 import { OpenApiRequest } from "./OpenApiRequestModel.ts";
 
 export class PetController {
+
   private service: PetPrivateService;
 
   constructor(service: PetPrivateService) {
@@ -48,4 +49,5 @@ export class PetController {
   uploadFile(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.uploadFile);
   }
+
 }

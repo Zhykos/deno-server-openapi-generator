@@ -1,0 +1,6 @@
+generatorName: deno-server
+outputDir: samples/server/petstore/deno
+inputSpec: modules/openapi-generator/src/test/resources/3_0/petstore.yaml
+templateDir: modules/openapi-generator/src/main/resources/deno-server
+additionalProperties:
+  hideGenerationTimestamp: "true"

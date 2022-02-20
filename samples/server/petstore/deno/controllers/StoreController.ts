@@ -6,11 +6,12 @@
  * parameters are extracted and sent to the service, and where response is handled.
  */
 
-import { Controller } from "./Controller.ts";
-import { StorePrivateService } from "../services/StorePrivateService.ts";
+import { Controller } from './Controller.ts';
+import { StorePrivateService } from '../services/StorePrivateService.ts';
 import { OpenApiRequest } from "./OpenApiRequestModel.ts";
 
 export class StoreController {
+
   private service: StorePrivateService;
 
   constructor(service: StorePrivateService) {
@@ -32,4 +33,5 @@ export class StoreController {
   placeOrder(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.placeOrder);
   }
+
 }

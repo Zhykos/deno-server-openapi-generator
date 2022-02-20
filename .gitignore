@@ -36,18 +36,18 @@ modules/openapi-generator/src/main/java/org/openapitools/codegen/*
 !modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/
 modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/*
 
-!modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/DenoOakServerCodegen.java
+!modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/AbstractDenoServerCodegen.java
 
 !modules/openapi-generator/src/main/resources/
 modules/openapi-generator/src/main/resources/*
-!modules/openapi-generator/src/main/resources/deno-oak/
+!modules/openapi-generator/src/main/resources/deno-server/
 
 !bin/
 bin/*
 !bin/configs/
 bin/configs/*
 
-!bin/configs/deno-oak-petstore-new.yaml
+!bin/configs/deno-server-petstore.yaml
 
 !samples/
 samples/*
@@ -57,6 +57,9 @@ samples/server/*
 samples/server/petstore/*
 !samples/server/petstore/deno/
 samples/server/petstore/deno/*
+
+!samples/server/petstore/deno/*
+
 !samples/server/petstore/deno/oak/
 samples/server/petstore/deno/oak/*
 

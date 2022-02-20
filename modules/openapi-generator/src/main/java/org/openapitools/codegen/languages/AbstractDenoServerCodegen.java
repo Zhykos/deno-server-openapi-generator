@@ -17,9 +17,9 @@ import org.openapitools.codegen.utils.StringUtils;
 
 import io.swagger.v3.oas.models.media.Schema;
 
-public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
+public class AbstractDenoServerCodegen extends AbstractTypeScriptClientCodegen {
 
-    private static final String DENO_OAK = "deno-oak";
+    private static final String DENO_SERVER = "deno-server";
 
     @Override
     public CodegenType getTag() {
@@ -28,25 +28,25 @@ public class DenoOakServerCodegen extends AbstractTypeScriptClientCodegen {
 
     @Override
     public String getName() {
-        return DENO_OAK;
+        return DENO_SERVER;
     }
 
     @Override
     public String getHelp() {
-        return "Generates a Deno based oak server.";
+        return "Generates a Deno based server.";
     }
 
-    public DenoOakServerCodegen() {
+    public AbstractDenoServerCodegen() {
         super();
 
         super.generatorMetadata = GeneratorMetadata.newBuilder(generatorMetadata).stability(Stability.BETA).build();
 
-        super.outputFolder = "generated-code" + File.separator + DENO_OAK;
+        super.outputFolder = "generated-code" + File.separator + DENO_SERVER;
         super.modelTemplateFiles.put("model.mustache", ".ts");
         super.apiTemplateFiles.put("controller.mustache", ".ts");
         super.apiTemplateFiles.put("service.mustache", ".ts");
         super.apiTemplateFiles.put("iservice.mustache", ".ts");
-        super.embeddedTemplateDir = super.templateDir = DENO_OAK;
+        super.embeddedTemplateDir = super.templateDir = DENO_SERVER;
         super.modelPackage = "models";
         super.additionalProperties.put("implFolder", "services");
 
