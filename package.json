@@ -1,5 +1,5 @@
 {
-    "name": "deno-oak-openapi-generator",
+    "name": "deno-server-openapi-generator",
     "version": "1.0.0",
     "description": "",
     "scripts": {
@@ -7,7 +7,7 @@
         "mvn-clean-package": "mvnw.cmd clean package",
         "generate-pet-store": "sh ./bin/generate-samples.sh bin/configs/deno-server-petstore.yaml && npm run deno-format-sample",
         "build-then-generate": "npm run mvn-clean-package-no-tests && npm run generate-pet-store",
-        "deno-format-sample": "deno fmt samples/server/petstore/deno/oak/"
+        "deno-format-sample": "deno fmt samples/server/petstore/deno/"
     },
     "repository": {
         "type": "git",

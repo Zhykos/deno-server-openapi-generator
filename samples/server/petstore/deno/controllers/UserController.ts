@@ -6,12 +6,11 @@
  * parameters are extracted and sent to the service, and where response is handled.
  */
 
-import { Controller } from './Controller.ts';
-import { UserPrivateService } from '../services/UserPrivateService.ts';
+import { Controller } from "./Controller.ts";
+import { UserPrivateService } from "../services/UserPrivateService.ts";
 import { OpenApiRequest } from "./OpenApiRequestModel.ts";
 
 export class UserController {
-
   private service: UserPrivateService;
 
   constructor(service: UserPrivateService) {
@@ -23,11 +22,17 @@ export class UserController {
   }
 
   createUsersWithArrayInput(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.createUsersWithArrayInput);
+    return Controller.handleRequest(
+      request,
+      this.service.createUsersWithArrayInput,
+    );
   }
 
   createUsersWithListInput(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.createUsersWithListInput);
+    return Controller.handleRequest(
+      request,
+      this.service.createUsersWithListInput,
+    );
   }
 
   deleteUser(request: OpenApiRequest): Promise<Response> {
@@ -49,5 +54,4 @@ export class UserController {
   updateUser(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.updateUser);
   }
-
 }
