@@ -4,11 +4,23 @@ import { UserService } from "./services/UserService.ts";
 
 export interface DenoServer {
   create(
-    port: number | 3000,
+    port: number,
     myPetService: PetService,
     myStoreService: StoreService,
     myUserService: UserService,
   ): DenoServer;
 
-  start(): DenoServer;
+  start(): Promise<void>;
+}
+
+export function create(
+  middleware: DenoServer,
+  port: number,
+  myPetService: PetService,
+  myStoreService: StoreService,
+  myUserService: UserService,
+): Promise<void> {
+  return middleware
+    .create(port, myPetService, myStoreService, myUserService)
+    .start();
 }

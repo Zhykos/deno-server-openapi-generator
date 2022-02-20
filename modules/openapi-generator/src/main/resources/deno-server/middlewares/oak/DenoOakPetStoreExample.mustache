@@ -1,0 +1,56 @@
+import { create } from "./DenoServer.ts";
+import { DenoOakServer } from "./DenoOakServer.ts";
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+{{#operation}}
+{{#-first}}
+import { {{classname}}Service } from './services/{{classname}}Service.ts';
+{{/-first}}
+{{/operation}}
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}
+{{#imports}}
+import { {{classname}} } from '../models/{{classname}}.ts';
+{{/imports}}
+import { ApiResponse } from "./models/ApiResponse.ts";
+import { Order } from "./models/Order.ts";
+import { Pet } from "./models/Pet.ts";
+import { User } from "./models/User.ts";
+
+// Custom services
+
+{{#apiInfo}}
+{{#apis}}
+class My{{classname}}Service implements {{classname}}Service {
+    {{#operations}}
+    {{#operation}}
+    {{{operationId}}} ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
+        throw new Error("Method not implemented yet.");
+    }
+    {{/operation}}
+    {{/operations}}
+}
+{{/apis}}
+{{/apiInfo}}
+
+// Service instances
+
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+{{#operation}}
+{{#-first}}
+const my{{classname}}Service: {{classname}}Service = new My{{classname}}Service();
+{{/-first}}
+{{/operation}}
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}
+
+// Create then start Deno server
+
+create(new DenoOakServer(), 3000{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}});
+
+// deno run --allow-net DenoOakPetStoreExample.ts

@@ -11,7 +11,13 @@ import { {{classname}}Service } from './services/{{classname}}Service.ts';
 {{/apiInfo}}
 
 export interface DenoServer {
-  create(port: number | 3000{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}): DenoServer;
+  create(port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}): DenoServer;
 
-  start(): DenoServer;
+  start(): Promise<void>;
+}
+
+export function create(middleware: DenoServer, port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}): Promise<void> {
+  return middleware
+    .create(port{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}})
+    .start();
 }

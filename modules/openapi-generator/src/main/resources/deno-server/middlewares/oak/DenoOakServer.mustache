@@ -1,0 +1,40 @@
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+{{#operation}}
+{{#-first}}
+import { {{classname}}Service } from './services/{{classname}}Service.ts';
+{{/-first}}
+{{/operation}}
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}
+import { DenoServer } from "./DenoServer.ts";
+import { Application } from "./deps.ts";
+
+export class DenoOakServer implements DenoServer {
+
+  private app: Application;
+  private port = 3000;
+
+  constructor() {
+    this.app = new Application();
+  }
+
+  create(port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}): DenoOakServer {
+    this.port = port;
+    this.generateRoutes();
+    return this;
+  }
+
+  private generateRoutes() {
+    this.app.use((ctx) => {
+      ctx.response.body = "Hello World!";
+    });
+  }
+
+  async start(): Promise<void> {
+    return await this.app.listen({ port: this.port });
+  }
+
+}

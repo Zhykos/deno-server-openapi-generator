@@ -2,6 +2,8 @@ package org.openapitools.codegen.languages;
 
 import java.io.File;
 
+import org.openapitools.codegen.SupportingFile;
+
 public class DenoOakServerCodegen extends AbstractDenoServerCodegen {
 
     private static final String DENO_OAK_SERVER = "deno-oak";
@@ -9,7 +11,17 @@ public class DenoOakServerCodegen extends AbstractDenoServerCodegen {
     public DenoOakServerCodegen() {
         super();
         super.outputFolder = "generated-code" + File.separator + DENO_OAK_SERVER;
-        // super.embeddedTemplateDir = super.templateDir = DENO_OAK_SERVER;
+
+        // root folder
+        super.supportingFiles
+                .add(new SupportingFile(
+                        "middlewares" + File.separator + "oak" + File.separator + "DenoOakServer.mustache", "",
+                        "DenoOakServer.ts"));
+        super.supportingFiles
+                .add(new SupportingFile(
+                        "middlewares" + File.separator + "oak" + File.separator
+                                + "DenoOakPetStoreExample.mustache",
+                        "", "DenoOakPetStoreExample.ts"));
     }
 
     @Override
