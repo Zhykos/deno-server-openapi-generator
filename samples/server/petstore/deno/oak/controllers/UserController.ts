@@ -8,6 +8,7 @@
 
 import { Controller } from "./Controller.ts";
 import { UserPrivateService } from "../services/UserPrivateService.ts";
+import { OpenApiRequest } from "./OpenApiRequestModel.ts";
 
 export class UserController {
   private service: UserPrivateService;
@@ -16,41 +17,41 @@ export class UserController {
     this.service = service;
   }
 
-  createUser(request: any): Promise<Response> {
+  createUser(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.createUser);
   }
 
-  createUsersWithArrayInput(request: any): Promise<Response> {
+  createUsersWithArrayInput(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(
       request,
       this.service.createUsersWithArrayInput,
     );
   }
 
-  createUsersWithListInput(request: any): Promise<Response> {
+  createUsersWithListInput(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(
       request,
       this.service.createUsersWithListInput,
     );
   }
 
-  deleteUser(request: any): Promise<Response> {
+  deleteUser(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.deleteUser);
   }
 
-  getUserByName(request: any): Promise<Response> {
+  getUserByName(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.getUserByName);
   }
 
-  loginUser(request: any): Promise<Response> {
+  loginUser(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.loginUser);
   }
 
-  logoutUser(request: any): Promise<Response> {
+  logoutUser(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.logoutUser);
   }
 
-  updateUser(request: any): Promise<Response> {
+  updateUser(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.updateUser);
   }
 }

@@ -8,6 +8,7 @@
 
 import { Controller } from "./Controller.ts";
 import { PetPrivateService } from "../services/PetPrivateService.ts";
+import { OpenApiRequest } from "./OpenApiRequestModel.ts";
 
 export class PetController {
   private service: PetPrivateService;
@@ -16,35 +17,35 @@ export class PetController {
     this.service = service;
   }
 
-  addPet(request: any): Promise<Response> {
+  addPet(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.addPet);
   }
 
-  deletePet(request: any): Promise<Response> {
+  deletePet(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.deletePet);
   }
 
-  findPetsByStatus(request: any): Promise<Response> {
+  findPetsByStatus(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.findPetsByStatus);
   }
 
-  findPetsByTags(request: any): Promise<Response> {
+  findPetsByTags(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.findPetsByTags);
   }
 
-  getPetById(request: any): Promise<Response> {
+  getPetById(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.getPetById);
   }
 
-  updatePet(request: any): Promise<Response> {
+  updatePet(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.updatePet);
   }
 
-  updatePetWithForm(request: any): Promise<Response> {
+  updatePetWithForm(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.updatePetWithForm);
   }
 
-  uploadFile(request: any): Promise<Response> {
+  uploadFile(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.uploadFile);
   }
 }

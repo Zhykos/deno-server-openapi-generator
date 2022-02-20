@@ -8,6 +8,7 @@
 
 import { Controller } from "./Controller.ts";
 import { StorePrivateService } from "../services/StorePrivateService.ts";
+import { OpenApiRequest } from "./OpenApiRequestModel.ts";
 
 export class StoreController {
   private service: StorePrivateService;
@@ -16,19 +17,19 @@ export class StoreController {
     this.service = service;
   }
 
-  deleteOrder(request: any): Promise<Response> {
+  deleteOrder(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.deleteOrder);
   }
 
-  getInventory(request: any): Promise<Response> {
+  getInventory(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.getInventory);
   }
 
-  getOrderById(request: any): Promise<Response> {
+  getOrderById(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.getOrderById);
   }
 
-  placeOrder(request: any): Promise<Response> {
+  placeOrder(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.placeOrder);
   }
 }

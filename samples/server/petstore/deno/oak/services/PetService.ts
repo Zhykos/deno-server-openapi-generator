@@ -16,7 +16,7 @@ export interface PetService {
    * apiKey string  (optional)
    * no response value expected for this operation
    */
-  deletePet(petId: number, apiKey: string): Promise<void>;
+  deletePet(petId: number, apiKey?: string): Promise<void>;
   /**
    * Finds Pets by status
    * Multiple status values can be provided with comma separated strings
@@ -58,7 +58,11 @@ export interface PetService {
    * status string Updated status of the pet (optional)
    * no response value expected for this operation
    */
-  updatePetWithForm(petId: number, name: string, status: string): Promise<void>;
+  updatePetWithForm(
+    petId: number,
+    name?: string,
+    status?: string,
+  ): Promise<void>;
   /**
    * uploads an image
    *
@@ -69,7 +73,7 @@ export interface PetService {
    */
   uploadFile(
     petId: number,
-    additionalMetadata: string,
-    file: any,
+    additionalMetadata?: string,
+    file?: any,
   ): Promise<ApiResponse>;
 }

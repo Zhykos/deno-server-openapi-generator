@@ -8,6 +8,7 @@
 
 import { Controller } from './Controller.ts';
 import { {{{classname}}}PrivateService } from '../services/{{{classname}}}PrivateService.ts';
+import { OpenApiRequest } from "./OpenApiRequestModel.ts";
 
 export class {{{classname}}}Controller {
 
@@ -19,7 +20,7 @@ export class {{{classname}}}Controller {
 
   {{#operations}}
   {{#operation}}
-  {{operationId}}(request: any): Promise<Response> {
+  {{operationId}}(request: OpenApiRequest): Promise<Response> {
     return Controller.handleRequest(request, this.service.{{operationId}});
   }
 

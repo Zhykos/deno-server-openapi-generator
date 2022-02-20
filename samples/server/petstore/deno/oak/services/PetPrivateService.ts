@@ -34,7 +34,7 @@ export class PetPrivateService {
    * apiKey string  (optional)
    * no response value expected for this operation
    */
-  deletePet(petId: number, apiKey: string): Promise<void> {
+  deletePet(petId: number, apiKey?: string): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.deletePet(petId, apiKey));
@@ -133,8 +133,8 @@ export class PetPrivateService {
    */
   updatePetWithForm(
     petId: number,
-    name: string,
-    status: string,
+    name?: string,
+    status?: string,
   ): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
@@ -157,8 +157,8 @@ export class PetPrivateService {
    */
   uploadFile(
     petId: number,
-    additionalMetadata: string,
-    file: any,
+    additionalMetadata?: string,
+    file?: any,
   ): Promise<ApiResponse> {
     return new Promise((resolve, reject) => {
       try {

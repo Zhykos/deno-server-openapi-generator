@@ -1,6 +1,6 @@
 /* https://github.com/cdimascio/express-openapi-validator/blob/master/src/framework/types.ts */
 
-export type BodySchema = ReferenceObject | SchemaObject | {};
+export type BodySchema = ReferenceObject | SchemaObject | Record<never, never>;
 
 export interface ParametersSchema {
   query: object;
@@ -217,7 +217,7 @@ export interface ParameterObject extends ParameterBaseObject {
   in: string;
 }
 
-export interface HeaderObject extends ParameterBaseObject {}
+// export interface HeaderObject extends ParameterBaseObject {}
 
 interface ParameterBaseObject {
   description?: string;
@@ -274,7 +274,7 @@ interface BaseSchemaObject {
   required?: string[];
   enum?: any[];
   properties?: {
-    [name: string]: ReferenceObject | SchemaObject;
+    [name: string]: /*ReferenceObject | */ SchemaObject;
   };
   allOf?: Array<ReferenceObject | SchemaObject>;
   oneOf?: Array<ReferenceObject | SchemaObject>;
@@ -320,7 +320,7 @@ export interface ExampleObject {
 }
 
 export interface MediaTypeObject {
-  schema?: ReferenceObject | SchemaObject;
+  schema?: /*ReferenceObject |*/ SchemaObject;
   example?: any;
   examples?: { [media: string]: ReferenceObject | ExampleObject };
   encoding?: { [media: string]: EncodingObject };
@@ -328,7 +328,7 @@ export interface MediaTypeObject {
 
 export interface EncodingObject {
   contentType?: string;
-  headers?: { [header: string]: ReferenceObject | HeaderObject };
+  headers?: { [header: string]: ReferenceObject | ParameterBaseObject };
   style?: string;
   explode?: boolean;
   allowReserved?: boolean;
@@ -346,7 +346,7 @@ export interface ResponsesObject {
 
 export interface ResponseObject {
   description: string;
-  headers?: { [header: string]: ReferenceObject | HeaderObject };
+  headers?: { [header: string]: ReferenceObject | ParameterBaseObject };
   content?: { [media: string]: MediaTypeObject };
   links?: { [link: string]: ReferenceObject | LinkObject };
 }
@@ -374,7 +374,7 @@ export interface ComponentsObject {
   parameters?: { [key: string]: ReferenceObject | ParameterObject };
   examples?: { [key: string]: ReferenceObject | ExampleObject };
   requestBodies?: { [key: string]: ReferenceObject | RequestBodyObject };
-  headers?: { [key: string]: ReferenceObject | HeaderObject };
+  headers?: { [key: string]: ReferenceObject | ParameterBaseObject };
   securitySchemes?: { [key: string]: ReferenceObject | SecuritySchemeObject };
   links?: { [key: string]: ReferenceObject | LinkObject };
   callbacks?: { [key: string]: ReferenceObject | CallbackObject };
