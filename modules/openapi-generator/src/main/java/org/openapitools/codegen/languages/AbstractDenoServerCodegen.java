@@ -26,22 +26,11 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         return CodegenType.SERVER;
     }
 
-    @Override
-    public String getName() {
-        return DENO_SERVER;
-    }
-
-    @Override
-    public String getHelp() {
-        return "Generates a Deno based server.";
-    }
-
-    public AbstractDenoServerCodegen() {
+    protected AbstractDenoServerCodegen() {
         super();
 
         super.generatorMetadata = GeneratorMetadata.newBuilder(generatorMetadata).stability(Stability.BETA).build();
 
-        super.outputFolder = "generated-code" + File.separator + DENO_SERVER;
         super.modelTemplateFiles.put("model.mustache", ".ts");
         super.apiTemplateFiles.put("controller.mustache", ".ts");
         super.apiTemplateFiles.put("service.mustache", ".ts");
