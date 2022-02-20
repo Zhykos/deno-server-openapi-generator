@@ -45,7 +45,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Generate Pet store
-      run: |
-        chmod +x ./bin/generate-samples.sh
-        ./bin/generate-samples.sh bin/configs/deno-oak-petstore-new.yaml
+    #- name: Generate Pet store
+    #  run: |
+    #    chmod +x ./bin/generate-samples.sh
+    #    ./bin/generate-samples.sh bin/configs/deno-oak-petstore-new.yaml

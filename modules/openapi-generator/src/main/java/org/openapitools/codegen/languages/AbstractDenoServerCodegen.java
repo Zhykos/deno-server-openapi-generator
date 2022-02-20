@@ -17,7 +17,7 @@ import org.openapitools.codegen.utils.StringUtils;
 
 import io.swagger.v3.oas.models.media.Schema;
 
-public class AbstractDenoServerCodegen extends AbstractTypeScriptClientCodegen {
+public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClientCodegen {
 
     private static final String DENO_SERVER = "deno-server";
 
