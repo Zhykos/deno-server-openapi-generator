@@ -56,6 +56,11 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         // service folder
         super.supportingFiles
                 .add(new SupportingFile("services" + File.separator + "index.mustache", "services", "index.ts"));
+
+        // tests folder
+        super.supportingFiles
+                .add(new SupportingFile("tests" + File.separator + "DenoPetStoreExampleRouteTests.mustache",
+                        "tests", "DenoPetStoreExampleRouteTests.ts"));
     }
 
     /* Copied from TypeScriptNodeClientCodegen */

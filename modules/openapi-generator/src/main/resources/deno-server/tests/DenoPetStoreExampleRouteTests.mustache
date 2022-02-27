@@ -1,0 +1,53 @@
+import { launchServer } from "../DenoServer.ts";
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+{{#operation}}
+{{#-first}}
+import { {{classname}}Service } from '../services/{{classname}}Service.ts';
+{{/-first}}
+{{/operation}}
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}
+{{#imports}}
+import { {{classname}} } from '../models/{{classname}}.ts';
+{{/imports}}
+import { ApiResponse } from "../models/ApiResponse.ts";
+import { Order } from "../models/Order.ts";
+import { Pet } from "../models/Pet.ts";
+import { User } from "../models/User.ts";
+import { assertEquals } from "https://deno.land/std@0.127.0/testing/asserts.ts";
+
+// Test all routes from example which always returns an error: this tests is built to check if all routes are generated.
+
+const client = Deno.createHttpClient({});
+
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+{{#operation}}
+Deno.test("{{classname}}Service >> {{{operationId}}}", async() => {
+    const localVarPath = `{{{path}}}`{{#pathParams}}.replace(`{${"{{baseName}}"}}`, stubParameter("{{{dataType}}}")){{/pathParams}};
+
+    const res = await fetch("http://localhost:3000" + localVarPath, {
+        method: "{{httpMethod}}",
+        client
+    });
+    assertEquals(res.status, 500);
+});
+
+{{/operation}}
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}
+
+function stubParameter(paramType: string): string {
+    if (paramType == "number") {
+        return encodeURIComponent(String("1"));
+    }
+    if (paramType == "string") {
+        return encodeURIComponent(String("foo"));
+    }
+    throw new Error("Unknown type to stub: " + paramType);
+}
