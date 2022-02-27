@@ -1,4 +1,3 @@
-import { launchServer } from "./DenoServer.ts";
 import { DenoOakServer } from "./DenoOakServer.ts";
 import { PetService } from "./services/PetService.ts";
 import { StoreService } from "./services/StoreService.ts";
@@ -99,12 +98,11 @@ const myUserService: UserService = new MyUserService();
 
 // Create then start Deno server
 
-launchServer(
-  new DenoOakServer(),
+new DenoOakServer(
   3000,
   myPetService,
   myStoreService,
   myUserService,
-);
+).start();
 
 // deno run --allow-net DenoOakPetStoreExample.ts
