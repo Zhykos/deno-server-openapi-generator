@@ -13,7 +13,7 @@ export interface DenoServer {
   start(): Promise<void>;
 }
 
-export function create(
+export function launchServer(
   middleware: DenoServer,
   port: number,
   myPetService: PetService,

@@ -1,4 +1,4 @@
-import { create } from "./DenoServer.ts";
+import { launchServer } from "./DenoServer.ts";
 import { DenoOakServer } from "./DenoOakServer.ts";
 import { PetService } from "./services/PetService.ts";
 import { StoreService } from "./services/StoreService.ts";
@@ -11,79 +11,83 @@ import { User } from "./models/User.ts";
 // Custom services
 
 class MyPetService implements PetService {
-  addPet(pet: Pet): Promise<Pet> {
-    throw new Error("Method not implemented yet.");
+  addPet(pet: Pet): Pet {
+    throw new Error("Method not implemented yet: PetService >> addPet");
   }
-  deletePet(petId: number, apiKey?: string): Promise<void> {
-    throw new Error("Method not implemented yet.");
+  deletePet(petId: number, apiKey?: string): void {
+    throw new Error("Method not implemented yet: PetService >> deletePet");
   }
   findPetsByStatus(
     status: Array<"available" | "pending" | "sold">,
-  ): Promise<Array<Pet>> {
-    throw new Error("Method not implemented yet.");
+  ): Array<Pet> {
+    throw new Error(
+      "Method not implemented yet: PetService >> findPetsByStatus",
+    );
   }
-  findPetsByTags(tags: Array<string>): Promise<Array<Pet>> {
-    throw new Error("Method not implemented yet.");
+  findPetsByTags(tags: Array<string>): Array<Pet> {
+    throw new Error("Method not implemented yet: PetService >> findPetsByTags");
   }
-  getPetById(petId: number): Promise<Pet> {
-    throw new Error("Method not implemented yet.");
+  getPetById(petId: number): Pet {
+    throw new Error("Method not implemented yet: PetService >> getPetById");
   }
-  updatePet(pet: Pet): Promise<Pet> {
-    throw new Error("Method not implemented yet.");
+  updatePet(pet: Pet): Pet {
+    throw new Error("Method not implemented yet: PetService >> updatePet");
   }
-  updatePetWithForm(
-    petId: number,
-    name?: string,
-    status?: string,
-  ): Promise<void> {
-    throw new Error("Method not implemented yet.");
+  updatePetWithForm(petId: number, name?: string, status?: string): void {
+    throw new Error(
+      "Method not implemented yet: PetService >> updatePetWithForm",
+    );
   }
   uploadFile(
     petId: number,
     additionalMetadata?: string,
     file?: any,
-  ): Promise<ApiResponse> {
-    throw new Error("Method not implemented yet.");
+  ): ApiResponse {
+    throw new Error("Method not implemented yet: PetService >> uploadFile");
   }
 }
 class MyStoreService implements StoreService {
-  deleteOrder(orderId: string): Promise<void> {
-    throw new Error("Method not implemented yet.");
+  deleteOrder(orderId: string): void {
+    throw new Error("Method not implemented yet: StoreService >> deleteOrder");
   }
-  getInventory(): Promise<{ [key: string]: number }> {
-    throw new Error("Method not implemented yet.");
+  getInventory(): { [key: string]: number } {
+    throw new Error("Method not implemented yet: StoreService >> getInventory");
   }
-  getOrderById(orderId: number): Promise<Order> {
-    throw new Error("Method not implemented yet.");
+  getOrderById(orderId: number): Order {
+    throw new Error("Method not implemented yet: StoreService >> getOrderById");
   }
-  placeOrder(order: Order): Promise<Order> {
-    throw new Error("Method not implemented yet.");
+  placeOrder(order: Order): Order {
+    throw new Error("Method not implemented yet: StoreService >> placeOrder");
   }
 }
 class MyUserService implements UserService {
-  createUser(user: User): Promise<void> {
-    throw new Error("Method not implemented yet.");
+  createUser(user: User): void {
+    throw new Error("Method not implemented yet: UserService >> createUser");
   }
-  createUsersWithArrayInput(user: Array<User>): Promise<void> {
-    throw new Error("Method not implemented yet.");
+  createUsersWithArrayInput(user: Array<User>): void {
+    throw new Error(
+      "Method not implemented yet: UserService >> createUsersWithArrayInput",
+    );
   }
-  createUsersWithListInput(user: Array<User>): Promise<void> {
-    throw new Error("Method not implemented yet.");
+  createUsersWithListInput(user: Array<User>): void {
+    throw new Error(
+      "Method not implemented yet: UserService >> createUsersWithListInput",
+    );
   }
-  deleteUser(username: string): Promise<void> {
-    throw new Error("Method not implemented yet.");
+  deleteUser(username: string): void {
+    throw new Error("Method not implemented yet: UserService >> deleteUser");
   }
-  getUserByName(username: string): Promise<User> {
-    throw new Error("Method not implemented yet.");
+  getUserByName(username: string): User {
+    throw new Error("Method not implemented yet: UserService >> getUserByName");
   }
-  loginUser(username: string, password: string): Promise<string> {
-    throw new Error("Method not implemented yet.");
+  loginUser(username: string, password: string): string {
+    throw new Error("Method not implemented yet: UserService >> loginUser");
   }
-  logoutUser(): Promise<void> {
-    throw new Error("Method not implemented yet.");
+  logoutUser(): void {
+    throw new Error("Method not implemented yet: UserService >> logoutUser");
   }
-  updateUser(username: string, user: User): Promise<void> {
-    throw new Error("Method not implemented yet.");
+  updateUser(username: string, user: User): void {
+    throw new Error("Method not implemented yet: UserService >> updateUser");
   }
 }
 
@@ -95,6 +99,12 @@ const myUserService: UserService = new MyUserService();
 
 // Create then start Deno server
 
-create(new DenoOakServer(), 3000, myPetService, myStoreService, myUserService);
+launchServer(
+  new DenoOakServer(),
+  3000,
+  myPetService,
+  myStoreService,
+  myUserService,
+);
 
 // deno run --allow-net DenoOakPetStoreExample.ts

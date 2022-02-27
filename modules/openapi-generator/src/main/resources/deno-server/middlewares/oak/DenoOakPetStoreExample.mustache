@@ -1,4 +1,4 @@
-import { create } from "./DenoServer.ts";
+import { launchServer } from "./DenoServer.ts";
 import { DenoOakServer } from "./DenoOakServer.ts";
 {{#apiInfo}}
 {{#apis}}
@@ -26,8 +26,8 @@ import { User } from "./models/User.ts";
 class My{{classname}}Service implements {{classname}}Service {
     {{#operations}}
     {{#operation}}
-    {{{operationId}}} ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
-        throw new Error("Method not implemented yet.");
+    {{{operationId}}} ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : {{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}} {
+        throw new Error("Method not implemented yet: {{classname}}Service >> {{{operationId}}}");
     }
     {{/operation}}
     {{/operations}}
@@ -51,6 +51,6 @@ const my{{classname}}Service: {{classname}}Service = new My{{classname}}Service(
 
 // Create then start Deno server
 
-create(new DenoOakServer(), 3000{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}});
+launchServer(new DenoOakServer(), 3000{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}});
 
 // deno run --allow-net DenoOakPetStoreExample.ts

@@ -24,7 +24,7 @@ export interface {{classname}}Service {
   * returns {{{.}}}
   {{/returnType}}
   * */
-  {{{operationId}}} ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}>;
+  {{{operationId}}} ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : {{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}};
   {{/operation}}
   {{/operations}}
 
