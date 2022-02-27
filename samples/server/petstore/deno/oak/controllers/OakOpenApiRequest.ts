@@ -38,10 +38,10 @@ export class OakOpenApiRequest implements OpenApiRequest {
     this.redirect = "manual";
     this.referrer = "";
     this.referrerPolicy = "no-referrer";
-    this.signal = new OakAbortSignal();
+    this.signal = new AbortController().signal;
     this.url = "";
     this.body = null;
-    this.bodyUsed = false;
+    this.bodyUsed = true;
   }
 
   clone(): Request {
@@ -71,4 +71,9 @@ export class OakOpenApiRequest implements OpenApiRequest {
 
 class OakHeaders extends Headers {}
 
-class OakAbortSignal extends AbortSignal {}
+// class OakAbortSignal extends AbortSignal {
+//     constructor() {
+//       super();
+//       this.aborted = false;
+//     }
+// }

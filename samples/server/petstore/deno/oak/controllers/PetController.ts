@@ -14,6 +14,7 @@ export class PetController {
   private service: PetPrivateService;
 
   constructor(service: PetPrivateService) {
+    console.log("construct PetController " + service)
     this.service = service;
   }
 
@@ -33,8 +34,15 @@ export class PetController {
     return Controller.handleRequest(request, this.service.findPetsByTags);
   }
 
-  getPetById(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.getPetById);
+  async getPetById(request: OpenApiRequest): Promise<Response> {
+    console.log("controller: getPetById");
+    try {
+      return  Controller.sendResponse(await this.service.getPetById(1));
+    } catch (error) {
+      console.log("catch controller: getPetById");
+      return  Controller.sendError(error);
+    }
+    // return Controller.handleRequest(request, this.service.getPetById);
   }
 
   updatePet(request: OpenApiRequest): Promise<Response> {

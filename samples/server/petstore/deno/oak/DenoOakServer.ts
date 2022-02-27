@@ -30,7 +30,7 @@ export class DenoOakServer extends DenoServer {
       context.response.body = "Hello world!";
     });
 
-    let localVarPath;
+    let localVarPath: string;
 
     localVarPath = `/pet`;
     router.post(localVarPath, (context) => {
@@ -53,10 +53,19 @@ export class DenoOakServer extends DenoServer {
     });
 
     localVarPath = `/pet/{petId}`.replace(`{${"petId"}}`, ":petId");
-    router.get(localVarPath, (context) => {
+    router.get(localVarPath, async (context) => {
+      console.log(`/pet/{petId}`);
       const openApiRequest: OakOpenApiRequest = new OakOpenApiRequest(context);
-      this.petController("getPetById", openApiRequest);
-      context.response.status = 500;
+      try {
+      const response: Response = await this.petController("getPetById", openApiRequest);
+      context.response.status = response.status;
+      context.response.body= await response.text();
+      console.log("my object: %o", response)
+      } catch (e) {
+        context.response.status = 500;
+        context.response.body = e;
+        console.error(e);
+      }
     });
 
     localVarPath = `/pet`;

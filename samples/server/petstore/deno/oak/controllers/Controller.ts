@@ -17,6 +17,7 @@ export class Controller {
   }
 
   static sendError(error: any): Response {
+    console.error(error)
     return new Response(error, {
       status: 500,
       headers: {

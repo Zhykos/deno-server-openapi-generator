@@ -5,8 +5,9 @@ import { Pet } from "../models/Pet.ts";
 export class PetPrivateService {
   private customPetService: PetService;
 
-  constructor(customPetService: PetService) {
-    this.customPetService = customPetService;
+  constructor(customPetServicee: PetService) {
+    console.log("construct PetPrivateService" + customPetServicee)
+    this.customPetService = customPetServicee;
   }
 
   /**
@@ -94,10 +95,13 @@ export class PetPrivateService {
    * returns Pet
    */
   getPetById(petId: number): Promise<Pet> {
+    console.log("service: getPetById");
     return new Promise((resolve, reject) => {
       try {
+        console.log("try service: getPetById");
         resolve(this.customPetService.getPetById(petId));
       } catch (e) {
+        console.log("catch service: getPetById" + e);
         reject({
           error: e.message || "Invalid input",
           code: e.status || 405,
