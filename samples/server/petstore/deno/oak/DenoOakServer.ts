@@ -8,7 +8,7 @@ import { UserService } from "./services/UserService.ts";
 import { UserPrivateService } from "./services/UserPrivateService.ts";
 import { UserController } from "./controllers/UserController.ts";
 import { DenoServer } from "./DenoServer.ts";
-import { Application } from "./deps.ts";
+import { Application, Router } from "./deps.ts";
 
 export class DenoOakServer implements DenoServer {
   private app: Application;
@@ -41,9 +41,142 @@ export class DenoOakServer implements DenoServer {
     const privateUserService = new UserPrivateService(myUserService);
     const privateUserController = new UserController(privateUserService);
 
-    this.app.use((ctx) => {
-      ctx.response.body = "Hello World!";
-    });
+    const router = new Router();
+    router
+      .get("/", (context) => {
+        context.response.body = "Hello world!";
+      });
+
+    let localVarPath;
+
+    localVarPath = `/pet`;
+    router
+      .post(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/pet/{petId}`.replace(`{${"petId"}}`, ":petId");
+    router
+      .delete(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/pet/findByStatus`;
+    router
+      .get(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/pet/findByTags`;
+    router
+      .get(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/pet/{petId}`.replace(`{${"petId"}}`, ":petId");
+    router
+      .get(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/pet`;
+    router
+      .put(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/pet/{petId}`.replace(`{${"petId"}}`, ":petId");
+    router
+      .post(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/pet/{petId}/uploadImage`.replace(`{${"petId"}}`, ":petId");
+    router
+      .post(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/store/order/{orderId}`.replace(
+      `{${"orderId"}}`,
+      ":orderId",
+    );
+    router
+      .delete(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/store/inventory`;
+    router
+      .get(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/store/order/{orderId}`.replace(
+      `{${"orderId"}}`,
+      ":orderId",
+    );
+    router
+      .get(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/store/order`;
+    router
+      .post(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/user`;
+    router
+      .post(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/user/createWithArray`;
+    router
+      .post(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/user/createWithList`;
+    router
+      .post(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/user/{username}`.replace(`{${"username"}}`, ":username");
+    router
+      .delete(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/user/{username}`.replace(`{${"username"}}`, ":username");
+    router
+      .get(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/user/login`;
+    router
+      .get(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/user/logout`;
+    router
+      .get(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    localVarPath = `/user/{username}`.replace(`{${"username"}}`, ":username");
+    router
+      .put(localVarPath, (context) => {
+        context.response.status = 500;
+      });
+
+    this.app.use(router.routes());
+    this.app.use(router.allowedMethods());
   }
 
   async start(): Promise<void> {

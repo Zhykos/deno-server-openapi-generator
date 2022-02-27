@@ -1,28 +1,30 @@
-import { launchServer } from "../DenoServer.ts";
-import { PetService } from "../services/PetService.ts";
-import { StoreService } from "../services/StoreService.ts";
-import { UserService } from "../services/UserService.ts";
-import { ApiResponse } from "../models/ApiResponse.ts";
-import { Order } from "../models/Order.ts";
-import { Pet } from "../models/Pet.ts";
-import { User } from "../models/User.ts";
+// import { launchServer } from "../DenoServer.ts";
+// import { PetService } from '../services/PetService.ts';
+// import { StoreService } from '../services/StoreService.ts';
+// import { UserService } from '../services/UserService.ts';
+// import { ApiResponse } from "../models/ApiResponse.ts";
+// import { Order } from "../models/Order.ts";
+// import { Pet } from "../models/Pet.ts";
+// import { User } from "../models/User.ts";
 import { assertEquals } from "https://deno.land/std@0.127.0/testing/asserts.ts";
 
 // Test all routes from example which always returns an error: this tests is built to check if all routes are generated.
+// deno test --allow-net --unstable DenoPetStoreExampleRouteTests.ts
 
 const client = Deno.createHttpClient({});
 
-Deno.test("PetService >> addPet", async () => {
+Deno.test("check if route exists for service: PetService >> addPet", async () => {
   const localVarPath = `/pet`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "POST",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("PetService >> deletePet", async () => {
+Deno.test("check if route exists for service: PetService >> deletePet", async () => {
   const localVarPath = `/pet/{petId}`.replace(
     `{${"petId"}}`,
     stubParameter("number"),
@@ -32,30 +34,33 @@ Deno.test("PetService >> deletePet", async () => {
     method: "DELETE",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("PetService >> findPetsByStatus", async () => {
+Deno.test("check if route exists for service: PetService >> findPetsByStatus", async () => {
   const localVarPath = `/pet/findByStatus`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "GET",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("PetService >> findPetsByTags", async () => {
+Deno.test("check if route exists for service: PetService >> findPetsByTags", async () => {
   const localVarPath = `/pet/findByTags`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "GET",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("PetService >> getPetById", async () => {
+Deno.test("check if route exists for service: PetService >> getPetById", async () => {
   const localVarPath = `/pet/{petId}`.replace(
     `{${"petId"}}`,
     stubParameter("number"),
@@ -65,20 +70,22 @@ Deno.test("PetService >> getPetById", async () => {
     method: "GET",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("PetService >> updatePet", async () => {
+Deno.test("check if route exists for service: PetService >> updatePet", async () => {
   const localVarPath = `/pet`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "PUT",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("PetService >> updatePetWithForm", async () => {
+Deno.test("check if route exists for service: PetService >> updatePetWithForm", async () => {
   const localVarPath = `/pet/{petId}`.replace(
     `{${"petId"}}`,
     stubParameter("number"),
@@ -88,10 +95,11 @@ Deno.test("PetService >> updatePetWithForm", async () => {
     method: "POST",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("PetService >> uploadFile", async () => {
+Deno.test("check if route exists for service: PetService >> uploadFile", async () => {
   const localVarPath = `/pet/{petId}/uploadImage`.replace(
     `{${"petId"}}`,
     stubParameter("number"),
@@ -101,10 +109,11 @@ Deno.test("PetService >> uploadFile", async () => {
     method: "POST",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("StoreService >> deleteOrder", async () => {
+Deno.test("check if route exists for service: StoreService >> deleteOrder", async () => {
   const localVarPath = `/store/order/{orderId}`.replace(
     `{${"orderId"}}`,
     stubParameter("string"),
@@ -114,20 +123,22 @@ Deno.test("StoreService >> deleteOrder", async () => {
     method: "DELETE",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("StoreService >> getInventory", async () => {
+Deno.test("check if route exists for service: StoreService >> getInventory", async () => {
   const localVarPath = `/store/inventory`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "GET",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("StoreService >> getOrderById", async () => {
+Deno.test("check if route exists for service: StoreService >> getOrderById", async () => {
   const localVarPath = `/store/order/{orderId}`.replace(
     `{${"orderId"}}`,
     stubParameter("number"),
@@ -137,50 +148,55 @@ Deno.test("StoreService >> getOrderById", async () => {
     method: "GET",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("StoreService >> placeOrder", async () => {
+Deno.test("check if route exists for service: StoreService >> placeOrder", async () => {
   const localVarPath = `/store/order`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "POST",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("UserService >> createUser", async () => {
+Deno.test("check if route exists for service: UserService >> createUser", async () => {
   const localVarPath = `/user`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "POST",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("UserService >> createUsersWithArrayInput", async () => {
+Deno.test("check if route exists for service: UserService >> createUsersWithArrayInput", async () => {
   const localVarPath = `/user/createWithArray`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "POST",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("UserService >> createUsersWithListInput", async () => {
+Deno.test("check if route exists for service: UserService >> createUsersWithListInput", async () => {
   const localVarPath = `/user/createWithList`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "POST",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("UserService >> deleteUser", async () => {
+Deno.test("check if route exists for service: UserService >> deleteUser", async () => {
   const localVarPath = `/user/{username}`.replace(
     `{${"username"}}`,
     stubParameter("string"),
@@ -190,10 +206,11 @@ Deno.test("UserService >> deleteUser", async () => {
     method: "DELETE",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("UserService >> getUserByName", async () => {
+Deno.test("check if route exists for service: UserService >> getUserByName", async () => {
   const localVarPath = `/user/{username}`.replace(
     `{${"username"}}`,
     stubParameter("string"),
@@ -203,30 +220,33 @@ Deno.test("UserService >> getUserByName", async () => {
     method: "GET",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("UserService >> loginUser", async () => {
+Deno.test("check if route exists for service: UserService >> loginUser", async () => {
   const localVarPath = `/user/login`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "GET",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("UserService >> logoutUser", async () => {
+Deno.test("check if route exists for service: UserService >> logoutUser", async () => {
   const localVarPath = `/user/logout`;
 
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: "GET",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
 });
 
-Deno.test("UserService >> updateUser", async () => {
+Deno.test("check if route exists for service: UserService >> updateUser", async () => {
   const localVarPath = `/user/{username}`.replace(
     `{${"username"}}`,
     stubParameter("string"),
@@ -236,7 +256,17 @@ Deno.test("UserService >> updateUser", async () => {
     method: "PUT",
     client,
   });
+  await res.body?.cancel();
   assertEquals(res.status, 500);
+});
+
+Deno.test("404 status", async () => {
+  const res = await fetch("http://localhost:3000/zhykos404", {
+    method: "GET",
+    client,
+  });
+  await res.body?.cancel();
+  assertEquals(res.status, 404);
 });
 
 function stubParameter(paramType: string): string {

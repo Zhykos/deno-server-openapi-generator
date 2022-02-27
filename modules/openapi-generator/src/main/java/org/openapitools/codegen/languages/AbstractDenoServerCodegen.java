@@ -13,6 +13,7 @@ import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.SupportingFile;
 import org.openapitools.codegen.meta.GeneratorMetadata;
 import org.openapitools.codegen.meta.Stability;
+import org.openapitools.codegen.templating.mustache.LowercaseLambda;
 import org.openapitools.codegen.utils.StringUtils;
 
 import io.swagger.v3.oas.models.media.Schema;
@@ -61,6 +62,9 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         super.supportingFiles
                 .add(new SupportingFile("tests" + File.separator + "DenoPetStoreExampleRouteTests.mustache",
                         "tests", "DenoPetStoreExampleRouteTests.ts"));
+
+        // Additional properties
+        super.additionalProperties.put("lowercase", new LowercaseLambda());
     }
 
     /* Copied from TypeScriptNodeClientCodegen */
