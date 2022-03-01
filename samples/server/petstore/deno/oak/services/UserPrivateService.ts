@@ -15,7 +15,8 @@ export class UserPrivateService {
    * user User Created user object
    * no response value expected for this operation
    */
-  createUser(user: User): Promise<void> {
+  createUser(...args: any): Promise<void> {
+    const user: User = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUser(user));
@@ -33,7 +34,8 @@ export class UserPrivateService {
    * user Array<User> List of user object
    * no response value expected for this operation
    */
-  createUsersWithArrayInput(user: Array<User>): Promise<void> {
+  createUsersWithArrayInput(...args: any): Promise<void> {
+    const user: Array<User> = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUsersWithArrayInput(user));
@@ -52,7 +54,8 @@ export class UserPrivateService {
    * user Array<User> List of user object
    * no response value expected for this operation
    */
-  createUsersWithListInput(user: Array<User>): Promise<void> {
+  createUsersWithListInput(...args: any): Promise<void> {
+    const user: Array<User> = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUsersWithListInput(user));
@@ -72,7 +75,8 @@ export class UserPrivateService {
    * username string The name that needs to be deleted
    * no response value expected for this operation
    */
-  deleteUser(username: string): Promise<void> {
+  deleteUser(...args: any): Promise<void> {
+    const username: string = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.deleteUser(username));
@@ -90,7 +94,8 @@ export class UserPrivateService {
    * username string The name that needs to be fetched. Use user1 for testing.
    * returns User
    */
-  getUserByName(username: string): Promise<User> {
+  getUserByName(...args: any): Promise<User> {
+    const username: string = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.getUserByName(username));
@@ -109,7 +114,9 @@ export class UserPrivateService {
    * password string The password for login in clear text
    * returns string
    */
-  loginUser(username: string, password: string): Promise<string> {
+  loginUser(...args: any): Promise<string> {
+    const username: string = args[1 - 1];
+    const password: string = args[2 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.loginUser(username, password));
@@ -126,7 +133,7 @@ export class UserPrivateService {
    *
    * no response value expected for this operation
    */
-  logoutUser(): Promise<void> {
+  logoutUser(..._args: any): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.logoutUser());
@@ -146,7 +153,9 @@ export class UserPrivateService {
    * user User Updated user object
    * no response value expected for this operation
    */
-  updateUser(username: string, user: User): Promise<void> {
+  updateUser(...args: any): Promise<void> {
+    const username: string = args[1 - 1];
+    const user: User = args[2 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.updateUser(username, user));

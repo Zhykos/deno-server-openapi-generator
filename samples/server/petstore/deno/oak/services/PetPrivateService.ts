@@ -15,7 +15,8 @@ export class PetPrivateService {
    * pet Pet Pet object that needs to be added to the store
    * returns Pet
    */
-  addPet(pet: Pet): Promise<Pet> {
+  addPet(...args: any): Promise<Pet> {
+    const pet: Pet = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.addPet(pet));
@@ -34,7 +35,9 @@ export class PetPrivateService {
    * apiKey string  (optional)
    * no response value expected for this operation
    */
-  deletePet(petId: number, apiKey?: string): Promise<void> {
+  deletePet(...args: any): Promise<void> {
+    const petId: number = args[1 - 1];
+    const apiKey: string = args[2 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.deletePet(petId, apiKey));
@@ -53,9 +56,8 @@ export class PetPrivateService {
    * status Array<'available' | 'pending' | 'sold'> Status values that need to be considered for filter
    * returns Array<Pet>
    */
-  findPetsByStatus(
-    status: Array<"available" | "pending" | "sold">,
-  ): Promise<Array<Pet>> {
+  findPetsByStatus(...args: any): Promise<Array<Pet>> {
+    const status: Array<"available" | "pending" | "sold"> = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.findPetsByStatus(status));
@@ -74,7 +76,8 @@ export class PetPrivateService {
    * tags Array<string> Tags to filter by
    * returns Array<Pet>
    */
-  findPetsByTags(tags: Array<string>): Promise<Array<Pet>> {
+  findPetsByTags(...args: any): Promise<Array<Pet>> {
+    const tags: Array<string> = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.findPetsByTags(tags));
@@ -93,7 +96,8 @@ export class PetPrivateService {
    * petId number ID of pet to return
    * returns Pet
    */
-  getPetById(petId: number): Promise<Pet> {
+  getPetById(...args: any): Promise<Pet> {
+    const petId: number = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.getPetById(petId));
@@ -111,7 +115,8 @@ export class PetPrivateService {
    * pet Pet Pet object that needs to be added to the store
    * returns Pet
    */
-  updatePet(pet: Pet): Promise<Pet> {
+  updatePet(...args: any): Promise<Pet> {
+    const pet: Pet = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.updatePet(pet));
@@ -131,11 +136,10 @@ export class PetPrivateService {
    * status string Updated status of the pet (optional)
    * no response value expected for this operation
    */
-  updatePetWithForm(
-    petId: number,
-    name?: string,
-    status?: string,
-  ): Promise<void> {
+  updatePetWithForm(...args: any): Promise<void> {
+    const petId: number = args[1 - 1];
+    const name: string = args[2 - 1];
+    const status: string = args[3 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.updatePetWithForm(petId, name, status));
@@ -155,11 +159,10 @@ export class PetPrivateService {
    * file any file to upload (optional)
    * returns ApiResponse
    */
-  uploadFile(
-    petId: number,
-    additionalMetadata?: string,
-    file?: any,
-  ): Promise<ApiResponse> {
+  uploadFile(...args: any): Promise<ApiResponse> {
+    const petId: number = args[1 - 1];
+    const additionalMetadata: string = args[2 - 1];
+    const file: any = args[3 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(

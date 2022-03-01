@@ -20,7 +20,7 @@ export class StoreController {
   async deleteOrder(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service['deleteOrder'](
+        await this.service.deleteOrder(
           Controller.collectRequestParams(request),
         ),
       );
@@ -32,9 +32,9 @@ export class StoreController {
   async getInventory(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service['getInventory'](
-          Controller.collectRequestParams(request)
-        )
+        await this.service.getInventory(
+          Controller.collectRequestParams(request),
+        ),
       );
     } catch (error) {
       return Controller.sendError(error);

@@ -1,4 +1,11 @@
-import { assertEquals } from "https://deno.land/std@0.127.0/testing/asserts.ts";
+import {
+  assertEquals,
+  fail,
+} from "https://deno.land/std@0.127.0/testing/asserts.ts";
+import {
+  readAll,
+  readerFromStreamReader,
+} from "https://deno.land/std@0.127.0/streams/conversion.ts";
 
 // Test all routes from example which always returns an error: this tests is built to check if all routes are generated.
 // deno test --allow-net --unstable DenoPetStoreExampleRouteTests.ts
@@ -12,8 +19,23 @@ Deno.test("check if route exists for service: PetService >> addPet", async () =>
     method: "POST",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: PetService >> addPet",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: PetService >> deletePet", async () => {
@@ -26,8 +48,23 @@ Deno.test("check if route exists for service: PetService >> deletePet", async ()
     method: "DELETE",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: PetService >> deletePet",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: PetService >> findPetsByStatus", async () => {
@@ -37,8 +74,23 @@ Deno.test("check if route exists for service: PetService >> findPetsByStatus", a
     method: "GET",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: PetService >> findPetsByStatus",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: PetService >> findPetsByTags", async () => {
@@ -48,8 +100,23 @@ Deno.test("check if route exists for service: PetService >> findPetsByTags", asy
     method: "GET",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: PetService >> findPetsByTags",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: PetService >> getPetById", async () => {
@@ -62,8 +129,23 @@ Deno.test("check if route exists for service: PetService >> getPetById", async (
     method: "GET",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: PetService >> getPetById",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: PetService >> updatePet", async () => {
@@ -73,8 +155,23 @@ Deno.test("check if route exists for service: PetService >> updatePet", async ()
     method: "PUT",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: PetService >> updatePet",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: PetService >> updatePetWithForm", async () => {
@@ -87,8 +184,23 @@ Deno.test("check if route exists for service: PetService >> updatePetWithForm", 
     method: "POST",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: PetService >> updatePetWithForm",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: PetService >> uploadFile", async () => {
@@ -101,8 +213,23 @@ Deno.test("check if route exists for service: PetService >> uploadFile", async (
     method: "POST",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: PetService >> uploadFile",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: StoreService >> deleteOrder", async () => {
@@ -115,8 +242,23 @@ Deno.test("check if route exists for service: StoreService >> deleteOrder", asyn
     method: "DELETE",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: StoreService >> deleteOrder",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: StoreService >> getInventory", async () => {
@@ -126,8 +268,23 @@ Deno.test("check if route exists for service: StoreService >> getInventory", asy
     method: "GET",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: StoreService >> getInventory",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: StoreService >> getOrderById", async () => {
@@ -140,8 +297,23 @@ Deno.test("check if route exists for service: StoreService >> getOrderById", asy
     method: "GET",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: StoreService >> getOrderById",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: StoreService >> placeOrder", async () => {
@@ -151,8 +323,23 @@ Deno.test("check if route exists for service: StoreService >> placeOrder", async
     method: "POST",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: StoreService >> placeOrder",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: UserService >> createUser", async () => {
@@ -162,8 +349,23 @@ Deno.test("check if route exists for service: UserService >> createUser", async 
     method: "POST",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: UserService >> createUser",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: UserService >> createUsersWithArrayInput", async () => {
@@ -173,8 +375,23 @@ Deno.test("check if route exists for service: UserService >> createUsersWithArra
     method: "POST",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: UserService >> createUsersWithArrayInput",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: UserService >> createUsersWithListInput", async () => {
@@ -184,8 +401,23 @@ Deno.test("check if route exists for service: UserService >> createUsersWithList
     method: "POST",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: UserService >> createUsersWithListInput",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: UserService >> deleteUser", async () => {
@@ -198,8 +430,23 @@ Deno.test("check if route exists for service: UserService >> deleteUser", async 
     method: "DELETE",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: UserService >> deleteUser",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: UserService >> getUserByName", async () => {
@@ -212,8 +459,23 @@ Deno.test("check if route exists for service: UserService >> getUserByName", asy
     method: "GET",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: UserService >> getUserByName",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: UserService >> loginUser", async () => {
@@ -223,8 +485,23 @@ Deno.test("check if route exists for service: UserService >> loginUser", async (
     method: "GET",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: UserService >> loginUser",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: UserService >> logoutUser", async () => {
@@ -234,8 +511,23 @@ Deno.test("check if route exists for service: UserService >> logoutUser", async 
     method: "GET",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: UserService >> logoutUser",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("check if route exists for service: UserService >> updateUser", async () => {
@@ -248,8 +540,23 @@ Deno.test("check if route exists for service: UserService >> updateUser", async 
     method: "PUT",
     client,
   });
-  await res.body?.cancel();
+
+  const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
+    await res.body?.getReader();
   assertEquals(res.status, 500);
+
+  if (responseReader) {
+    const reader: Deno.Reader = readerFromStreamReader(responseReader);
+    const charArray: Uint8Array = await readAll(reader);
+    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+    assertEquals(jsonObj.code, 500);
+    assertEquals(
+      jsonObj.error,
+      "Method not implemented yet: UserService >> updateUser",
+    );
+  } else {
+    fail("Cannot read body");
+  }
 });
 
 Deno.test("404 status", async () => {

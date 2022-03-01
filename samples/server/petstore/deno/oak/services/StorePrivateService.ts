@@ -15,10 +15,11 @@ export class StorePrivateService {
    * orderId string ID of the order that needs to be deleted
    * no response value expected for this operation
    */
-  deleteOrder(...a: any): Promise<void> {
+  deleteOrder(...args: any): Promise<void> {
+    const orderId: string = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customStoreService.deleteOrder(a[0]));
+        resolve(this.customStoreService.deleteOrder(orderId));
       } catch (e) {
         reject(JSON.stringify({
           error: e.message || "Error in service Store >> deleteOrder",
@@ -33,7 +34,7 @@ export class StorePrivateService {
    *
    * returns { [key: string]: number; }
    */
-  getInventory(...a: any): Promise<{ [key: string]: number }> {
+  getInventory(..._args: any): Promise<{ [key: string]: number }> {
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customStoreService.getInventory());
@@ -52,7 +53,8 @@ export class StorePrivateService {
    * orderId number ID of pet that needs to be fetched
    * returns Order
    */
-  getOrderById(orderId: number): Promise<Order> {
+  getOrderById(...args: any): Promise<Order> {
+    const orderId: number = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customStoreService.getOrderById(orderId));
@@ -70,10 +72,11 @@ export class StorePrivateService {
    * order Order order placed for purchasing the pet
    * returns Order
    */
-  placeOrder(...a: any): Promise<Order> {
+  placeOrder(...args: any): Promise<Order> {
+    const order: Order = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customStoreService.placeOrder(a[0]));
+        resolve(this.customStoreService.placeOrder(order));
       } catch (e) {
         reject(JSON.stringify({
           error: e.message || "Error in service Store >> placeOrder",
