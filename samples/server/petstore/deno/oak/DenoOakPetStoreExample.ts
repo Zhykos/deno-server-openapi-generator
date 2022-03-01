@@ -106,4 +106,4 @@ new DenoOakServer(
   myUserService,
 ).start();
 
-// deno run --allow-net DenoOakPetStoreExample.ts
+// deno run --allow-net --watch DenoOakPetStoreExample.ts

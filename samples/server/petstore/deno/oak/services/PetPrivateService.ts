@@ -102,10 +102,10 @@ export class PetPrivateService {
         resolve(this.customPetService.getPetById(petId));
       } catch (e) {
         console.log("catch service: getPetById" + e);
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service Pet >> getPetById",
+          code: e.status || 500,
+        }));
       }
     });
   }

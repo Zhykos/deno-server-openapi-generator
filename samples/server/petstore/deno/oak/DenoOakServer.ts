@@ -56,16 +56,11 @@ export class DenoOakServer extends DenoServer {
     router.get(localVarPath, async (context) => {
       console.log(`/pet/{petId}`);
       const openApiRequest: OakOpenApiRequest = new OakOpenApiRequest(context);
-      try {
       const response: Response = await this.petController("getPetById", openApiRequest);
       context.response.status = response.status;
-      context.response.body= await response.text();
+      context.response.body= await response.json();
+      context.response.headers = response.headers;
       console.log("my object: %o", response)
-      } catch (e) {
-        context.response.status = 500;
-        context.response.body = e;
-        console.error(e);
-      }
     });
 
     localVarPath = `/pet`;
