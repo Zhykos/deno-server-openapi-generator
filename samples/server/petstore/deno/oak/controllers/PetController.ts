@@ -14,46 +14,70 @@ export class PetController {
   private service: PetPrivateService;
 
   constructor(service: PetPrivateService) {
-    console.log("construct PetController " + service)
     this.service = service;
   }
 
-  addPet(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.addPet);
+  async addPet(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.addPet(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  deletePet(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.deletePet);
+  async deletePet(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.deletePet(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  findPetsByStatus(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.findPetsByStatus);
+  async findPetsByStatus(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.findPetsByStatus(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  findPetsByTags(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.findPetsByTags);
+  async findPetsByTags(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.findPetsByTags(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
   async getPetById(request: OpenApiRequest): Promise<Response> {
-    console.log("controller: getPetById");
     try {
-      return  Controller.sendResponse(await this.service.getPetById(1));
+      return Controller.sendResponse(await this.service.getPetById(1));
     } catch (error) {
-      console.log("catch controller: getPetById");
-      return  Controller.sendError(error);
+      return Controller.sendError(error);
     }
-    // return Controller.handleRequest(request, this.service.getPetById);
   }
 
-  updatePet(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.updatePet);
+  async updatePet(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.updatePet(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  updatePetWithForm(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.updatePetWithForm);
+  async updatePetWithForm(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.updatePetWithForm(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  uploadFile(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.uploadFile);
+  async uploadFile(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.uploadFile(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 }

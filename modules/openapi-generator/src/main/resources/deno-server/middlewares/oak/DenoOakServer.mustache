@@ -4,8 +4,8 @@
 {{#operation}}
 {{#-first}}
 import { {{classname}}Service } from './services/{{classname}}Service.ts';
-import { {{classname}}PrivateService } from './services/{{classname}}PrivateService.ts';
-import { {{classname}}Controller } from './controllers/{{classname}}Controller.ts';
+//import { {{classname}}PrivateService } from './services/{{classname}}PrivateService.ts';
+//import { {{classname}}Controller } from './controllers/{{classname}}Controller.ts';
 {{/-first}}
 {{/operation}}
 {{/operations}}
@@ -13,43 +13,27 @@ import { {{classname}}Controller } from './controllers/{{classname}}Controller.t
 {{/apiInfo}}
 import { DenoServer } from "./DenoServer.ts";
 import { Application, Router } from "./deps.ts";
+import type { RouterContext } from "./deps.ts";
+import { OakOpenApiRequest } from "./controllers/OakOpenApiRequest.ts";
 
-export class DenoOakServer implements DenoServer {
+export class DenoOakServer extends DenoServer {
 
   private app: Application;
-  private port = 3000;
 
-  constructor() {
-    this.app = new Application();
+  constructor(
+    port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}) {
+      super(port{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}});
+      this.app = new Application();
   }
 
-  create(port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}): DenoOakServer {
-    this.port = port;
-    this.generateRoutes({{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}my{{classname}}Service{{/-first}}{{/operation}}, {{/operations}}{{/apis}}{{/apiInfo}});
-    return this;
-  }
-
-  private generateRoutes({{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}, {{/operations}}{{/apis}}{{/apiInfo}}) {
-    {{#apiInfo}}
-    {{#apis}}
-    {{#operations}}
-    {{#operation}}
-    {{#-first}}
-    const private{{classname}}Service = new {{classname}}PrivateService(my{{classname}}Service);
-    const private{{classname}}Controller = new {{classname}}Controller(private{{classname}}Service);
-    {{/-first}}
-    {{/operation}}
-    {{/operations}}
-    {{/apis}}
-    {{/apiInfo}}
-
+  generateRoutes(): void {
     const router = new Router();
     router
       .get("/", (context) => {
         context.response.body = "Hello world!";
       });
 
-    let localVarPath;
+    let localVarPath: string;
 
     {{#apiInfo}}
     {{#apis}}
@@ -57,8 +41,12 @@ export class DenoOakServer implements DenoServer {
     {{#operation}}
     localVarPath = `{{{path}}}`{{#pathParams}}.replace(`{${"{{baseName}}"}}`, ":{{baseName}}"){{/pathParams}};
     router
-      .{{#lowercase}}{{httpMethod}}{{/lowercase}}(localVarPath, (context) => {
-        context.response.status = 500;
+      .{{#lowercase}}{{httpMethod}}{{/lowercase}}(localVarPath, async (context: RouterContext<string, any, Record<string, any>>) => {
+        const openApiRequest = new OakOpenApiRequest(context);
+        const response: Response = await this.execute{{classname}}Controller("{{operationId}}", openApiRequest);
+        context.response.status = response.status;
+        context.response.body = await response.json();
+        context.response.headers = response.headers;
       });
 
     {{/operation}}
@@ -70,8 +58,8 @@ export class DenoOakServer implements DenoServer {
     this.app.use(router.allowedMethods());
   }
 
-  async start(): Promise<void> {
-    return await this.app.listen({ port: this.port });
+  async startServer(port: number): Promise<void> {
+    return await this.app.listen({ port });
   }
 
 }

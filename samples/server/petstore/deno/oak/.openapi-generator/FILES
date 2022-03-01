@@ -8,7 +8,6 @@ controllers/OpenApiRequestModel.ts
 controllers/PetController.ts
 controllers/StoreController.ts
 controllers/UserController.ts
-controllers/index.ts
 deps.ts
 models/ApiResponse.ts
 models/Category.ts
@@ -22,5 +21,4 @@ services/StorePrivateService.ts
 services/StoreService.ts
 services/UserPrivateService.ts
 services/UserService.ts
-services/index.ts
 tests/DenoPetStoreExampleRouteTests.ts

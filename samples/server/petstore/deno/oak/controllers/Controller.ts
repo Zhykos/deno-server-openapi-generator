@@ -17,7 +17,6 @@ export class Controller {
   }
 
   static sendError(error: any): Response {
-    console.error(error + "    typeof " + typeof error)
     return new Response(error, {
       status: 500,
       headers: {
@@ -131,17 +130,12 @@ export class Controller {
     return requestParams;
   }
 
-  static async handleRequest(
-    request: OpenApiRequest,
-    serviceOperation: Function,
-  ): Promise<Response> {
+  /*static async handleRequest(request: OpenApiRequest, serviceOperation: Function): Promise<Response> {
     try {
-      const serviceResponse = await serviceOperation(
-        Controller.collectRequestParams(request),
-      );
+      const serviceResponse = await serviceOperation(Controller.collectRequestParams(request));
       return Controller.sendResponse(serviceResponse);
     } catch (error) {
       return Controller.sendError(error);
     }
-  }
+  }*/
 }

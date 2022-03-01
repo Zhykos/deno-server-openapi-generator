@@ -5,9 +5,8 @@ import { Pet } from "../models/Pet.ts";
 export class PetPrivateService {
   private customPetService: PetService;
 
-  constructor(customPetServicee: PetService) {
-    console.log("construct PetPrivateService" + customPetServicee)
-    this.customPetService = customPetServicee;
+  constructor(customPetService: PetService) {
+    this.customPetService = customPetService;
   }
 
   /**
@@ -21,10 +20,10 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.addPet(pet));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service Pet >> addPet",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -40,10 +39,10 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.deletePet(petId, apiKey));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service Pet >> deletePet",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -61,10 +60,10 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.findPetsByStatus(status));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service Pet >> findPetsByStatus",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -80,10 +79,10 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.findPetsByTags(tags));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service Pet >> findPetsByTags",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -95,13 +94,10 @@ export class PetPrivateService {
    * returns Pet
    */
   getPetById(petId: number): Promise<Pet> {
-    console.log("service: getPetById");
     return new Promise((resolve, reject) => {
       try {
-        console.log("try service: getPetById");
         resolve(this.customPetService.getPetById(petId));
       } catch (e) {
-        console.log("catch service: getPetById" + e);
         reject(JSON.stringify({
           error: e.message || "Error in service Pet >> getPetById",
           code: e.status || 500,
@@ -120,10 +116,10 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.updatePet(pet));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service Pet >> updatePet",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -144,10 +140,10 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.updatePetWithForm(petId, name, status));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service Pet >> updatePetWithForm",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -170,10 +166,10 @@ export class PetPrivateService {
           this.customPetService.uploadFile(petId, additionalMetadata, file),
         );
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service Pet >> uploadFile",
+          code: e.status || 500,
+        }));
       }
     });
   }

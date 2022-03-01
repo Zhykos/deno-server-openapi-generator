@@ -17,19 +17,35 @@ export class StoreController {
     this.service = service;
   }
 
-  deleteOrder(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.deleteOrder);
+  async deleteOrder(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.deleteOrder(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  getInventory(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.getInventory);
+  async getInventory(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.getInventory(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  getOrderById(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.getOrderById);
+  async getOrderById(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.getOrderById(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  placeOrder(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.placeOrder);
+  async placeOrder(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.placeOrder(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 }

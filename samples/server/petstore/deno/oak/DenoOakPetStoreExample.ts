@@ -27,7 +27,6 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> findPetsByTags");
   }
   getPetById(petId: number): Pet {
-    console.log("example: getPetById");
     throw new Error("Method not implemented yet: PetService >> getPetById");
   }
   updatePet(pet: Pet): Pet {
@@ -99,11 +98,6 @@ const myUserService: UserService = new MyUserService();
 
 // Create then start Deno server
 
-new DenoOakServer(
-  3000,
-  myPetService,
-  myStoreService,
-  myUserService,
-).start();
+new DenoOakServer(3000, myPetService, myStoreService, myUserService).start();
 
 // deno run --allow-net --watch DenoOakPetStoreExample.ts

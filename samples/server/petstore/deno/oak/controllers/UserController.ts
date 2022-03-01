@@ -17,41 +17,71 @@ export class UserController {
     this.service = service;
   }
 
-  createUser(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.createUser);
+  async createUser(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.createUser(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  createUsersWithArrayInput(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(
-      request,
-      this.service.createUsersWithArrayInput,
-    );
+  async createUsersWithArrayInput(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(
+        await this.service.createUsersWithArrayInput(1),
+      );
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  createUsersWithListInput(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(
-      request,
-      this.service.createUsersWithListInput,
-    );
+  async createUsersWithListInput(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(
+        await this.service.createUsersWithListInput(1),
+      );
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  deleteUser(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.deleteUser);
+  async deleteUser(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.deleteUser(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  getUserByName(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.getUserByName);
+  async getUserByName(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.getUserByName(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  loginUser(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.loginUser);
+  async loginUser(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.loginUser(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  logoutUser(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.logoutUser);
+  async logoutUser(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.logoutUser(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 
-  updateUser(request: OpenApiRequest): Promise<Response> {
-    return Controller.handleRequest(request, this.service.updateUser);
+  async updateUser(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(await this.service.updateUser(1));
+    } catch (error) {
+      return Controller.sendError(error);
+    }
   }
 }

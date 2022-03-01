@@ -1,22 +1,3 @@
-// import { launchServer } from "../DenoServer.ts";
-{{#apiInfo}}
-{{#apis}}
-{{#operations}}
-{{#operation}}
-{{#-first}}
-// import { {{classname}}Service } from '../services/{{classname}}Service.ts';
-{{/-first}}
-{{/operation}}
-{{/operations}}
-{{/apis}}
-{{/apiInfo}}
-{{#imports}}
-// import { {{classname}} } from '../models/{{classname}}.ts';
-{{/imports}}
-// import { ApiResponse } from "../models/ApiResponse.ts";
-// import { Order } from "../models/Order.ts";
-// import { Pet } from "../models/Pet.ts";
-// import { User } from "../models/User.ts";
 import { assertEquals } from "https://deno.land/std@0.127.0/testing/asserts.ts";
 
 // Test all routes from example which always returns an error: this tests is built to check if all routes are generated.

@@ -36,10 +36,10 @@ export class {{classname}}PrivateService {
       try {
         resolve(this.custom{{classname}}Service.{{{operationId}}}({{#allParams}}{{paramName}}{{^-last}}, {{/-last}}{{/allParams}}));
       } catch (e) {
-        reject({
-          error: e.message || 'Invalid input',
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || 'Error in service {{classname}} >> {{{operationId}}}',
+          code: e.status || 500,
+        }));
       }
     });
   }

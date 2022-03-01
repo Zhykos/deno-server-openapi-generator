@@ -1,4 +1,3 @@
-import { launchServer } from "./DenoServer.ts";
 import { DenoOakServer } from "./DenoOakServer.ts";
 {{#apiInfo}}
 {{#apis}}
@@ -51,6 +50,6 @@ const my{{classname}}Service: {{classname}}Service = new My{{classname}}Service(
 
 // Create then start Deno server
 
-launchServer(new DenoOakServer(), 3000{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}});
+new DenoOakServer(3000{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}).start();
 
-// deno run --allow-net DenoOakPetStoreExample.ts
+// deno run --allow-net --watch DenoOakPetStoreExample.ts

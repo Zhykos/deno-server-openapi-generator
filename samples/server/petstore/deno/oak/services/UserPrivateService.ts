@@ -20,10 +20,10 @@ export class UserPrivateService {
       try {
         resolve(this.customUserService.createUser(user));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service User >> createUser",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -38,10 +38,11 @@ export class UserPrivateService {
       try {
         resolve(this.customUserService.createUsersWithArrayInput(user));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message ||
+            "Error in service User >> createUsersWithArrayInput",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -56,10 +57,11 @@ export class UserPrivateService {
       try {
         resolve(this.customUserService.createUsersWithListInput(user));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message ||
+            "Error in service User >> createUsersWithListInput",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -75,10 +77,10 @@ export class UserPrivateService {
       try {
         resolve(this.customUserService.deleteUser(username));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service User >> deleteUser",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -93,10 +95,10 @@ export class UserPrivateService {
       try {
         resolve(this.customUserService.getUserByName(username));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service User >> getUserByName",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -112,10 +114,10 @@ export class UserPrivateService {
       try {
         resolve(this.customUserService.loginUser(username, password));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service User >> loginUser",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -129,10 +131,10 @@ export class UserPrivateService {
       try {
         resolve(this.customUserService.logoutUser());
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service User >> logoutUser",
+          code: e.status || 500,
+        }));
       }
     });
   }
@@ -149,10 +151,10 @@ export class UserPrivateService {
       try {
         resolve(this.customUserService.updateUser(username, user));
       } catch (e) {
-        reject({
-          error: e.message || "Invalid input",
-          code: e.status || 405,
-        });
+        reject(JSON.stringify({
+          error: e.message || "Error in service User >> updateUser",
+          code: e.status || 500,
+        }));
       }
     });
   }
