@@ -71,7 +71,7 @@ export class Controller {
     throw "Cannot get request body name (getRequestBodyName).";
   }
 
-  private static collectRequestParams(request: OpenApiRequest): any {
+  static collectRequestParams(request: OpenApiRequest): any {
     const requestParams: any = {};
     if (
       request.openapi !== undefined &&

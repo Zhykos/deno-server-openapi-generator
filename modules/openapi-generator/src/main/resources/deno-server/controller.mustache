@@ -22,7 +22,7 @@ export class {{{classname}}}Controller {
   {{#operation}}
   async {{operationId}}(request: OpenApiRequest): Promise<Response> {
     try {
-      return Controller.sendResponse(await this.service.{{operationId}}(1));
+      return Controller.sendResponse(await this.service.{{operationId}}(Controller.collectRequestParams(request)));
     } catch (error) {
       return Controller.sendError(error);
     }
