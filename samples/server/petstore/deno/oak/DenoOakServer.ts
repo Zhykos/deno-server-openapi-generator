@@ -34,13 +34,7 @@ export class DenoOakServer extends DenoServer {
 
     this.createRoute(router, "/pet", "post", "Pet", "addPet");
 
-    this.createRoute(
-      router,
-      "/pet/{petId}".replace(`{${"petId"}}`, ":petId"),
-      "delete",
-      "Pet",
-      "deletePet",
-    );
+    this.createRoute(router, "/pet", "put", "Pet", "updatePet");
 
     this.createRoute(
       router,
@@ -55,12 +49,18 @@ export class DenoOakServer extends DenoServer {
     this.createRoute(
       router,
       "/pet/{petId}".replace(`{${"petId"}}`, ":petId"),
+      "delete",
+      "Pet",
+      "deletePet",
+    );
+
+    this.createRoute(
+      router,
+      "/pet/{petId}".replace(`{${"petId"}}`, ":petId"),
       "get",
       "Pet",
       "getPetById",
     );
-
-    this.createRoute(router, "/pet", "put", "Pet", "updatePet");
 
     this.createRoute(
       router,
@@ -80,18 +80,20 @@ export class DenoOakServer extends DenoServer {
 
     this.createRoute(
       router,
-      "/store/order/{orderId}".replace(`{${"orderId"}}`, ":orderId"),
-      "delete",
-      "Store",
-      "deleteOrder",
-    );
-
-    this.createRoute(
-      router,
       "/store/inventory",
       "get",
       "Store",
       "getInventory",
+    );
+
+    this.createRoute(router, "/store/order", "post", "Store", "placeOrder");
+
+    this.createRoute(
+      router,
+      "/store/order/{orderId}".replace(`{${"orderId"}}`, ":orderId"),
+      "delete",
+      "Store",
+      "deleteOrder",
     );
 
     this.createRoute(
@@ -101,8 +103,6 @@ export class DenoOakServer extends DenoServer {
       "Store",
       "getOrderById",
     );
-
-    this.createRoute(router, "/store/order", "post", "Store", "placeOrder");
 
     this.createRoute(router, "/user", "post", "User", "createUser");
 
@@ -122,6 +122,10 @@ export class DenoOakServer extends DenoServer {
       "createUsersWithListInput",
     );
 
+    this.createRoute(router, "/user/login", "get", "User", "loginUser");
+
+    this.createRoute(router, "/user/logout", "get", "User", "logoutUser");
+
     this.createRoute(
       router,
       "/user/{username}".replace(`{${"username"}}`, ":username"),
@@ -137,10 +141,6 @@ export class DenoOakServer extends DenoServer {
       "User",
       "getUserByName",
     );
-
-    this.createRoute(router, "/user/login", "get", "User", "loginUser");
-
-    this.createRoute(router, "/user/logout", "get", "User", "logoutUser");
 
     this.createRoute(
       router,

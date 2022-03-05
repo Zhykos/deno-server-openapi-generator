@@ -9,6 +9,43 @@ export class StorePrivateService {
   }
 
   /**
+   * Returns pet inventories by status
+   * Returns a map of status codes to quantities
+   *
+   * returns { [key: string]: number; }
+   */
+  getInventory(..._args: any): Promise<{ [key: string]: number }> {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(this.customStoreService.getInventory());
+      } catch (e) {
+        reject(JSON.stringify({
+          error: e.message || "Error in service Store >> getInventory",
+          code: e.status || 500,
+        }));
+      }
+    });
+  }
+  /**
+   * Place an order for a pet
+   *
+   * order Order order placed for purchasing the pet
+   * returns Order
+   */
+  placeOrder(...args: any): Promise<Order> {
+    const order: Order = args[1 - 1];
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(this.customStoreService.placeOrder(order));
+      } catch (e) {
+        reject(JSON.stringify({
+          error: e.message || "Error in service Store >> placeOrder",
+          code: e.status || 500,
+        }));
+      }
+    });
+  }
+  /**
    * Delete purchase order by ID
    * For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
    *
@@ -29,24 +66,6 @@ export class StorePrivateService {
     });
   }
   /**
-   * Returns pet inventories by status
-   * Returns a map of status codes to quantities
-   *
-   * returns { [key: string]: number; }
-   */
-  getInventory(..._args: any): Promise<{ [key: string]: number }> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customStoreService.getInventory());
-      } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Store >> getInventory",
-          code: e.status || 500,
-        }));
-      }
-    });
-  }
-  /**
    * Find purchase order by ID
    * For valid response try integer IDs with value <= 5 or > 10. Other values will generated exceptions
    *
@@ -61,25 +80,6 @@ export class StorePrivateService {
       } catch (e) {
         reject(JSON.stringify({
           error: e.message || "Error in service Store >> getOrderById",
-          code: e.status || 500,
-        }));
-      }
-    });
-  }
-  /**
-   * Place an order for a pet
-   *
-   * order Order order placed for purchasing the pet
-   * returns Order
-   */
-  placeOrder(...args: any): Promise<Order> {
-    const order: Order = args[1 - 1];
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customStoreService.placeOrder(order));
-      } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Store >> placeOrder",
           code: e.status || 500,
         }));
       }

@@ -27,10 +27,10 @@ export class PetController {
     }
   }
 
-  async deletePet(request: OpenApiRequest): Promise<Response> {
+  async updatePet(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.deletePet(Controller.collectRequestParams(request)),
+        await this.service.updatePet(Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -61,20 +61,20 @@ export class PetController {
     }
   }
 
-  async getPetById(request: OpenApiRequest): Promise<Response> {
+  async deletePet(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.getPetById(Controller.collectRequestParams(request)),
+        await this.service.deletePet(Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
     }
   }
 
-  async updatePet(request: OpenApiRequest): Promise<Response> {
+  async getPetById(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.updatePet(Controller.collectRequestParams(request)),
+        await this.service.getPetById(Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);

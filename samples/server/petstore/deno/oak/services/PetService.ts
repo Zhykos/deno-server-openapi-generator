@@ -10,13 +10,12 @@ export interface PetService {
    */
   addPet(pet: Pet): Pet;
   /**
-   * Deletes a pet
+   * Update an existing pet
    *
-   * petId number Pet id to delete
-   * apiKey string  (optional)
-   * no response value expected for this operation
+   * pet Pet Pet object that needs to be added to the store
+   * returns Pet
    */
-  deletePet(petId: number, apiKey?: string): void;
+  updatePet(pet: Pet): Pet;
   /**
    * Finds Pets by status
    * Multiple status values can be provided with comma separated strings
@@ -34,6 +33,14 @@ export interface PetService {
    */
   findPetsByTags(tags: Array<string>): Array<Pet>;
   /**
+   * Deletes a pet
+   *
+   * petId number Pet id to delete
+   * apiKey string  (optional)
+   * no response value expected for this operation
+   */
+  deletePet(petId: number, apiKey?: string): void;
+  /**
    * Find pet by ID
    * Returns a single pet
    *
@@ -41,13 +48,6 @@ export interface PetService {
    * returns Pet
    */
   getPetById(petId: number): Pet;
-  /**
-   * Update an existing pet
-   *
-   * pet Pet Pet object that needs to be added to the store
-   * returns Pet
-   */
-  updatePet(pet: Pet): Pet;
   /**
    * Updates a pet in the store with form data
    *

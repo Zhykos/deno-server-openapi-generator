@@ -63,8 +63,8 @@ export abstract class DenoServer {
     if (operation === "addPet") {
       return this.privatePetController.addPet(openApiRequest);
     }
-    if (operation === "deletePet") {
-      return this.privatePetController.deletePet(openApiRequest);
+    if (operation === "updatePet") {
+      return this.privatePetController.updatePet(openApiRequest);
     }
     if (operation === "findPetsByStatus") {
       return this.privatePetController.findPetsByStatus(openApiRequest);
@@ -72,11 +72,11 @@ export abstract class DenoServer {
     if (operation === "findPetsByTags") {
       return this.privatePetController.findPetsByTags(openApiRequest);
     }
+    if (operation === "deletePet") {
+      return this.privatePetController.deletePet(openApiRequest);
+    }
     if (operation === "getPetById") {
       return this.privatePetController.getPetById(openApiRequest);
-    }
-    if (operation === "updatePet") {
-      return this.privatePetController.updatePet(openApiRequest);
     }
     if (operation === "updatePetWithForm") {
       return this.privatePetController.updatePetWithForm(openApiRequest);
@@ -91,17 +91,17 @@ export abstract class DenoServer {
     operation: string,
     openApiRequest: OpenApiRequest,
   ): Promise<Response> {
-    if (operation === "deleteOrder") {
-      return this.privateStoreController.deleteOrder(openApiRequest);
-    }
     if (operation === "getInventory") {
       return this.privateStoreController.getInventory(openApiRequest);
     }
-    if (operation === "getOrderById") {
-      return this.privateStoreController.getOrderById(openApiRequest);
-    }
     if (operation === "placeOrder") {
       return this.privateStoreController.placeOrder(openApiRequest);
+    }
+    if (operation === "deleteOrder") {
+      return this.privateStoreController.deleteOrder(openApiRequest);
+    }
+    if (operation === "getOrderById") {
+      return this.privateStoreController.getOrderById(openApiRequest);
     }
     throw new Error("Unknown service: Store >> " + operation);
   }
@@ -123,17 +123,17 @@ export abstract class DenoServer {
         openApiRequest,
       );
     }
-    if (operation === "deleteUser") {
-      return this.privateUserController.deleteUser(openApiRequest);
-    }
-    if (operation === "getUserByName") {
-      return this.privateUserController.getUserByName(openApiRequest);
-    }
     if (operation === "loginUser") {
       return this.privateUserController.loginUser(openApiRequest);
     }
     if (operation === "logoutUser") {
       return this.privateUserController.logoutUser(openApiRequest);
+    }
+    if (operation === "deleteUser") {
+      return this.privateUserController.deleteUser(openApiRequest);
+    }
+    if (operation === "getUserByName") {
+      return this.privateUserController.getUserByName(openApiRequest);
     }
     if (operation === "updateUser") {
       return this.privateUserController.updateUser(openApiRequest);

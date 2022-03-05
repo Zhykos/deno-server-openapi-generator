@@ -24,6 +24,20 @@ export interface UserService {
    */
   createUsersWithListInput(user: Array<User>): void;
   /**
+   * Logs user into the system
+   *
+   * username string The user name for login
+   * password string The password for login in clear text
+   * returns string
+   */
+  loginUser(username: string, password: string): string;
+  /**
+   * Logs out current logged in user session
+   *
+   * no response value expected for this operation
+   */
+  logoutUser(): void;
+  /**
    * Delete user
    * This can only be done by the logged in user.
    *
@@ -38,20 +52,6 @@ export interface UserService {
    * returns User
    */
   getUserByName(username: string): User;
-  /**
-   * Logs user into the system
-   *
-   * username string The user name for login
-   * password string The password for login in clear text
-   * returns string
-   */
-  loginUser(username: string, password: string): string;
-  /**
-   * Logs out current logged in user session
-   *
-   * no response value expected for this operation
-   */
-  logoutUser(): void;
   /**
    * Updated user
    * This can only be done by the logged in user.

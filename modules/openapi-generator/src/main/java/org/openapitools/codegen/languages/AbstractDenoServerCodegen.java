@@ -2,12 +2,14 @@ package org.openapitools.codegen.languages;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.openapitools.codegen.CodegenModel;
+import org.openapitools.codegen.CodegenOperation;
 import org.openapitools.codegen.CodegenProperty;
 import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.SupportingFile;
@@ -151,6 +153,34 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
             return null;
         }
         return def;
+    }
+
+    @Override
+    public Map<String, Object> postProcessOperationsWithModels(final Map<String, Object> objs,
+            final List<Object> allModels) {
+        overrideOperationsOrder(objs);
+        return super.postProcessOperationsWithModels(objs, allModels);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void overrideOperationsOrder(final Map<String, Object> objs) {
+        final Map<String, Object> operations = (Map<String, Object>) objs.get("operations");
+        final List<CodegenOperation> operationList = (List<CodegenOperation>) operations.get("operation");
+        Collections.sort(operationList, (op1, op2) -> {
+            final String path1 = op1.path;
+            final String path2 = op2.path;
+            final int result;
+            if (path1.contains("{") && path2.contains("{")) {
+                result = path1.compareTo(path2);
+            } else if (path1.contains("{")) {
+                result = 1;
+            } else if (path2.contains("{")) {
+                result = -1;
+            } else {
+                result = path1.compareTo(path2);
+            }
+            return result;
+        });
     }
 
 }

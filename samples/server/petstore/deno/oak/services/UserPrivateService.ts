@@ -69,6 +69,44 @@ export class UserPrivateService {
     });
   }
   /**
+   * Logs user into the system
+   *
+   * username string The user name for login
+   * password string The password for login in clear text
+   * returns string
+   */
+  loginUser(...args: any): Promise<string> {
+    const username: string = args[1 - 1];
+    const password: string = args[2 - 1];
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(this.customUserService.loginUser(username, password));
+      } catch (e) {
+        reject(JSON.stringify({
+          error: e.message || "Error in service User >> loginUser",
+          code: e.status || 500,
+        }));
+      }
+    });
+  }
+  /**
+   * Logs out current logged in user session
+   *
+   * no response value expected for this operation
+   */
+  logoutUser(..._args: any): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(this.customUserService.logoutUser());
+      } catch (e) {
+        reject(JSON.stringify({
+          error: e.message || "Error in service User >> logoutUser",
+          code: e.status || 500,
+        }));
+      }
+    });
+  }
+  /**
    * Delete user
    * This can only be done by the logged in user.
    *
@@ -102,44 +140,6 @@ export class UserPrivateService {
       } catch (e) {
         reject(JSON.stringify({
           error: e.message || "Error in service User >> getUserByName",
-          code: e.status || 500,
-        }));
-      }
-    });
-  }
-  /**
-   * Logs user into the system
-   *
-   * username string The user name for login
-   * password string The password for login in clear text
-   * returns string
-   */
-  loginUser(...args: any): Promise<string> {
-    const username: string = args[1 - 1];
-    const password: string = args[2 - 1];
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customUserService.loginUser(username, password));
-      } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service User >> loginUser",
-          code: e.status || 500,
-        }));
-      }
-    });
-  }
-  /**
-   * Logs out current logged in user session
-   *
-   * no response value expected for this operation
-   */
-  logoutUser(..._args: any): Promise<void> {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customUserService.logoutUser());
-      } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service User >> logoutUser",
           code: e.status || 500,
         }));
       }

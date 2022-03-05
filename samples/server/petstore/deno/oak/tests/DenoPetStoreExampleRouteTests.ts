@@ -21,15 +21,12 @@ Deno.test("check if route exists for service: PetService >> addPet", async () =>
   );
 });
 
-Deno.test("check if route exists for service: PetService >> deletePet", async () => {
-  const localVarPath = "/pet/{petId}".replace(
-    '{${"petId"}}',
-    stubParameter("number"),
-  );
+Deno.test("check if route exists for service: PetService >> updatePet", async () => {
+  const localVarPath = "/pet";
   await assertRouteResult(
     localVarPath,
-    "DELETE",
-    "Method not implemented yet: PetService >> deletePet",
+    "PUT",
+    "Method not implemented yet: PetService >> updatePet",
   );
 });
 
@@ -51,6 +48,18 @@ Deno.test("check if route exists for service: PetService >> findPetsByTags", asy
   );
 });
 
+Deno.test("check if route exists for service: PetService >> deletePet", async () => {
+  const localVarPath = "/pet/{petId}".replace(
+    '{${"petId"}}',
+    stubParameter("number"),
+  );
+  await assertRouteResult(
+    localVarPath,
+    "DELETE",
+    "Method not implemented yet: PetService >> deletePet",
+  );
+});
+
 Deno.test("check if route exists for service: PetService >> getPetById", async () => {
   const localVarPath = "/pet/{petId}".replace(
     '{${"petId"}}',
@@ -60,15 +69,6 @@ Deno.test("check if route exists for service: PetService >> getPetById", async (
     localVarPath,
     "GET",
     "Method not implemented yet: PetService >> getPetById",
-  );
-});
-
-Deno.test("check if route exists for service: PetService >> updatePet", async () => {
-  const localVarPath = "/pet";
-  await assertRouteResult(
-    localVarPath,
-    "PUT",
-    "Method not implemented yet: PetService >> updatePet",
   );
 });
 
@@ -96,6 +96,24 @@ Deno.test("check if route exists for service: PetService >> uploadFile", async (
   );
 });
 
+Deno.test("check if route exists for service: StoreService >> getInventory", async () => {
+  const localVarPath = "/store/inventory";
+  await assertRouteResult(
+    localVarPath,
+    "GET",
+    "Method not implemented yet: StoreService >> getInventory",
+  );
+});
+
+Deno.test("check if route exists for service: StoreService >> placeOrder", async () => {
+  const localVarPath = "/store/order";
+  await assertRouteResult(
+    localVarPath,
+    "POST",
+    "Method not implemented yet: StoreService >> placeOrder",
+  );
+});
+
 Deno.test("check if route exists for service: StoreService >> deleteOrder", async () => {
   const localVarPath = "/store/order/{orderId}".replace(
     '{${"orderId"}}',
@@ -108,15 +126,6 @@ Deno.test("check if route exists for service: StoreService >> deleteOrder", asyn
   );
 });
 
-Deno.test("check if route exists for service: StoreService >> getInventory", async () => {
-  const localVarPath = "/store/inventory";
-  await assertRouteResult(
-    localVarPath,
-    "GET",
-    "Method not implemented yet: StoreService >> getInventory",
-  );
-});
-
 Deno.test("check if route exists for service: StoreService >> getOrderById", async () => {
   const localVarPath = "/store/order/{orderId}".replace(
     '{${"orderId"}}',
@@ -126,15 +135,6 @@ Deno.test("check if route exists for service: StoreService >> getOrderById", asy
     localVarPath,
     "GET",
     "Method not implemented yet: StoreService >> getOrderById",
-  );
-});
-
-Deno.test("check if route exists for service: StoreService >> placeOrder", async () => {
-  const localVarPath = "/store/order";
-  await assertRouteResult(
-    localVarPath,
-    "POST",
-    "Method not implemented yet: StoreService >> placeOrder",
   );
 });
 
@@ -165,6 +165,24 @@ Deno.test("check if route exists for service: UserService >> createUsersWithList
   );
 });
 
+Deno.test("check if route exists for service: UserService >> loginUser", async () => {
+  const localVarPath = "/user/login";
+  await assertRouteResult(
+    localVarPath,
+    "GET",
+    "Method not implemented yet: UserService >> loginUser",
+  );
+});
+
+Deno.test("check if route exists for service: UserService >> logoutUser", async () => {
+  const localVarPath = "/user/logout";
+  await assertRouteResult(
+    localVarPath,
+    "GET",
+    "Method not implemented yet: UserService >> logoutUser",
+  );
+});
+
 Deno.test("check if route exists for service: UserService >> deleteUser", async () => {
   const localVarPath = "/user/{username}".replace(
     '{${"username"}}',
@@ -186,24 +204,6 @@ Deno.test("check if route exists for service: UserService >> getUserByName", asy
     localVarPath,
     "GET",
     "Method not implemented yet: UserService >> getUserByName",
-  );
-});
-
-Deno.test("check if route exists for service: UserService >> loginUser", async () => {
-  const localVarPath = "/user/login";
-  await assertRouteResult(
-    localVarPath,
-    "GET",
-    "Method not implemented yet: UserService >> loginUser",
-  );
-});
-
-Deno.test("check if route exists for service: UserService >> logoutUser", async () => {
-  const localVarPath = "/user/logout";
-  await assertRouteResult(
-    localVarPath,
-    "GET",
-    "Method not implemented yet: UserService >> logoutUser",
   );
 });
 

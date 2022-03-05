@@ -13,8 +13,8 @@ class MyPetService implements PetService {
   addPet(pet: Pet): Pet {
     throw new Error("Method not implemented yet: PetService >> addPet");
   }
-  deletePet(petId: number, apiKey?: string): void {
-    throw new Error("Method not implemented yet: PetService >> deletePet");
+  updatePet(pet: Pet): Pet {
+    throw new Error("Method not implemented yet: PetService >> updatePet");
   }
   findPetsByStatus(
     status: Array<"available" | "pending" | "sold">,
@@ -26,11 +26,11 @@ class MyPetService implements PetService {
   findPetsByTags(tags: Array<string>): Array<Pet> {
     throw new Error("Method not implemented yet: PetService >> findPetsByTags");
   }
+  deletePet(petId: number, apiKey?: string): void {
+    throw new Error("Method not implemented yet: PetService >> deletePet");
+  }
   getPetById(petId: number): Pet {
     throw new Error("Method not implemented yet: PetService >> getPetById");
-  }
-  updatePet(pet: Pet): Pet {
-    throw new Error("Method not implemented yet: PetService >> updatePet");
   }
   updatePetWithForm(petId: number, name?: string, status?: string): void {
     throw new Error(
@@ -46,17 +46,17 @@ class MyPetService implements PetService {
   }
 }
 class MyStoreService implements StoreService {
-  deleteOrder(orderId: string): void {
-    throw new Error("Method not implemented yet: StoreService >> deleteOrder");
-  }
   getInventory(): { [key: string]: number } {
     throw new Error("Method not implemented yet: StoreService >> getInventory");
   }
-  getOrderById(orderId: number): Order {
-    throw new Error("Method not implemented yet: StoreService >> getOrderById");
-  }
   placeOrder(order: Order): Order {
     throw new Error("Method not implemented yet: StoreService >> placeOrder");
+  }
+  deleteOrder(orderId: string): void {
+    throw new Error("Method not implemented yet: StoreService >> deleteOrder");
+  }
+  getOrderById(orderId: number): Order {
+    throw new Error("Method not implemented yet: StoreService >> getOrderById");
   }
 }
 class MyUserService implements UserService {
@@ -73,17 +73,17 @@ class MyUserService implements UserService {
       "Method not implemented yet: UserService >> createUsersWithListInput",
     );
   }
-  deleteUser(username: string): void {
-    throw new Error("Method not implemented yet: UserService >> deleteUser");
-  }
-  getUserByName(username: string): User {
-    throw new Error("Method not implemented yet: UserService >> getUserByName");
-  }
   loginUser(username: string, password: string): string {
     throw new Error("Method not implemented yet: UserService >> loginUser");
   }
   logoutUser(): void {
     throw new Error("Method not implemented yet: UserService >> logoutUser");
+  }
+  deleteUser(username: string): void {
+    throw new Error("Method not implemented yet: UserService >> deleteUser");
+  }
+  getUserByName(username: string): User {
+    throw new Error("Method not implemented yet: UserService >> getUserByName");
   }
   updateUser(username: string, user: User): void {
     throw new Error("Method not implemented yet: UserService >> updateUser");

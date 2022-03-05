@@ -29,21 +29,19 @@ export class PetPrivateService {
     });
   }
   /**
-   * Deletes a pet
+   * Update an existing pet
    *
-   * petId number Pet id to delete
-   * apiKey string  (optional)
-   * no response value expected for this operation
+   * pet Pet Pet object that needs to be added to the store
+   * returns Pet
    */
-  deletePet(...args: any): Promise<void> {
-    const petId: number = args[1 - 1];
-    const apiKey: string = args[2 - 1];
+  updatePet(...args: any): Promise<Pet> {
+    const pet: Pet = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customPetService.deletePet(petId, apiKey));
+        resolve(this.customPetService.updatePet(pet));
       } catch (e) {
         reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> deletePet",
+          error: e.message || "Error in service Pet >> updatePet",
           code: e.status || 500,
         }));
       }
@@ -90,6 +88,27 @@ export class PetPrivateService {
     });
   }
   /**
+   * Deletes a pet
+   *
+   * petId number Pet id to delete
+   * apiKey string  (optional)
+   * no response value expected for this operation
+   */
+  deletePet(...args: any): Promise<void> {
+    const petId: number = args[1 - 1];
+    const apiKey: string = args[2 - 1];
+    return new Promise((resolve, reject) => {
+      try {
+        resolve(this.customPetService.deletePet(petId, apiKey));
+      } catch (e) {
+        reject(JSON.stringify({
+          error: e.message || "Error in service Pet >> deletePet",
+          code: e.status || 500,
+        }));
+      }
+    });
+  }
+  /**
    * Find pet by ID
    * Returns a single pet
    *
@@ -104,25 +123,6 @@ export class PetPrivateService {
       } catch (e) {
         reject(JSON.stringify({
           error: e.message || "Error in service Pet >> getPetById",
-          code: e.status || 500,
-        }));
-      }
-    });
-  }
-  /**
-   * Update an existing pet
-   *
-   * pet Pet Pet object that needs to be added to the store
-   * returns Pet
-   */
-  updatePet(...args: any): Promise<Pet> {
-    const pet: Pet = args[1 - 1];
-    return new Promise((resolve, reject) => {
-      try {
-        resolve(this.customPetService.updatePet(pet));
-      } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> updatePet",
           code: e.status || 500,
         }));
       }

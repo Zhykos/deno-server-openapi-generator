@@ -51,6 +51,26 @@ export class UserController {
     }
   }
 
+  async loginUser(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(
+        await this.service.loginUser(Controller.collectRequestParams(request)),
+      );
+    } catch (error) {
+      return Controller.sendError(error);
+    }
+  }
+
+  async logoutUser(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(
+        await this.service.logoutUser(Controller.collectRequestParams(request)),
+      );
+    } catch (error) {
+      return Controller.sendError(error);
+    }
+  }
+
   async deleteUser(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
@@ -67,26 +87,6 @@ export class UserController {
         await this.service.getUserByName(
           Controller.collectRequestParams(request),
         ),
-      );
-    } catch (error) {
-      return Controller.sendError(error);
-    }
-  }
-
-  async loginUser(request: OpenApiRequest): Promise<Response> {
-    try {
-      return Controller.sendResponse(
-        await this.service.loginUser(Controller.collectRequestParams(request)),
-      );
-    } catch (error) {
-      return Controller.sendError(error);
-    }
-  }
-
-  async logoutUser(request: OpenApiRequest): Promise<Response> {
-    try {
-      return Controller.sendResponse(
-        await this.service.logoutUser(Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);

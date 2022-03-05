@@ -17,10 +17,10 @@ export class StoreController {
     this.service = service;
   }
 
-  async deleteOrder(request: OpenApiRequest): Promise<Response> {
+  async getInventory(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.deleteOrder(
+        await this.service.getInventory(
           Controller.collectRequestParams(request),
         ),
       );
@@ -29,10 +29,20 @@ export class StoreController {
     }
   }
 
-  async getInventory(request: OpenApiRequest): Promise<Response> {
+  async placeOrder(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.getInventory(
+        await this.service.placeOrder(Controller.collectRequestParams(request)),
+      );
+    } catch (error) {
+      return Controller.sendError(error);
+    }
+  }
+
+  async deleteOrder(request: OpenApiRequest): Promise<Response> {
+    try {
+      return Controller.sendResponse(
+        await this.service.deleteOrder(
           Controller.collectRequestParams(request),
         ),
       );
@@ -47,16 +57,6 @@ export class StoreController {
         await this.service.getOrderById(
           Controller.collectRequestParams(request),
         ),
-      );
-    } catch (error) {
-      return Controller.sendError(error);
-    }
-  }
-
-  async placeOrder(request: OpenApiRequest): Promise<Response> {
-    try {
-      return Controller.sendResponse(
-        await this.service.placeOrder(Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
