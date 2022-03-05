@@ -11,25 +11,8 @@ const client = Deno.createHttpClient({});
 {{#operations}}
 {{#operation}}
 Deno.test("check if route exists for service: {{classname}}Service >> {{{operationId}}}", async() => {
-    const localVarPath = `{{{path}}}`{{#pathParams}}.replace(`{${"{{baseName}}"}}`, stubParameter("{{{dataType}}}")){{/pathParams}};
-
-    const res = await fetch("http://localhost:3000" + localVarPath, {
-        method: "{{httpMethod}}",
-        client
-    });
-
-    const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined = await res.body?.getReader();
-    assertEquals(res.status, 500);
-
-    if (responseReader) {
-        const reader: Deno.Reader = readerFromStreamReader(responseReader);
-        const charArray: Uint8Array = await readAll(reader);
-        const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
-        assertEquals(jsonObj.code, 500);
-        assertEquals(jsonObj.error, "Method not implemented yet: {{classname}}Service >> {{{operationId}}}");
-    } else {
-        fail("Cannot read body");
-    }
+    const localVarPath = '{{{path}}}'{{#pathParams}}.replace('{${"{{baseName}}"}}', stubParameter("{{{dataType}}}")){{/pathParams}};
+    await assertRouteResult(localVarPath, "{{httpMethod}}", "Method not implemented yet: {{classname}}Service >> {{{operationId}}}");
 });
 
 {{/operation}}
@@ -54,4 +37,24 @@ function stubParameter(paramType: string): string {
         return encodeURIComponent(String("foo"));
     }
     throw new Error("Unknown type to stub: " + paramType);
+}
+
+async function assertRouteResult(localVarPath: string, httpMethod: string, expectedErrorMessage: string): Promise<void> {
+    const res = await fetch("http://localhost:3000" + localVarPath, {
+        method: httpMethod,
+        client
+    });
+
+    const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined = await res.body?.getReader();
+    assertEquals(res.status, 500);
+
+    if (responseReader) {
+        const reader: Deno.Reader = readerFromStreamReader(responseReader);
+        const charArray: Uint8Array = await readAll(reader);
+        const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+        assertEquals(jsonObj.code, 500);
+        assertEquals(jsonObj.error, expectedErrorMessage);
+    } else {
+        fail("Cannot read body");
+    }
 }
