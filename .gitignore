@@ -44,6 +44,18 @@ modules/openapi-generator/src/main/java/org/openapitools/codegen/languages/*
 modules/openapi-generator/src/main/resources/*
 !modules/openapi-generator/src/main/resources/deno-server/
 
+!modules/openapi-generator/src/test/
+modules/openapi-generator/src/test/*
+!modules/openapi-generator/src/test/java/
+modules/openapi-generator/src/test/java/*
+!modules/openapi-generator/src/test/java/org/
+modules/openapi-generator/src/test/java/org/*
+!modules/openapi-generator/src/test/java/org/openapitools/
+modules/openapi-generator/src/test/java/org/openapitools/*
+!modules/openapi-generator/src/test/java/org/openapitools/codegen/
+modules/openapi-generator/src/test/java/org/openapitools/codegen/*
+!modules/openapi-generator/src/test/java/org/openapitools/codegen/deno/
+
 !bin/
 bin/*
 !bin/configs/
