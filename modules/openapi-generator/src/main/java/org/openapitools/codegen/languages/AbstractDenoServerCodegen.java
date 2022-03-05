@@ -21,6 +21,8 @@ import io.swagger.v3.oas.models.media.Schema;
 public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClientCodegen {
 
     private static final String DENO_SERVER = "deno-server";
+    private static final String SERVICES_FOLDER_NAME = "services";
+    private static final String CONTROLLERS_FOLDER_NAME = "controllers";
 
     @Override
     public CodegenType getTag() {
@@ -38,7 +40,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         super.apiTemplateFiles.put("iservice.mustache", ".ts");
         super.embeddedTemplateDir = super.templateDir = DENO_SERVER;
         super.modelPackage = "models";
-        super.additionalProperties.put("implFolder", "services");
+        super.additionalProperties.put("implFolder", SERVICES_FOLDER_NAME);
 
         // root folder
         super.supportingFiles.add(new SupportingFile("config.mustache", "", "config.ts"));
@@ -47,10 +49,11 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         super.supportingFiles.add(new SupportingFile("DenoServer.mustache", "", "DenoServer.ts"));
 
         // controllers folder
-        super.supportingFiles.add(new SupportingFile("controllers" + File.separator + "controller.mustache",
-                "controllers", "Controller.ts"));
-        super.supportingFiles.add(new SupportingFile("controllers" + File.separator + "OpenApiRequestModel.mustache",
-                "controllers", "OpenApiRequestModel.ts"));
+        super.supportingFiles.add(new SupportingFile(CONTROLLERS_FOLDER_NAME + File.separator + "controller.mustache",
+                CONTROLLERS_FOLDER_NAME, "Controller.ts"));
+        super.supportingFiles
+                .add(new SupportingFile(CONTROLLERS_FOLDER_NAME + File.separator + "OpenApiRequestModel.mustache",
+                        CONTROLLERS_FOLDER_NAME, "OpenApiRequestModel.ts"));
 
         // tests folder
         super.supportingFiles
@@ -103,7 +106,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
     @Override
     public String apiPackage() {
-        return "controllers";
+        return CONTROLLERS_FOLDER_NAME;
     }
 
     @Override
@@ -123,10 +126,10 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
     public String apiFilename(final String templateName, final String tag) {
         String sourceFullPath = super.apiFilename(templateName, tag);
         if ("service.mustache".equals(templateName)) {
-            final String targetPath = File.separator + "services" + File.separator;
+            final String targetPath = File.separator + SERVICES_FOLDER_NAME + File.separator;
             sourceFullPath = modifyApiFilename(sourceFullPath, targetPath, "PrivateService.ts");
         } else if ("iservice.mustache".equals(templateName)) {
-            final String targetPath = File.separator + "services" + File.separator;
+            final String targetPath = File.separator + SERVICES_FOLDER_NAME + File.separator;
             sourceFullPath = modifyApiFilename(sourceFullPath, targetPath, "Service.ts");
         }
         return sourceFullPath;
@@ -134,7 +137,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
     private static String modifyApiFilename(final String sourceFullPath, final String targetPath,
             final String targetFilename) {
-        final String sourcePath = File.separator + "controllers" + File.separator;
+        final String sourcePath = File.separator + CONTROLLERS_FOLDER_NAME + File.separator;
         return sourceFullPath.replace(sourcePath, targetPath).replace("Controller.ts", targetFilename);
     }
 
