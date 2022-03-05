@@ -21,10 +21,6 @@ export class DenoOakServer extends DenoServer {
 
   generateRoutes(): void {
     const router = new Router();
-    router
-      .get("/", (context) => {
-        context.response.body = "Hello world!";
-      });
 
     this.createRoute(router, "/pet", "post", "Pet", "addPet");
 

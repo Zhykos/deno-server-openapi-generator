@@ -219,7 +219,16 @@ Deno.test("check if route exists for service: UserService >> updateUser", async 
   );
 });
 
-Deno.test("404 status", async () => {
+Deno.test("404 status on root URL", async () => {
+  const res = await fetch("http://localhost:3000/", {
+    method: "GET",
+    client,
+  });
+  await res.body?.cancel();
+  assertEquals(res.status, 404);
+});
+
+Deno.test("404 status on specific URL", async () => {
   const res = await fetch("http://localhost:3000/zhykos404", {
     method: "GET",
     client,
