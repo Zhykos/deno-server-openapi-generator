@@ -71,7 +71,9 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         final Map<String, Object> result = super.postProcessAllModels(objs);
 
         for (final Map.Entry<String, Object> entry : result.entrySet()) {
+            @SuppressWarnings("unchecked")
             final Map<String, Object> inner = (Map<String, Object>) entry.getValue();
+            @SuppressWarnings("unchecked")
             final List<Map<String, Object>> models = (List<Map<String, Object>>) inner.get("models");
             for (final Map<String, Object> mo : models) {
                 final CodegenModel cm = (CodegenModel) mo.get("model");
@@ -147,6 +149,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     public String toDefaultValue(final Schema schema) {
         String def = super.toDefaultValue(schema);
         if ("undefined".equals(def)) {
@@ -162,9 +165,10 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         return super.postProcessOperationsWithModels(objs, allModels);
     }
 
-    @SuppressWarnings("unchecked")
     private static void overrideOperationsOrder(final Map<String, Object> objs) {
+        @SuppressWarnings("unchecked")
         final Map<String, Object> operations = (Map<String, Object>) objs.get("operations");
+        @SuppressWarnings("unchecked")
         final List<CodegenOperation> operationList = (List<CodegenOperation>) operations.get("operation");
         Collections.sort(operationList, (op1, op2) -> {
             final String path1 = op1.path;

@@ -15,6 +15,7 @@
         "openapi",
         "openapitools",
         "petstore",
+        "rawtypes",
         "temurin",
         "Zhykos"
     ]
