@@ -24,7 +24,8 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
     private static final String DENO_SERVER = "deno-server";
     private static final String SERVICES_FOLDER_NAME = "services";
-    private static final String CONTROLLERS_FOLDER_NAME = "controllers";
+    
+    protected static final String CONTROLLERS_FOLDER_NAME = "controllers";
 
     @Override
     public CodegenType getTag() {

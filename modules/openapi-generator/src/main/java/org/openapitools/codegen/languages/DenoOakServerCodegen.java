@@ -21,6 +21,11 @@ public class DenoOakServerCodegen extends AbstractDenoServerCodegen {
                         "DenoOakPetStoreExample.ts"));
         super.supportingFiles
                 .add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "deps.mustache", "", "deps-oak.ts"));
+
+        // Files to add in the controllers folder
+        super.supportingFiles
+                .add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "OakOpenApiRequest.mustache",
+                        CONTROLLERS_FOLDER_NAME, "OakOpenApiRequest.ts"));
     }
 
     @Override

@@ -4,6 +4,7 @@ DenoServer.ts
 README.md
 config.ts
 controllers/Controller.ts
+controllers/OakOpenApiRequest.ts
 controllers/OpenApiRequestModel.ts
 controllers/PetController.ts
 controllers/StoreController.ts
