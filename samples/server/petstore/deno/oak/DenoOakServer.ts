@@ -1,15 +1,9 @@
 import { PetService } from "./services/PetService.ts";
-//import { PetPrivateService } from './services/PetPrivateService.ts';
-//import { PetController } from './controllers/PetController.ts';
 import { StoreService } from "./services/StoreService.ts";
-//import { StorePrivateService } from './services/StorePrivateService.ts';
-//import { StoreController } from './controllers/StoreController.ts';
 import { UserService } from "./services/UserService.ts";
-//import { UserPrivateService } from './services/UserPrivateService.ts';
-//import { UserController } from './controllers/UserController.ts';
 import { DenoServer } from "./DenoServer.ts";
-import { Application, Router } from "./deps.ts";
-import type { RouterContext } from "./deps.ts";
+import { Application, Router } from "./deps-oak.ts";
+import type { RouterContext } from "./deps-oak.ts";
 import { OakOpenApiRequest } from "./controllers/OakOpenApiRequest.ts";
 
 export class DenoOakServer extends DenoServer {

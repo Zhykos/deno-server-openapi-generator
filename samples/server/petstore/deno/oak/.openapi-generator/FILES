@@ -8,6 +8,7 @@ controllers/OpenApiRequestModel.ts
 controllers/PetController.ts
 controllers/StoreController.ts
 controllers/UserController.ts
+deps-oak.ts
 deps.ts
 models/ApiResponse.ts
 models/Category.ts
