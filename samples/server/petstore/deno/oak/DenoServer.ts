@@ -39,7 +39,24 @@ export abstract class DenoServer {
 
   abstract startServer(port: number): Promise<void>;
 
-  executePetController(
+  executeController(
+    controllerId: string,
+    operationId: string,
+    openApiRequest: OpenApiRequest,
+  ): Promise<Response> {
+    if (controllerId == "Pet") {
+      return this.executePetController(operationId, openApiRequest);
+    }
+    if (controllerId == "Store") {
+      return this.executeStoreController(operationId, openApiRequest);
+    }
+    if (controllerId == "User") {
+      return this.executeUserController(operationId, openApiRequest);
+    }
+    throw new Error("Unknown controller: " + controllerId);
+  }
+
+  private executePetController(
     operation: string,
     openApiRequest: OpenApiRequest,
   ): Promise<Response> {
@@ -67,10 +84,10 @@ export abstract class DenoServer {
     if (operation === "uploadFile") {
       return this.privatePetController.uploadFile(openApiRequest);
     }
-    throw new Error("Unknown service Pet >> " + operation);
+    throw new Error("Unknown service: Pet >> " + operation);
   }
 
-  executeStoreController(
+  private executeStoreController(
     operation: string,
     openApiRequest: OpenApiRequest,
   ): Promise<Response> {
@@ -86,10 +103,10 @@ export abstract class DenoServer {
     if (operation === "placeOrder") {
       return this.privateStoreController.placeOrder(openApiRequest);
     }
-    throw new Error("Unknown service Store >> " + operation);
+    throw new Error("Unknown service: Store >> " + operation);
   }
 
-  executeUserController(
+  private executeUserController(
     operation: string,
     openApiRequest: OpenApiRequest,
   ): Promise<Response> {
@@ -121,6 +138,6 @@ export abstract class DenoServer {
     if (operation === "updateUser") {
       return this.privateUserController.updateUser(openApiRequest);
     }
-    throw new Error("Unknown service User >> " + operation);
+    throw new Error("Unknown service: User >> " + operation);
   }
 }

@@ -32,336 +32,159 @@ export class DenoOakServer extends DenoServer {
         context.response.body = "Hello world!";
       });
 
-    let localVarPath: string;
+    this.createRoute(router, "/pet", "post", "Pet", "addPet");
 
-    localVarPath = `/pet`;
-    router
-      .post(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executePetController(
-            "addPet",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
-
-    localVarPath = `/pet/{petId}`.replace(`{${"petId"}}`, ":petId");
-    router
-      .delete(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executePetController(
-            "deletePet",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
-
-    localVarPath = `/pet/findByStatus`;
-    router
-      .get(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executePetController(
-            "findPetsByStatus",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
-
-    localVarPath = `/pet/findByTags`;
-    router
-      .get(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executePetController(
-            "findPetsByTags",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
-
-    localVarPath = `/pet/{petId}`.replace(`{${"petId"}}`, ":petId");
-    router
-      .get(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executePetController(
-            "getPetById",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
-
-    localVarPath = `/pet`;
-    router
-      .put(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executePetController(
-            "updatePet",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
-
-    localVarPath = `/pet/{petId}`.replace(`{${"petId"}}`, ":petId");
-    router
-      .post(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executePetController(
-            "updatePetWithForm",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
-
-    localVarPath = `/pet/{petId}/uploadImage`.replace(`{${"petId"}}`, ":petId");
-    router
-      .post(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executePetController(
-            "uploadFile",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
-
-    localVarPath = `/store/order/{orderId}`.replace(
-      `{${"orderId"}}`,
-      ":orderId",
+    this.createRoute(
+      router,
+      "/pet/{petId}".replace(`{${"petId"}}`, ":petId"),
+      "delete",
+      "Pet",
+      "deletePet",
     );
-    router
-      .delete(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeStoreController(
-            "deleteOrder",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
 
-    localVarPath = `/store/inventory`;
-    router
-      .get(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeStoreController(
-            "getInventory",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
-
-    localVarPath = `/store/order/{orderId}`.replace(
-      `{${"orderId"}}`,
-      ":orderId",
+    this.createRoute(
+      router,
+      "/pet/findByStatus",
+      "get",
+      "Pet",
+      "findPetsByStatus",
     );
-    router
-      .get(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeStoreController(
-            "getOrderById",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
 
-    localVarPath = `/store/order`;
-    router
-      .post(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeStoreController(
-            "placeOrder",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
+    this.createRoute(router, "/pet/findByTags", "get", "Pet", "findPetsByTags");
 
-    localVarPath = `/user`;
-    router
-      .post(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeUserController(
-            "createUser",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
+    this.createRoute(
+      router,
+      "/pet/{petId}".replace(`{${"petId"}}`, ":petId"),
+      "get",
+      "Pet",
+      "getPetById",
+    );
 
-    localVarPath = `/user/createWithArray`;
-    router
-      .post(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeUserController(
-            "createUsersWithArrayInput",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
+    this.createRoute(router, "/pet", "put", "Pet", "updatePet");
 
-    localVarPath = `/user/createWithList`;
-    router
-      .post(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeUserController(
-            "createUsersWithListInput",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
+    this.createRoute(
+      router,
+      "/pet/{petId}".replace(`{${"petId"}}`, ":petId"),
+      "post",
+      "Pet",
+      "updatePetWithForm",
+    );
 
-    localVarPath = `/user/{username}`.replace(`{${"username"}}`, ":username");
-    router
-      .delete(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeUserController(
-            "deleteUser",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
+    this.createRoute(
+      router,
+      "/pet/{petId}/uploadImage".replace(`{${"petId"}}`, ":petId"),
+      "post",
+      "Pet",
+      "uploadFile",
+    );
 
-    localVarPath = `/user/{username}`.replace(`{${"username"}}`, ":username");
-    router
-      .get(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeUserController(
-            "getUserByName",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
+    this.createRoute(
+      router,
+      "/store/order/{orderId}".replace(`{${"orderId"}}`, ":orderId"),
+      "delete",
+      "Store",
+      "deleteOrder",
+    );
 
-    localVarPath = `/user/login`;
-    router
-      .get(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeUserController(
-            "loginUser",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
+    this.createRoute(
+      router,
+      "/store/inventory",
+      "get",
+      "Store",
+      "getInventory",
+    );
 
-    localVarPath = `/user/logout`;
-    router
-      .get(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeUserController(
-            "logoutUser",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
+    this.createRoute(
+      router,
+      "/store/order/{orderId}".replace(`{${"orderId"}}`, ":orderId"),
+      "get",
+      "Store",
+      "getOrderById",
+    );
 
-    localVarPath = `/user/{username}`.replace(`{${"username"}}`, ":username");
-    router
-      .put(
-        localVarPath,
-        async (context: RouterContext<string, any, Record<string, any>>) => {
-          const openApiRequest = new OakOpenApiRequest(context);
-          const response: Response = await this.executeUserController(
-            "updateUser",
-            openApiRequest,
-          );
-          context.response.status = response.status;
-          context.response.body = await response.json();
-          context.response.headers = response.headers;
-        },
-      );
+    this.createRoute(router, "/store/order", "post", "Store", "placeOrder");
+
+    this.createRoute(router, "/user", "post", "User", "createUser");
+
+    this.createRoute(
+      router,
+      "/user/createWithArray",
+      "post",
+      "User",
+      "createUsersWithArrayInput",
+    );
+
+    this.createRoute(
+      router,
+      "/user/createWithList",
+      "post",
+      "User",
+      "createUsersWithListInput",
+    );
+
+    this.createRoute(
+      router,
+      "/user/{username}".replace(`{${"username"}}`, ":username"),
+      "delete",
+      "User",
+      "deleteUser",
+    );
+
+    this.createRoute(
+      router,
+      "/user/{username}".replace(`{${"username"}}`, ":username"),
+      "get",
+      "User",
+      "getUserByName",
+    );
+
+    this.createRoute(router, "/user/login", "get", "User", "loginUser");
+
+    this.createRoute(router, "/user/logout", "get", "User", "logoutUser");
+
+    this.createRoute(
+      router,
+      "/user/{username}".replace(`{${"username"}}`, ":username"),
+      "put",
+      "User",
+      "updateUser",
+    );
 
     this.app.use(router.routes());
     this.app.use(router.allowedMethods());
+  }
+
+  private createRoute(
+    router: Router,
+    localVarPath: string,
+    httpMethod: string,
+    controllerId: string,
+    operationId: string,
+  ): void {
+    const middlewarePromise = async (
+      context: RouterContext<string, any, Record<string, any>>,
+    ) => {
+      const openApiRequest = new OakOpenApiRequest(context);
+      const response: Response = await this.executeController(
+        controllerId,
+        operationId,
+        openApiRequest,
+      );
+      context.response.status = response.status;
+      context.response.body = await response.json();
+      context.response.headers = response.headers;
+    };
+    if (httpMethod == "get") {
+      router.get(localVarPath, middlewarePromise);
+    } else if (httpMethod == "post") {
+      router.post(localVarPath, middlewarePromise);
+    } else if (httpMethod == "delete") {
+      router.delete(localVarPath, middlewarePromise);
+    } else if (httpMethod == "put") {
+      router.put(localVarPath, middlewarePromise);
+    } else {
+      throw new Error("Unknown HTTP verb: " + httpMethod);
+    }
   }
 
   async startServer(port: number): Promise<void> {

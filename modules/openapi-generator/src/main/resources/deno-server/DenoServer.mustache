@@ -53,9 +53,23 @@ export abstract class DenoServer {
 
   abstract startServer(port: number): Promise<void>;
 
+  executeController(
+    controllerId: string,
+    operationId: string,
+    openApiRequest: OpenApiRequest): Promise<Response> {
+    {{#apiInfo}}
+    {{#apis}}
+      if (controllerId == "{{classname}}") {
+        return this.execute{{classname}}Controller(operationId, openApiRequest);
+      }
+    {{/apis}}
+    {{/apiInfo}}
+    throw new Error("Unknown controller: " + controllerId);
+  }
+
   {{#apiInfo}}
   {{#apis}}
-    execute{{classname}}Controller(
+    private execute{{classname}}Controller(
     operation: string,
     openApiRequest: OpenApiRequest
   ): Promise<Response> {
@@ -66,7 +80,7 @@ export abstract class DenoServer {
     }
   {{/operation}}
   {{/operations}}
-      throw new Error("Unknown service {{classname}} >> " + operation);
+      throw new Error("Unknown service: {{classname}} >> " + operation);
   }
 
   {{/apis}}

@@ -33,21 +33,11 @@ export class DenoOakServer extends DenoServer {
         context.response.body = "Hello world!";
       });
 
-    let localVarPath: string;
-
     {{#apiInfo}}
     {{#apis}}
     {{#operations}}
     {{#operation}}
-    localVarPath = `{{{path}}}`{{#pathParams}}.replace(`{${"{{baseName}}"}}`, ":{{baseName}}"){{/pathParams}};
-    router
-      .{{#lowercase}}{{httpMethod}}{{/lowercase}}(localVarPath, async (context: RouterContext<string, any, Record<string, any>>) => {
-        const openApiRequest = new OakOpenApiRequest(context);
-        const response: Response = await this.execute{{classname}}Controller("{{operationId}}", openApiRequest);
-        context.response.status = response.status;
-        context.response.body = await response.json();
-        context.response.headers = response.headers;
-      });
+    this.createRoute(router, '{{{path}}}'{{#pathParams}}.replace(`{${"{{baseName}}"}}`, ":{{baseName}}"){{/pathParams}}, "{{#lowercase}}{{httpMethod}}{{/lowercase}}", "{{classname}}", "{{operationId}}");
 
     {{/operation}}
     {{/operations}}
@@ -56,6 +46,27 @@ export class DenoOakServer extends DenoServer {
 
     this.app.use(router.routes());
     this.app.use(router.allowedMethods());
+  }
+
+  private createRoute(router: Router, localVarPath: string, httpMethod: string, controllerId: string, operationId: string): void {
+    const middlewarePromise = async (context: RouterContext<string, any, Record<string, any>>) => {
+        const openApiRequest = new OakOpenApiRequest(context);
+        const response: Response = await this.executeController(controllerId, operationId, openApiRequest);
+        context.response.status = response.status;
+        context.response.body = await response.json();
+        context.response.headers = response.headers;
+      };
+    if (httpMethod == "get") {
+      router.get(localVarPath, middlewarePromise);
+    } else if (httpMethod == "post") {
+      router.post(localVarPath, middlewarePromise);
+    } else if (httpMethod == "delete") {
+      router.delete(localVarPath, middlewarePromise);
+    } else if (httpMethod == "put") {
+      router.put(localVarPath, middlewarePromise);
+    } else {
+      throw new Error("Unknown HTTP verb: " + httpMethod);
+    }
   }
 
   async startServer(port: number): Promise<void> {
