@@ -42,20 +42,20 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         super.modelPackage = "models";
         super.additionalProperties.put("implFolder", SERVICES_FOLDER_NAME);
 
-        // root folder
+        // Root folder
         super.supportingFiles.add(new SupportingFile("config.mustache", "", "config.ts"));
         super.supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
         super.supportingFiles.add(new SupportingFile("deps.mustache", "", "deps.ts"));
         super.supportingFiles.add(new SupportingFile("DenoServer.mustache", "", "DenoServer.ts"));
 
-        // controllers folder
+        // Controllers folder
         super.supportingFiles.add(new SupportingFile(CONTROLLERS_FOLDER_NAME + File.separator + "controller.mustache",
                 CONTROLLERS_FOLDER_NAME, "Controller.ts"));
         super.supportingFiles
                 .add(new SupportingFile(CONTROLLERS_FOLDER_NAME + File.separator + "OpenApiRequestModel.mustache",
                         CONTROLLERS_FOLDER_NAME, "OpenApiRequestModel.ts"));
 
-        // tests folder
+        // Tests folder
         super.supportingFiles
                 .add(new SupportingFile("tests" + File.separator + "DenoPetStoreExampleRouteTests.mustache",
                         "tests", "DenoPetStoreExampleRouteTests.ts"));
@@ -64,7 +64,6 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         super.additionalProperties.put("lowercase", new LowercaseLambda());
     }
 
-    /* Copied from TypeScriptNodeClientCodegen */
     @Override
     public Map<String, Object> postProcessAllModels(final Map<String, Object> objs) {
         final Map<String, Object> result = super.postProcessAllModels(objs);
@@ -90,7 +89,6 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         }
     }
 
-    /* Copied from TypeScriptNodeClientCodegen */
     private List<Map<String, String>> toTsImports(final CodegenModel cm, final Set<String> imports) {
         final List<Map<String, String>> tsImports = new ArrayList<>();
         for (final String im : imports) {
