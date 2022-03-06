@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
@@ -71,15 +71,15 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
     public Map<String, Object> postProcessAllModels(final Map<String, Object> objs) {
         final Map<String, Object> result = super.postProcessAllModels(objs);
 
-        for (final Map.Entry<String, Object> entry : result.entrySet()) {
+        for (final Entry<String, Object> entry : result.entrySet()) {
             @SuppressWarnings("unchecked")
             final Map<String, Object> inner = (Map<String, Object>) entry.getValue();
             @SuppressWarnings("unchecked")
             final List<Map<String, Object>> models = (List<Map<String, Object>>) inner.get("models");
-            for (final Map<String, Object> mo : models) {
-                final CodegenModel cm = (CodegenModel) mo.get("model");
-                mo.put("tsImports", toTsImports(cm, cm.imports));
-                updateEnumQualifiedName(cm);
+            for (final Map<String, Object> model : models) {
+                final CodegenModel codegenModel = (CodegenModel) model.get("model");
+                model.put("tsImports", toTsImports(codegenModel));
+                updateEnumQualifiedName(codegenModel);
             }
         }
         return result;
@@ -94,13 +94,13 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         }
     }
 
-    private List<Map<String, String>> toTsImports(final CodegenModel cm, final Set<String> imports) {
+    private List<Map<String, String>> toTsImports(final CodegenModel codegenModel) {
         final List<Map<String, String>> tsImports = new ArrayList<>();
-        for (final String im : imports) {
-            if (!im.equals(cm.classname)) {
+        for (final String importt : codegenModel.imports) {
+            if (!importt.equals(codegenModel.classname)) {
                 final Map<String, String> tsImport = new HashMap<>();
-                tsImport.put("classname", im);
-                tsImport.put("filename", toModelFilename(im));
+                tsImport.put("classname", importt);
+                tsImport.put("filename", toModelFilename(importt));
                 tsImports.add(tsImport);
             }
         }
@@ -114,7 +114,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
     @Override
     public String toApiName(final String name) {
-        if (name.length() == 0) {
+        if (name.isEmpty()) {
             return "Default";
         }
         return StringUtils.camelize(name);

@@ -4,7 +4,6 @@
     "description": "",
     "scripts": {
         "mvn-clean-package-no-tests": "mvnw.cmd clean package -DskipTests",
-        "mvn-clean-package": "mvnw.cmd clean package",
         "generate-pet-store-deno-oak-server": "sh ./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml && npm run format-sample-deno-server-petstore",
         "build-then-generate-deno-oak-server": "npm run mvn-clean-package-no-tests && npm run generate-pet-store-deno-oak-server",
         "format-sample-deno-server-petstore": "deno fmt samples/server/petstore/deno/",
