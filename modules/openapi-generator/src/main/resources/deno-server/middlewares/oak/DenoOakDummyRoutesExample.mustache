@@ -25,7 +25,7 @@ import { User } from "./models/User.ts";
 class My{{classname}}Service implements {{classname}}Service {
     {{#operations}}
     {{#operation}}
-    {{{operationId}}} ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : {{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}} {
+    {{{operationId}}} ({{#allParams}}_{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : {{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}} {
         throw new Error("Method not implemented yet: {{classname}}Service >> {{{operationId}}}");
     }
     {{/operation}}
