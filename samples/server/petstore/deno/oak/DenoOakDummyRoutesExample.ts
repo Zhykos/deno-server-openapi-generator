@@ -3,8 +3,10 @@ import { PetService } from "./services/PetService.ts";
 import { StoreService } from "./services/StoreService.ts";
 import { UserService } from "./services/UserService.ts";
 import { ApiResponse } from "./models/ApiResponse.ts";
+import { Category } from "./models/Category.ts";
 import { Order } from "./models/Order.ts";
 import { Pet } from "./models/Pet.ts";
+import { Tag } from "./models/Tag.ts";
 import { User } from "./models/User.ts";
 
 // Custom services

@@ -10,13 +10,11 @@ import { {{classname}}Service } from './services/{{classname}}Service.ts';
 {{/operations}}
 {{/apis}}
 {{/apiInfo}}
-{{#imports}}
-import { {{classname}} } from '../models/{{classname}}.ts';
-{{/imports}}
-import { ApiResponse } from "./models/ApiResponse.ts";
-import { Order } from "./models/Order.ts";
-import { Pet } from "./models/Pet.ts";
-import { User } from "./models/User.ts";
+{{#models}}
+{{#model}}
+import { {{classname}} } from "./models/{{classname}}.ts";
+{{/model}}
+{{/models}}
 
 // Custom services
 

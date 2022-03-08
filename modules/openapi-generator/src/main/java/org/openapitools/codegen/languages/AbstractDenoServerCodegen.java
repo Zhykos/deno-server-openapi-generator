@@ -91,7 +91,11 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
     private List<Map<String, String>> toTsImports(final CodegenModel codegenModel) {
         return codegenModel.imports.stream().filter(importt -> !importt.equals(codegenModel.classname))
-                .map(importt -> Map.of("classname", importt, "filename", toModelFilename(importt))).toList();
+                .map(this::importStringToImportMap).toList();
+    }
+
+    private Map<String, String> importStringToImportMap(final String importt) {
+        return Map.of("classname", importt, "filename", toModelFilename(importt));
     }
 
     @Override
