@@ -78,7 +78,7 @@ samples/server/petstore/deno/oak/*
 
 !samples/server/petstore/deno/oak/*
 
-!samples/server/petstore/deno/agnostic/
-samples/server/petstore/deno/agnostic/*
-
-!samples/server/petstore/deno/agnostic/*
+!.mvn/
+.mvn/*
+!.mvn/wrapper/
+!.mvn/wrapper/*
