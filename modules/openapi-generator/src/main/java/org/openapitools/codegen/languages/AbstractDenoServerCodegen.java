@@ -1,16 +1,12 @@
 package org.openapitools.codegen.languages;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
-import org.openapitools.codegen.CodegenProperty;
 import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.SupportingFile;
 import org.openapitools.codegen.meta.GeneratorMetadata;
@@ -73,43 +69,29 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Map<String, Object> postProcessAllModels(final Map<String, Object> objs) {
         final Map<String, Object> result = super.postProcessAllModels(objs);
 
-        for (final Entry<String, Object> entry : result.entrySet()) {
-            @SuppressWarnings("unchecked")
-            final Map<String, Object> inner = (Map<String, Object>) entry.getValue();
-            @SuppressWarnings("unchecked")
+        result.values().stream().map(val -> (Map<String, Object>) val).forEach(inner -> {
             final List<Map<String, Object>> models = (List<Map<String, Object>>) inner.get("models");
-            for (final Map<String, Object> model : models) {
+            models.forEach(model -> {
                 final CodegenModel codegenModel = (CodegenModel) model.get("model");
                 model.put("tsImports", toTsImports(codegenModel));
                 updateEnumQualifiedName(codegenModel);
-            }
-        }
+            });
+        });
         return result;
     }
 
     private static void updateEnumQualifiedName(final CodegenModel cm) {
-        for (final CodegenProperty property : cm.vars) {
-            if (property.isEnum) {
-                final String enumName = property.enumName;
-                property.datatypeWithEnum = enumName;
-            }
-        }
+        cm.vars.stream().filter(property -> property.isEnum)
+                .forEach(property -> property.datatypeWithEnum = property.enumName);
     }
 
     private List<Map<String, String>> toTsImports(final CodegenModel codegenModel) {
-        final List<Map<String, String>> tsImports = new ArrayList<>();
-        for (final String importt : codegenModel.imports) {
-            if (!importt.equals(codegenModel.classname)) {
-                final Map<String, String> tsImport = new HashMap<>();
-                tsImport.put("classname", importt);
-                tsImport.put("filename", toModelFilename(importt));
-                tsImports.add(tsImport);
-            }
-        }
-        return tsImports;
+        return codegenModel.imports.stream().filter(importt -> !importt.equals(codegenModel.classname))
+                .map(importt -> Map.of("classname", importt, "filename", toModelFilename(importt))).toList();
     }
 
     @Override
