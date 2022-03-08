@@ -1,14 +1,7 @@
-import {
-  assertEquals,
-  fail,
-} from "https://deno.land/std@0.127.0/testing/asserts.ts";
-import {
-  readAll,
-  readerFromStreamReader,
-} from "https://deno.land/std@0.127.0/streams/conversion.ts";
+import { assertEquals, fail, readAll, readerFromStreamReader } from "./deps.ts";
 
 // Test all routes from example which always returns an error: this tests is built to check if all routes are generated.
-// deno test --allow-net --unstable DenoPetStoreExampleRouteTests.ts
+// deno test --allow-net --unstable DummyRoutesTests.ts
 
 const client = Deno.createHttpClient({});
 

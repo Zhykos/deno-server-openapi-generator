@@ -1,4 +1,4 @@
-DenoOakPetStoreExample.ts
+DenoOakDummyRoutesExample.ts
 DenoOakServer.ts
 DenoServer.ts
 README.md
@@ -23,4 +23,5 @@ services/StorePrivateService.ts
 services/StoreService.ts
 services/UserPrivateService.ts
 services/UserService.ts
-tests/DenoPetStoreExampleRouteTests.ts
+tests/DummyRoutesTests.ts
+tests/deps.ts

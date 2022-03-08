@@ -24,7 +24,8 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
     private static final String DENO_SERVER = "deno-server";
     private static final String SERVICES_FOLDER_NAME = "services";
-    
+    private static final String TESTS_FOLDER_NAME = "tests";
+
     protected static final String CONTROLLERS_FOLDER_NAME = "controllers";
 
     @Override
@@ -60,8 +61,12 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
         // Tests folder
         super.supportingFiles
-                .add(new SupportingFile("tests" + File.separator + "DenoPetStoreExampleRouteTests.mustache",
-                        "tests", "DenoPetStoreExampleRouteTests.ts"));
+                .add(new SupportingFile(TESTS_FOLDER_NAME + File.separator + "DummyRoutesTests.mustache",
+                        TESTS_FOLDER_NAME,
+                        "DummyRoutesTests.ts"));
+        super.supportingFiles
+                .add(new SupportingFile(TESTS_FOLDER_NAME + File.separator + "deps.mustache", TESTS_FOLDER_NAME,
+                        "deps.ts"));
 
         // Additional properties
         super.additionalProperties.put("lowercase", new LowercaseLambda());

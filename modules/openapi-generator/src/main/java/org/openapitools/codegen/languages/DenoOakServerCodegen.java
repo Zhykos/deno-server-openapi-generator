@@ -17,8 +17,8 @@ public class DenoOakServerCodegen extends AbstractDenoServerCodegen {
         super.supportingFiles.add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "DenoOakServer.mustache", "",
                 "DenoOakServer.ts"));
         super.supportingFiles
-                .add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "DenoOakPetStoreExample.mustache", "",
-                        "DenoOakPetStoreExample.ts"));
+                .add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "DenoOakDummyRoutesExample.mustache", "",
+                        "DenoOakDummyRoutesExample.ts"));
         super.supportingFiles
                 .add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "deps.mustache", "", "deps-oak.ts"));
 

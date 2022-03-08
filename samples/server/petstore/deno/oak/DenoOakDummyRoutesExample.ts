@@ -100,4 +100,4 @@ const myUserService: UserService = new MyUserService();
 
 new DenoOakServer(3000, myPetService, myStoreService, myUserService).start();
 
-// deno run --allow-net --watch DenoOakPetStoreExample.ts
+// deno run --allow-net --watch DenoOakDummyRoutesExample.ts
