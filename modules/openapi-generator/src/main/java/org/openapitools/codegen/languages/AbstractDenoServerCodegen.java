@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
@@ -91,7 +92,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
     private List<Map<String, String>> toTsImports(final CodegenModel codegenModel) {
         return codegenModel.imports.stream().filter(importt -> !importt.equals(codegenModel.classname))
-                .map(this::importStringToImportMap).toList();
+                .map(this::importStringToImportMap).collect(Collectors.toList());
     }
 
     private Map<String, String> importStringToImportMap(final String importt) {
