@@ -7,7 +7,8 @@
         "generate-pet-store-deno-oak-server": "sh ./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml && npm run format-sample-deno-server-petstore",
         "build-then-generate-deno-oak-server": "npm run mvn-clean-package-no-tests && npm run generate-pet-store-deno-oak-server",
         "format-sample-deno-server-petstore": "deno fmt samples/server/petstore/deno/",
-        "init-project": "node init-project.js"
+        "init-project": "node init-project.js",
+        "postman-tests": "newman run ./modules/openapi-generator/src/test/postman/deno-server/PetStore.postman_collection.json"
     },
     "repository": {
         "type": "git",
@@ -23,6 +24,7 @@
         "adm-zip": "^0.5.9",
         "cli-progress": "^3.10.0",
         "follow-redirects": "^1.14.9",
+        "newman": "^5.3.2",
         "ora": "^6.1.0"
     },
     "type": "module"
