@@ -21,7 +21,10 @@
     "homepage": "https://github.com/Zhykos/deno-server-openapi-generator#readme",
     "devDependencies": {
         "adm-zip": "^0.5.9",
+        "cli-progress": "^3.10.0",
         "follow-redirects": "^1.14.9",
+        "ora": "^6.1.0",
         "unzip": "^0.1.11"
-    }
+    },
+    "type": "module"
 }

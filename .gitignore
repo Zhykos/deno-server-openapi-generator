@@ -4,6 +4,7 @@
 # But not these files
 !.gitignore
 !package.json
+!package-lock.json
 !init-project.js
 
 !.vscode/

@@ -1,45 +1,57 @@
-const https = require("follow-redirects").https;
-const fs = require("fs");
-const AdmZip = require("adm-zip");
+import pkg from "follow-redirects";
+const { https } = pkg;
+import {
+  createWriteStream,
+  existsSync,
+  mkdirSync,
+  writeFileSync,
+  appendFileSync,
+} from "fs";
+import AdmZip from "adm-zip";
+import { SingleBar, Presets } from "cli-progress";
+import ora from "ora";
 
-const file = fs.createWriteStream("openapi-generator.zip");
-https.get(
-  "https://github.com/OpenAPITools/openapi-generator/archive/refs/tags/v5.4.0.zip",
-  (response) => {
-    response.pipe(file);
+const openapiGeneratorURL =
+  "https://github.com/OpenAPITools/openapi-generator/archive/refs/tags/v5.4.0.zip";
 
-    response.on("end", () => {
-      try {
-        console.log("File downloaded.");
+const file = createWriteStream("openapi-generator.zip");
+const spinner = ora("Downloading file: " + openapiGeneratorURL).start();
+https.get(openapiGeneratorURL, (response) => {
+  response.pipe(file);
 
-        const zip = new AdmZip("./openapi-generator.zip");
-        const zipEntries = zip.getEntries();
+  response.on("end", () => {
+    try {
+      spinner.stop();
+      const zip = new AdmZip("./openapi-generator.zip");
+      const zipEntries = zip.getEntries();
 
-        zipEntries.forEach(function (zipEntry) {
-          const targetFileOrDir =
-            "./" +
-            zipEntry.entryName.substring(zipEntry.entryName.indexOf("/") + 1);
-          if (
-            fs.existsSync(targetFileOrDir) &&
-            fs.lstatSync(targetFileOrDir).isFile()
-          ) {
-            console.log("File already exists: " + targetFileOrDir);
+      console.log("Unzipping file:");
+      const zipEntriesBar = new SingleBar({}, Presets.shades_classic);
+      zipEntriesBar.start(zipEntries.length, 0);
+
+      zipEntries.forEach(function (zipEntry) {
+        const targetFileOrDir =
+          "./" +
+          zipEntry.entryName.substring(zipEntry.entryName.indexOf("/") + 1);
+        if (!existsSync(targetFileOrDir)) {
+          if (zipEntry.isDirectory) {
+            mkdirSync(targetFileOrDir, { recursive: true });
           } else {
-            console.log("Writing: " + targetFileOrDir);
-            if (zipEntry.isDirectory) {
-              fs.mkdirSync(targetFileOrDir, { recursive: true });
-            } else {
-              const fileContent = zipEntry.getData().toString("utf8");
-              fs.writeFileSync(targetFileOrDir, fileContent);
-            }
+            const fileContent = zipEntry.getData().toString("utf8");
+            writeFileSync(targetFileOrDir, fileContent);
           }
-        });
+        }
+        zipEntriesBar.increment(1);
+      });
+      zipEntriesBar.stop();
 
-        console.log("Update org.openapitools.codegen.CodegenConfig");
-        fs.appendFileSync('./modules/openapi-generator/src/main/resources/META-INF/services/org.openapitools.codegen.CodegenConfig', 'org.openapitools.codegen.languages.DenoOakServerCodegen');
-      } catch (e) {
-        console.error(e.message);
-      }
-    });
-  }
-);
+      console.log("Updating org.openapitools.codegen.CodegenConfig...");
+      appendFileSync(
+        "./modules/openapi-generator/src/main/resources/META-INF/services/org.openapitools.codegen.CodegenConfig",
+        "org.openapitools.codegen.languages.DenoOakServerCodegen"
+      );
+    } catch (e) {
+      console.error(e.message);
+    }
+  });
+});
