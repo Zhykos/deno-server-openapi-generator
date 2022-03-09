@@ -1,11 +1,12 @@
-import { DenoOakServer } from "../DenoOakServer.ts";
-import { PetService } from "../services/PetService.ts";
-import { StoreService } from "../services/StoreService.ts";
-import { UserService } from "../services/UserService.ts";
-import { ApiResponse } from "../models/ApiResponse.ts";
-import { Order } from "../models/Order.ts";
-import { Pet } from "../models/Pet.ts";
-import { User } from "../models/User.ts";
+import { DenoOakServer } from "../../DenoOakServer.ts";
+import { PetService } from "../../services/PetService.ts";
+import { StoreService } from "../../services/StoreService.ts";
+import { UserService } from "../../services/UserService.ts";
+import { ApiResponse } from "../../models/ApiResponse.ts";
+import { Order } from "../../models/Order.ts";
+import { Pet } from "../../models/Pet.ts";
+import { User } from "../../models/User.ts";
+import { petDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 
 // Custom services
 
@@ -29,8 +30,8 @@ class MyPetService implements PetService {
   deletePet(_petId: number, _apiKey?: string): void {
     throw new Error("Method not implemented yet: PetService >> deletePet");
   }
-  getPetById(_petId: number): Pet {
-    throw new Error("Method not implemented yet: PetService >> getPetById");
+  getPetById(petId: number): Pet {
+    return petDatabase.get("pet-" + petId);
   }
   updatePetWithForm(_petId: number, _name?: string, _status?: string): void {
     throw new Error(
@@ -100,4 +101,4 @@ const myUserService: UserService = new MyUserService();
 
 new DenoOakServer(3000, myPetService, myStoreService, myUserService).start();
 
-// deno run --allow-net --watch PetStoreCompleteExample.ts
+// deno run --allow-net --allow-read --allow-write --watch PetStoreCompleteExample.ts

@@ -9,6 +9,52 @@
 			"name": "Pet",
 			"item": [
 				{
+					"name": "Find pet by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check the name, status and PetId\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(\"Firulais\");\r",
+									"    pm.expect(jsonData.status).to.eql(\"Reserved\");\r",
+									"    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"petId\")));\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}pet/1",
+							"host": [
+								"{{baseUrl}}pet"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Updates a pet",
 					"event": [
 						{
@@ -51,52 +97,6 @@
 							"raw": "{{baseUrl}}pet",
 							"host": [
 								"{{baseUrl}}pet"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get a pet with id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Check the name, status and PetId\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.name).to.eql(\"Firulais\");\r",
-									"    pm.expect(jsonData.status).to.eql(\"Reserved\");\r",
-									"    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"petId\")));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}pet/{{petId}}",
-							"host": [
-								"{{baseUrl}}pet"
-							],
-							"path": [
-								"{{petId}}"
 							]
 						}
 					},
