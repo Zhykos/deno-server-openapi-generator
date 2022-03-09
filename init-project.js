@@ -34,6 +34,9 @@ https.get(
             }
           }
         });
+
+        console.log("Update org.openapitools.codegen.CodegenConfig");
+        fs.appendFileSync('./modules/openapi-generator/src/main/resources/META-INF/services/org.openapitools.codegen.CodegenConfig', 'org.openapitools.codegen.languages.DenoOakServerCodegen');
       } catch (e) {
         console.error(e.message);
       }
