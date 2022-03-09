@@ -57,6 +57,10 @@ modules/openapi-generator/src/test/java/org/openapitools/*
 modules/openapi-generator/src/test/java/org/openapitools/codegen/*
 !modules/openapi-generator/src/test/java/org/openapitools/codegen/deno/
 
+!modules/openapi-generator/src/test/postman/
+modules/openapi-generator/src/test/postman/*
+!modules/openapi-generator/src/test/postman/deno-server/
+
 !bin/
 bin/*
 !bin/configs/
