@@ -1,6 +1,7 @@
 import { PetService } from "./PetService.ts";
 import { ApiResponse } from "../models/ApiResponse.ts";
 import { Pet } from "../models/Pet.ts";
+// import { HttpError } from "./HttpError.ts";
 
 export class PetPrivateService {
   private customPetService: PetService;
@@ -121,10 +122,18 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.getPetById(petId));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> getPetById",
-          code: e.status || 500,
-        }));
+        reject(e);
+        // if (e instanceof HttpError) {
+        //   reject(JSON.stringify({
+        //     error: e.message,
+        //     code: e.httpCode,
+        //   }));
+        // } else {
+        //   reject(JSON.stringify({
+        //     error: e.message || "Error in service Pet >> getPetById",
+        //     code: 500,
+        //   }));
+        // }
       }
     });
   }

@@ -5,6 +5,7 @@ import {
   ParameterObject,
   SchemaObject,
 } from "./OpenApiRequestModel.ts";
+import { HttpError } from "../services/HttpError.ts";
 
 export class Controller {
   static sendResponse(body: any): Response {
@@ -16,13 +17,37 @@ export class Controller {
     });
   }
 
-  static sendError(error: any): Response {
-    return new Response(error, {
-      status: 500,
-      headers: {
-        "content-type": "application/json; charset=utf-8",
-      },
-    });
+  static sendError(error: Error): Response {
+    if (error instanceof HttpError) {
+      return new Response(
+        JSON.stringify({
+          error: error.message,
+          code: error.httpCode,
+        }),
+        {
+          status: error.httpCode,
+          headers: {
+            "content-type": "application/json; charset=utf-8",
+          },
+        }
+      );
+    } else {
+      return new Response(JSON.stringify({
+        error: error.message || "Error in service Pet >> getPetById",
+        code: 500,
+      }), {
+        status: 500,
+        headers: {
+          "content-type": "application/json; charset=utf-8",
+        },
+      });
+    }
+    // return new Response(error, {
+    //   status: 500,
+    //   headers: {
+    //     "content-type": "application/json; charset=utf-8",
+    //   },
+    // });
   }
 
   /**
@@ -38,7 +63,7 @@ export class Controller {
    */
   private static collectFile(
     request: OpenApiRequest,
-    fieldName: string,
+    fieldName: string
   ): string {
     /*let uploadedFileName = '';
     if (request.files && request.files.length > 0) {
@@ -88,22 +113,20 @@ export class Controller {
       ) {
         const properties: { [name: string]: SchemaObject } =
           content["multipart/form-data"].schema.properties;
-        Object.keys(properties).forEach(
-          (property) => {
-            const propertyObject: SchemaObject = properties[property];
-            if (
-              propertyObject.format !== undefined &&
-              propertyObject.format === "binary"
-            ) {
-              requestParams[property] = this.collectFile(request, property);
-            } else if (request.body !== null) {
-              //requestParams[property] = request.body[property];
-              console.error("TODO: body property");
-              requestParams[property] =
-                "TODO: body property (collectRequestParams)";
-            }
-          },
-        );
+        Object.keys(properties).forEach((property) => {
+          const propertyObject: SchemaObject = properties[property];
+          if (
+            propertyObject.format !== undefined &&
+            propertyObject.format === "binary"
+          ) {
+            requestParams[property] = this.collectFile(request, property);
+          } else if (request.body !== null) {
+            //requestParams[property] = request.body[property];
+            console.error("TODO: body property");
+            requestParams[property] =
+              "TODO: body property (collectRequestParams)";
+          }
+        });
       } else {
         throw "Cannot treat content other than a JSON or a Form-data content.";
       }
@@ -111,7 +134,8 @@ export class Controller {
 
     const openApi = request.openapi;
     if (
-      openApi !== undefined && openApi.schema !== undefined &&
+      openApi !== undefined &&
+      openApi.schema !== undefined &&
       openApi.schema.parameters !== undefined
     ) {
       openApi.schema.parameters.forEach((param: ParameterObject) => {

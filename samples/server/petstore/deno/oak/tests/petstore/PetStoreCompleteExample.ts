@@ -7,6 +7,7 @@ import { Order } from "../../models/Order.ts";
 import { Pet } from "../../models/Pet.ts";
 import { User } from "../../models/User.ts";
 import { petDatabase } from "./PetStoreCompleteExampleDatabase.ts";
+import { HttpError } from "../../services/HttpError.ts";
 
 // Custom services
 
@@ -18,10 +19,10 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> updatePet");
   }
   findPetsByStatus(
-    _status: Array<"available" | "pending" | "sold">,
+    _status: Array<"available" | "pending" | "sold">
   ): Array<Pet> {
     throw new Error(
-      "Method not implemented yet: PetService >> findPetsByStatus",
+      "Method not implemented yet: PetService >> findPetsByStatus"
     );
   }
   findPetsByTags(_tags: Array<string>): Array<Pet> {
@@ -31,17 +32,24 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> deletePet");
   }
   getPetById(petId: number): Pet {
-    return petDatabase.get("pet-" + petId);
+    if (petId < 0) {
+      throw new HttpError(400, "Invalid Id to find pet: " + petId);
+    }
+    const pet = petDatabase.get("pet-" + petId);
+    if (pet) {
+      return pet;
+    }
+    throw new HttpError(404, "Cannot find pet with ID: " + petId);
   }
   updatePetWithForm(_petId: number, _name?: string, _status?: string): void {
     throw new Error(
-      "Method not implemented yet: PetService >> updatePetWithForm",
+      "Method not implemented yet: PetService >> updatePetWithForm"
     );
   }
   uploadFile(
     _petId: number,
     _additionalMetadata?: string,
-    _file?: any,
+    _file?: any
   ): ApiResponse {
     throw new Error("Method not implemented yet: PetService >> uploadFile");
   }
@@ -66,12 +74,12 @@ class MyUserService implements UserService {
   }
   createUsersWithArrayInput(_user: Array<User>): void {
     throw new Error(
-      "Method not implemented yet: UserService >> createUsersWithArrayInput",
+      "Method not implemented yet: UserService >> createUsersWithArrayInput"
     );
   }
   createUsersWithListInput(_user: Array<User>): void {
     throw new Error(
-      "Method not implemented yet: UserService >> createUsersWithListInput",
+      "Method not implemented yet: UserService >> createUsersWithListInput"
     );
   }
   loginUser(_username: string, _password: string): string {
