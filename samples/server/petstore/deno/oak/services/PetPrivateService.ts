@@ -117,6 +117,7 @@ export class PetPrivateService {
    * returns Pet
    */
   getPetById(...args: any): Promise<Pet> {
+    console.log(args)
     const petId: number = args[1 - 1];
     return new Promise((resolve, reject) => {
       try {

@@ -97,6 +97,7 @@ export class Controller {
   }
 
   static collectRequestParams(request: OpenApiRequest): any {
+    // console.log(request)
     const requestParams: any = {};
     if (
       request.openapi !== undefined &&
