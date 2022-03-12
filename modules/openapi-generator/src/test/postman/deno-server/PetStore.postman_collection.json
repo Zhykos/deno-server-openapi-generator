@@ -100,7 +100,7 @@
 					"response": []
 				},
 				{
-					"name": "Updates a pet",
+					"name": "TODO - Updates a pet",
 					"event": [
 						{
 							"listen": "test",
@@ -148,7 +148,7 @@
 					"response": []
 				},
 				{
-					"name": "Updates a Pet with Form Data",
+					"name": "TODO - Updates a Pet with Form Data",
 					"event": [
 						{
 							"listen": "test",
@@ -212,7 +212,7 @@
 					"response": []
 				},
 				{
-					"name": "Get a pet with id",
+					"name": "TODO - Get a pet with id",
 					"event": [
 						{
 							"listen": "test",
@@ -258,7 +258,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete a pet with id",
+					"name": "TODO - Delete a pet with id",
 					"event": [
 						{
 							"listen": "test",
@@ -303,7 +303,7 @@
 			]
 		},
 		{
-			"name": "Store",
+			"name": "TODO - Store",
 			"item": [
 				{
 					"name": "Place an order for a pet",
@@ -503,7 +503,7 @@
 			]
 		},
 		{
-			"name": "User",
+			"name": "TODO - User",
 			"item": [
 				{
 					"name": "Create a list of users with given input array",
