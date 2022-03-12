@@ -19,10 +19,7 @@ export class StorePrivateService {
       try {
         resolve(this.customStoreService.getInventory());
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Store >> getInventory",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }
@@ -38,10 +35,7 @@ export class StorePrivateService {
       try {
         resolve(this.customStoreService.placeOrder(order));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Store >> placeOrder",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }
@@ -58,10 +52,7 @@ export class StorePrivateService {
       try {
         resolve(this.customStoreService.deleteOrder(orderId));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Store >> deleteOrder",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }
@@ -78,10 +69,7 @@ export class StorePrivateService {
       try {
         resolve(this.customStoreService.getOrderById(orderId));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Store >> getOrderById",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }

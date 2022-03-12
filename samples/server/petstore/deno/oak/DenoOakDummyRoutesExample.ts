@@ -9,33 +9,35 @@ import { Pet } from "./models/Pet.ts";
 import { Tag } from "./models/Tag.ts";
 import { User } from "./models/User.ts";
 
+// deno run --allow-net --watch DenoOakDummyRoutesExample.ts
+
 // Custom services
 
 class MyPetService implements PetService {
   addPet(_pet: Pet): Pet {
-    throw new Error("Method not implemented yet: PetService >> addPet");
+    throw new Deno.errors.NotSupported("Method not implemented yet: PetService >> addPet");
   }
   updatePet(_pet: Pet): Pet {
-    throw new Error("Method not implemented yet: PetService >> updatePet");
+    throw new Deno.errors.NotSupported("Method not implemented yet: PetService >> updatePet");
   }
   findPetsByStatus(
     _status: Array<"available" | "pending" | "sold">,
   ): Array<Pet> {
-    throw new Error(
+    throw new Deno.errors.NotSupported(
       "Method not implemented yet: PetService >> findPetsByStatus",
     );
   }
   findPetsByTags(_tags: Array<string>): Array<Pet> {
-    throw new Error("Method not implemented yet: PetService >> findPetsByTags");
+    throw new Deno.errors.NotSupported("Method not implemented yet: PetService >> findPetsByTags");
   }
   deletePet(_petId: number, _apiKey?: string): void {
-    throw new Error("Method not implemented yet: PetService >> deletePet");
+    throw new Deno.errors.NotSupported("Method not implemented yet: PetService >> deletePet")
   }
   getPetById(_petId: number): Pet {
-    throw new Error("Method not implemented yet: PetService >> getPetById");
+    throw new Deno.errors.NotSupported("Method not implemented yet: PetService >> getPetById");
   }
   updatePetWithForm(_petId: number, _name?: string, _status?: string): void {
-    throw new Error(
+    throw new Deno.errors.NotSupported(
       "Method not implemented yet: PetService >> updatePetWithForm",
     );
   }
@@ -44,51 +46,51 @@ class MyPetService implements PetService {
     _additionalMetadata?: string,
     _file?: any,
   ): ApiResponse {
-    throw new Error("Method not implemented yet: PetService >> uploadFile");
+    throw new Deno.errors.NotSupported("Method not implemented yet: PetService >> uploadFile");
   }
 }
 class MyStoreService implements StoreService {
   getInventory(): { [key: string]: number } {
-    throw new Error("Method not implemented yet: StoreService >> getInventory");
+    throw new Deno.errors.NotSupported("Method not implemented yet: StoreService >> getInventory");
   }
   placeOrder(_order: Order): Order {
-    throw new Error("Method not implemented yet: StoreService >> placeOrder");
+    throw new Deno.errors.NotSupported("Method not implemented yet: StoreService >> placeOrder");
   }
   deleteOrder(_orderId: string): void {
-    throw new Error("Method not implemented yet: StoreService >> deleteOrder");
+    throw new Deno.errors.NotSupported("Method not implemented yet: StoreService >> deleteOrder");
   }
   getOrderById(_orderId: number): Order {
-    throw new Error("Method not implemented yet: StoreService >> getOrderById");
+    throw new Deno.errors.NotSupported("Method not implemented yet: StoreService >> getOrderById");
   }
 }
 class MyUserService implements UserService {
   createUser(_user: User): void {
-    throw new Error("Method not implemented yet: UserService >> createUser");
+    throw new Deno.errors.NotSupported("Method not implemented yet: UserService >> createUser");
   }
   createUsersWithArrayInput(_user: Array<User>): void {
-    throw new Error(
+    throw new Deno.errors.NotSupported(
       "Method not implemented yet: UserService >> createUsersWithArrayInput",
     );
   }
   createUsersWithListInput(_user: Array<User>): void {
-    throw new Error(
+    throw new Deno.errors.NotSupported(
       "Method not implemented yet: UserService >> createUsersWithListInput",
     );
   }
   loginUser(_username: string, _password: string): string {
-    throw new Error("Method not implemented yet: UserService >> loginUser");
+    throw new Deno.errors.NotSupported("Method not implemented yet: UserService >> loginUser");
   }
   logoutUser(): void {
-    throw new Error("Method not implemented yet: UserService >> logoutUser");
+    throw new Deno.errors.NotSupported("Method not implemented yet: UserService >> logoutUser");
   }
   deleteUser(_username: string): void {
-    throw new Error("Method not implemented yet: UserService >> deleteUser");
+    throw new Deno.errors.NotSupported("Method not implemented yet: UserService >> deleteUser");
   }
   getUserByName(_username: string): User {
-    throw new Error("Method not implemented yet: UserService >> getUserByName");
+    throw new Deno.errors.NotSupported("Method not implemented yet: UserService >> getUserByName");
   }
   updateUser(_username: string, _user: User): void {
-    throw new Error("Method not implemented yet: UserService >> updateUser");
+    throw new Deno.errors.NotSupported("Method not implemented yet: UserService >> updateUser");
   }
 }
 
@@ -101,5 +103,3 @@ const myUserService: UserService = new MyUserService();
 // Create then start Deno server
 
 new DenoOakServer(3000, myPetService, myStoreService, myUserService).start();
-
-// deno run --allow-net --watch DenoOakDummyRoutesExample.ts

@@ -19,10 +19,13 @@ export class Controller {
 
   static sendError(error: Error): Response {
     let status = 500;
+    let message = error.message || 'tt';
     if (error instanceof HttpError) {
       status = error.httpCode;
     }
-      return new Response(JSON.stringify(error), {
+      return new Response(JSON.stringify({
+        message: message
+      }), {
         status: status,
         headers: {
           "content-type": "application/json; charset=utf-8",

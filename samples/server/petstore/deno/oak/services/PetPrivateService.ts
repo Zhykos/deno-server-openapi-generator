@@ -22,10 +22,7 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.addPet(pet));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> addPet",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }
@@ -41,10 +38,7 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.updatePet(pet));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> updatePet",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }
@@ -61,10 +55,7 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.findPetsByStatus(status));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> findPetsByStatus",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }
@@ -81,10 +72,7 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.findPetsByTags(tags));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> findPetsByTags",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }
@@ -102,10 +90,7 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.deletePet(petId, apiKey));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> deletePet",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }
@@ -154,10 +139,7 @@ export class PetPrivateService {
       try {
         resolve(this.customPetService.updatePetWithForm(petId, name, status));
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> updatePetWithForm",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }
@@ -179,10 +161,7 @@ export class PetPrivateService {
           this.customPetService.uploadFile(petId, additionalMetadata, file),
         );
       } catch (e) {
-        reject(JSON.stringify({
-          error: e.message || "Error in service Pet >> uploadFile",
-          code: e.status || 500,
-        }));
+        reject(e);
       }
     });
   }

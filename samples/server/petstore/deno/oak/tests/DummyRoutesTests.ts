@@ -258,8 +258,7 @@ async function assertRouteResult(
     const reader: Deno.Reader = readerFromStreamReader(responseReader);
     const charArray: Uint8Array = await readAll(reader);
     const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
-    assertEquals(jsonObj.code, 500);
-    assertEquals(jsonObj.error, expectedErrorMessage);
+    assertEquals(jsonObj.message, expectedErrorMessage);
   } else {
     fail("Cannot read body");
   }

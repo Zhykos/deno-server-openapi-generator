@@ -16,7 +16,7 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> addPet");
   }
   updatePet(_pet: Pet): Pet {
-    throw new Error("Method not implemented yet: PetService >> updatePet");
+    throw new Error("Method not implemented yet: PetService >> updatePeffffffffffft");
   }
   findPetsByStatus(
     _status: Array<"available" | "pending" | "sold">
