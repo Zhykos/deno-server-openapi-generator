@@ -32,8 +32,8 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> deletePet");
   }
   getPetById(petId: number): Pet {
-    if (petId < 0) {
-      throw new HttpError(400, "Invalid Id to find pet: " + petId);
+    if(isNaN(petId)) {
+      throw new HttpError(400, 'Invalid Id to find pet');
     }
     const pet = petDatabase.get("pet-" + petId);
     if (pet) {

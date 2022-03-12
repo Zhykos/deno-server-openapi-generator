@@ -118,9 +118,10 @@ export class PetPrivateService {
    */
   getPetById(...args: any): Promise<Pet> {
     const { petId } = args[1 - 1];
+    const petIdCast = Number(petId);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customPetService.getPetById(petId));
+        resolve(this.customPetService.getPetById(petIdCast));
       } catch (e) {
         reject(e);
         // if (e instanceof HttpError) {
