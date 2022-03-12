@@ -70,8 +70,8 @@
 									"\r",
 									"pm.test(\"Check JSON\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.error).to.eql(\"Cannot find pet with ID: 12\");\r",
-									"    pm.expect(jsonData.code).to.eql(404);\r",
+									"    pm.expect(jsonData.errorMessage).to.eql(\"Cannot find pet with ID: 12\");\r",
+									"    pm.expect(jsonData.httpCode).to.eql(404);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -115,8 +115,8 @@
 									"\r",
 									"pm.test(\"Check JSON\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.error).to.eql(\"Invalid Id to find pet\");\r",
-									"    pm.expect(jsonData.code).to.eql(400);\r",
+									"    pm.expect(jsonData.errorMessage).to.eql(\"Invalid Id to find pet\");\r",
+									"    pm.expect(jsonData.httpCode).to.eql(400);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -145,7 +145,7 @@
 					"response": []
 				},
 				{
-					"name": "TODO - Updates a pet",
+					"name": "WIP - Update an existing pet",
 					"event": [
 						{
 							"listen": "test",

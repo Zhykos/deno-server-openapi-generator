@@ -18,25 +18,12 @@ export class Controller {
   }
 
   static sendError(error: Error): Response {
+    let status = 500;
     if (error instanceof HttpError) {
-      return new Response(
-        JSON.stringify({
-          error: error.message,
-          code: error.httpCode,
-        }),
-        {
-          status: error.httpCode,
-          headers: {
-            "content-type": "application/json; charset=utf-8",
-          },
-        }
-      );
-    } else {
-      return new Response(JSON.stringify({
-        error: error.message || "Error in service Pet >> getPetById",
-        code: 500,
-      }), {
-        status: 500,
+      status = error.httpCode;
+    }
+      return new Response(JSON.stringify(error), {
+        status: status,
         headers: {
           "content-type": "application/json; charset=utf-8",
         },
@@ -48,7 +35,6 @@ export class Controller {
     //     "content-type": "application/json; charset=utf-8",
     //   },
     // });
-  }
 
   /**
    * Files have been uploaded to the directory defined by config.js as upload directory
