@@ -5,7 +5,6 @@ import {
   ParameterObject,
   SchemaObject,
 } from "./OpenApiRequestModel.ts";
-import { HttpError } from "../services/HttpError.ts";
 
 export class Controller {
   static sendResponse(body: any): Response {
@@ -19,12 +18,13 @@ export class Controller {
 
   static sendError(error: Error): Response {
     let status = 500;
-    let message = error.message || 'tt';
-    if (error instanceof HttpError) {
-      status = error.httpCode;
+    if (error instanceof Deno.errors.NotFound) {
+      status = 404;
+    } else if (error instanceof Deno.errors.InvalidData) {
+      status = 400;
     }
       return new Response(JSON.stringify({
-        message: message
+        message: error.message
       }), {
         status: status,
         headers: {

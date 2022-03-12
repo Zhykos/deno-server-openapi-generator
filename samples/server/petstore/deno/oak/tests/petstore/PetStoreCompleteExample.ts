@@ -7,7 +7,6 @@ import { Order } from "../../models/Order.ts";
 import { Pet } from "../../models/Pet.ts";
 import { User } from "../../models/User.ts";
 import { petDatabase } from "./PetStoreCompleteExampleDatabase.ts";
-import { HttpError } from "../../services/HttpError.ts";
 
 // Custom services
 
@@ -33,13 +32,13 @@ class MyPetService implements PetService {
   }
   getPetById(petId: number): Pet {
     if(isNaN(petId)) {
-      throw new HttpError(400, 'Invalid Id to find pet');
+      throw new Deno.errors.InvalidData('Invalid Id to find pet');
     }
     const pet = petDatabase.get("pet-" + petId);
     if (pet) {
       return pet;
     }
-    throw new HttpError(404, "Cannot find pet with ID: " + petId);
+    throw new Deno.errors.NotFound("Cannot find pet with ID: " + petId);
   }
   updatePetWithForm(_petId: number, _name?: string, _status?: string): void {
     throw new Error(
