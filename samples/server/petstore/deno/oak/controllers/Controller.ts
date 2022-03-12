@@ -9,7 +9,7 @@ import { HttpError } from "../services/HttpError.ts";
 
 export class Controller {
   static sendResponse(body: any): Response {
-    return new Response(body, {
+    return new Response(JSON.stringify(body), {
       status: 200,
       headers: {
         "content-type": "application/json; charset=utf-8",
