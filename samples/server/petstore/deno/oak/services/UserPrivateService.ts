@@ -70,9 +70,9 @@ export class UserPrivateService {
    * returns string
    */
   loginUser(...args: any): Promise<string> {
-    const { username } = args[1 - 1];
+    const { username, password } = args[1 - 1];
     const usernameCast = String(username);
-    const { password } = args[2 - 1];
+    // const { password } = args[2 - 1];
     const passwordCast = String(password);
     return new Promise((resolve, reject) => {
       try {
