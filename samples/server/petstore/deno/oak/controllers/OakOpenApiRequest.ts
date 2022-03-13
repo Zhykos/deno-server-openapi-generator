@@ -33,7 +33,7 @@ export class OakOpenApiRequest implements OpenApiRequest {
         context.params,
         context.request.url.searchParams,
       ),
-      requestBody: this.createRequestBody(context.request)
+      // requestBody: this.createRequestBody(context.request)
     };
     this.openapi = {
       pathParams: this.createPathParameters(
@@ -42,7 +42,6 @@ export class OakOpenApiRequest implements OpenApiRequest {
       ),
       schema: schema,
     };
-    console.log( context)
 
     this.cache = "default";
     this.credentials = "same-origin";
@@ -67,10 +66,9 @@ export class OakOpenApiRequest implements OpenApiRequest {
     }
   }
 
-  private createRequestBody(request: OakRequest): RequestBodyObject {
-    console.log(request)
-    return { content: { "[media: string]": { } } };
-  }
+  // private createRequestBody(request: OakRequest): RequestBodyObject {
+  //   return { content: { "[media: string]": { } } }; // TODO Remove ???
+  // }
 
   private createParameters(
     routeParams: any,
