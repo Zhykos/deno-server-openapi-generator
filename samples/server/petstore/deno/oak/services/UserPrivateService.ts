@@ -16,7 +16,7 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   createUser(...args: any): Promise<void> {
-    const { user } = args[1 - 1];
+    const { user } = args[0];
     const userCast = new User(user);
     return new Promise((resolve, reject) => {
       try {
@@ -33,7 +33,7 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   createUsersWithArrayInput(...args: any): Promise<void> {
-    const { user } = args[1 - 1];
+    const { user } = args[0];
     const userCast = new Array<User>();
     userCast.push(user);
     return new Promise((resolve, reject) => {
@@ -51,7 +51,7 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   createUsersWithListInput(...args: any): Promise<void> {
-    const { user } = args[1 - 1];
+    const { user } = args[0];
     const userCast = new Array<User>();
     userCast.push(user);
     return new Promise((resolve, reject) => {
@@ -70,9 +70,8 @@ export class UserPrivateService {
    * returns string
    */
   loginUser(...args: any): Promise<string> {
-    const { username, password } = args[1 - 1];
+    const { username, password } = args[0];
     const usernameCast = String(username);
-    // const { password } = args[2 - 1];
     const passwordCast = String(password);
     return new Promise((resolve, reject) => {
       try {
@@ -104,7 +103,7 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   deleteUser(...args: any): Promise<void> {
-    const { username } = args[1 - 1];
+    const { username } = args[0];
     const usernameCast = String(username);
     return new Promise((resolve, reject) => {
       try {
@@ -121,7 +120,7 @@ export class UserPrivateService {
    * returns User
    */
   getUserByName(...args: any): Promise<User> {
-    const { username } = args[1 - 1];
+    const { username } = args[0];
     const usernameCast = String(username);
     return new Promise((resolve, reject) => {
       try {
@@ -140,9 +139,8 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   updateUser(...args: any): Promise<void> {
-    const { username } = args[1 - 1];
+    const { username, user } = args[0];
     const usernameCast = String(username);
-    const { user } = args[2 - 1];
     const userCast = new User(user);
     return new Promise((resolve, reject) => {
       try {

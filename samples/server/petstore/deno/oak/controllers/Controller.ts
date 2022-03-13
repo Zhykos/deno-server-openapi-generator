@@ -126,14 +126,8 @@ export class Controller {
       openApi.schema.parameters !== undefined
     ) {
       openApi.schema.parameters.forEach((param: ParameterObject) => {
-        if (param.in === "path") {
+        if (param.in === "path" || param.in === "url") {
           requestParams[param.name] = openApi.pathParams[param.name];
-        } else if (param.in === "url") {
-          requestParams[param.name] = openApi.pathParams[param.name];
-          //requestParams[param.name] = request.query[param.name];
-          // console.error("TODO: query param");
-          // requestParams[param.name] =
-          //   "TODO: query param (collectRequestParams)";
         } else if (param.in === "header") {
           requestParams[param.name] = request.headers.get(param.name);
         }

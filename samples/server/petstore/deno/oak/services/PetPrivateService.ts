@@ -16,7 +16,7 @@ export class PetPrivateService {
    * returns Pet
    */
   addPet(...args: any): Promise<Pet> {
-    const { pet } = args[1 - 1];
+    const { pet } = args[0];
     const petCast = new Pet(pet);
     return new Promise((resolve, reject) => {
       try {
@@ -33,7 +33,7 @@ export class PetPrivateService {
    * returns Pet
    */
   updatePet(...args: any): Promise<Pet> {
-    const { pet } = args[1 - 1];
+    const { pet } = args[0];
     const petCast = new Pet(pet);
     return new Promise((resolve, reject) => {
       try {
@@ -51,7 +51,7 @@ export class PetPrivateService {
    * returns Array<Pet>
    */
   findPetsByStatus(...args: any): Promise<Array<Pet>> {
-    const { status } = args[1 - 1];
+    const { status } = args[0];
     const statusCast = new Array<"available" | "pending" | "sold">();
     statusCast.push(status);
     return new Promise((resolve, reject) => {
@@ -70,7 +70,7 @@ export class PetPrivateService {
    * returns Array<Pet>
    */
   findPetsByTags(...args: any): Promise<Array<Pet>> {
-    const { tags } = args[1 - 1];
+    const { tags } = args[0];
     const tagsCast = new Array<string>();
     tagsCast.push(tags);
     return new Promise((resolve, reject) => {
@@ -89,9 +89,8 @@ export class PetPrivateService {
    * no response value expected for this operation
    */
   deletePet(...args: any): Promise<void> {
-    const { petId } = args[1 - 1];
+    const { petId, apiKey } = args[0];
     const petIdCast = Number(petId);
-    const { apiKey } = args[2 - 1];
     const apiKeyCast = String(apiKey);
     return new Promise((resolve, reject) => {
       try {
@@ -109,7 +108,7 @@ export class PetPrivateService {
    * returns Pet
    */
   getPetById(...args: any): Promise<Pet> {
-    const { petId } = args[1 - 1];
+    const { petId } = args[0];
     const petIdCast = Number(petId);
     return new Promise((resolve, reject) => {
       try {
@@ -128,11 +127,9 @@ export class PetPrivateService {
    * no response value expected for this operation
    */
   updatePetWithForm(...args: any): Promise<void> {
-    const { petId } = args[1 - 1];
+    const { petId, name, status } = args[0];
     const petIdCast = Number(petId);
-    const { name } = args[2 - 1];
     const nameCast = String(name);
-    const { status } = args[3 - 1];
     const statusCast = String(status);
     return new Promise((resolve, reject) => {
       try {
@@ -157,11 +154,9 @@ export class PetPrivateService {
    * returns ApiResponse
    */
   uploadFile(...args: any): Promise<ApiResponse> {
-    const { petId } = args[1 - 1];
+    const { petId, additionalMetadata, file } = args[0];
     const petIdCast = Number(petId);
-    const { additionalMetadata } = args[2 - 1];
     const additionalMetadataCast = String(additionalMetadata);
-    const { file } = args[3 - 1];
     const fileCast = file;
     return new Promise((resolve, reject) => {
       try {

@@ -30,7 +30,7 @@ export class StorePrivateService {
    * returns Order
    */
   placeOrder(...args: any): Promise<Order> {
-    const { order } = args[1 - 1];
+    const { order } = args[0];
     const orderCast = new Order(order);
     return new Promise((resolve, reject) => {
       try {
@@ -48,7 +48,7 @@ export class StorePrivateService {
    * no response value expected for this operation
    */
   deleteOrder(...args: any): Promise<void> {
-    const { orderId } = args[1 - 1];
+    const { orderId } = args[0];
     const orderIdCast = String(orderId);
     return new Promise((resolve, reject) => {
       try {
@@ -66,7 +66,7 @@ export class StorePrivateService {
    * returns Order
    */
   getOrderById(...args: any): Promise<Order> {
-    const { orderId } = args[1 - 1];
+    const { orderId } = args[0];
     const orderIdCast = Number(orderId);
     return new Promise((resolve, reject) => {
       try {
