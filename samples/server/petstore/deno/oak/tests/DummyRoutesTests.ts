@@ -11,6 +11,7 @@ Deno.test("check if route exists for service: PetService >> addPet", async () =>
     localVarPath,
     "POST",
     "Method not implemented yet: PetService >> addPet",
+    "pet",
   );
 });
 
@@ -20,6 +21,7 @@ Deno.test("check if route exists for service: PetService >> updatePet", async ()
     localVarPath,
     "PUT",
     "Method not implemented yet: PetService >> updatePet",
+    "pet",
   );
 });
 
@@ -29,6 +31,7 @@ Deno.test("check if route exists for service: PetService >> findPetsByStatus", a
     localVarPath,
     "GET",
     "Method not implemented yet: PetService >> findPetsByStatus",
+    "",
   );
 });
 
@@ -38,6 +41,7 @@ Deno.test("check if route exists for service: PetService >> findPetsByTags", asy
     localVarPath,
     "GET",
     "Method not implemented yet: PetService >> findPetsByTags",
+    "",
   );
 });
 
@@ -50,6 +54,7 @@ Deno.test("check if route exists for service: PetService >> deletePet", async ()
     localVarPath,
     "DELETE",
     "Method not implemented yet: PetService >> deletePet",
+    "",
   );
 });
 
@@ -62,6 +67,7 @@ Deno.test("check if route exists for service: PetService >> getPetById", async (
     localVarPath,
     "GET",
     "Method not implemented yet: PetService >> getPetById",
+    "",
   );
 });
 
@@ -74,6 +80,7 @@ Deno.test("check if route exists for service: PetService >> updatePetWithForm", 
     localVarPath,
     "POST",
     "Method not implemented yet: PetService >> updatePetWithForm",
+    "",
   );
 });
 
@@ -86,6 +93,7 @@ Deno.test("check if route exists for service: PetService >> uploadFile", async (
     localVarPath,
     "POST",
     "Method not implemented yet: PetService >> uploadFile",
+    "",
   );
 });
 
@@ -95,6 +103,7 @@ Deno.test("check if route exists for service: StoreService >> getInventory", asy
     localVarPath,
     "GET",
     "Method not implemented yet: StoreService >> getInventory",
+    "",
   );
 });
 
@@ -104,6 +113,7 @@ Deno.test("check if route exists for service: StoreService >> placeOrder", async
     localVarPath,
     "POST",
     "Method not implemented yet: StoreService >> placeOrder",
+    "order",
   );
 });
 
@@ -116,6 +126,7 @@ Deno.test("check if route exists for service: StoreService >> deleteOrder", asyn
     localVarPath,
     "DELETE",
     "Method not implemented yet: StoreService >> deleteOrder",
+    "",
   );
 });
 
@@ -128,6 +139,7 @@ Deno.test("check if route exists for service: StoreService >> getOrderById", asy
     localVarPath,
     "GET",
     "Method not implemented yet: StoreService >> getOrderById",
+    "",
   );
 });
 
@@ -137,6 +149,7 @@ Deno.test("check if route exists for service: UserService >> createUser", async 
     localVarPath,
     "POST",
     "Method not implemented yet: UserService >> createUser",
+    "user",
   );
 });
 
@@ -146,6 +159,7 @@ Deno.test("check if route exists for service: UserService >> createUsersWithArra
     localVarPath,
     "POST",
     "Method not implemented yet: UserService >> createUsersWithArrayInput",
+    "user",
   );
 });
 
@@ -155,6 +169,7 @@ Deno.test("check if route exists for service: UserService >> createUsersWithList
     localVarPath,
     "POST",
     "Method not implemented yet: UserService >> createUsersWithListInput",
+    "user",
   );
 });
 
@@ -164,6 +179,7 @@ Deno.test("check if route exists for service: UserService >> loginUser", async (
     localVarPath,
     "GET",
     "Method not implemented yet: UserService >> loginUser",
+    "",
   );
 });
 
@@ -173,6 +189,7 @@ Deno.test("check if route exists for service: UserService >> logoutUser", async 
     localVarPath,
     "GET",
     "Method not implemented yet: UserService >> logoutUser",
+    "",
   );
 });
 
@@ -185,6 +202,7 @@ Deno.test("check if route exists for service: UserService >> deleteUser", async 
     localVarPath,
     "DELETE",
     "Method not implemented yet: UserService >> deleteUser",
+    "",
   );
 });
 
@@ -197,6 +215,7 @@ Deno.test("check if route exists for service: UserService >> getUserByName", asy
     localVarPath,
     "GET",
     "Method not implemented yet: UserService >> getUserByName",
+    "",
   );
 });
 
@@ -209,6 +228,7 @@ Deno.test("check if route exists for service: UserService >> updateUser", async 
     localVarPath,
     "PUT",
     "Method not implemented yet: UserService >> updateUser",
+    "user",
   );
 });
 
@@ -244,8 +264,12 @@ async function assertRouteResult(
   localVarPath: string,
   httpMethod: string,
   expectedErrorMessage: string,
+  bodyParamName: string,
 ): Promise<void> {
-  const body = null;
+  let body: BodyInit | null | undefined = null;
+  if (bodyParamName !== "") {
+    body = "{}";
+  }
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: httpMethod,
     body: body,

@@ -11,7 +11,7 @@ const client = Deno.createHttpClient({});
 {{#operation}}
 Deno.test("check if route exists for service: {{classname}}Service >> {{{operationId}}}", async() => {
     const localVarPath = '{{{path}}}'{{#pathParams}}.replace('{${"{{baseName}}"}}', stubParameter("{{{dataType}}}")){{/pathParams}};
-    await assertRouteResult(localVarPath, "{{httpMethod}}", "Method not implemented yet: {{classname}}Service >> {{{operationId}}}");
+    await assertRouteResult(localVarPath, "{{httpMethod}}", "Method not implemented yet: {{classname}}Service >> {{{operationId}}}", "{{bodyParam.paramName}}");
 });
 
 {{/operation}}
@@ -47,9 +47,14 @@ function stubParameter(paramType: string): string {
     throw new Error("Unknown type to stub: " + paramType);
 }
 
-async function assertRouteResult(localVarPath: string, httpMethod: string, expectedErrorMessage: string): Promise<void> {
+async function assertRouteResult(localVarPath: string, httpMethod: string, expectedErrorMessage: string, bodyParamName: string): Promise<void> {
+    let body: BodyInit | null | undefined = null;
+    if (bodyParamName !== "") {
+        body = "{}";
+    }
     const res = await fetch("http://localhost:3000" + localVarPath, {
         method: httpMethod,
+        body: body,
         client
     });
 
