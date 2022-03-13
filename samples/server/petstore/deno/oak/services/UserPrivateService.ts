@@ -16,10 +16,11 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   createUser(...args: any): Promise<void> {
-    const user: User = args[1 - 1];
+    const { user } = args[1 - 1];
+    const userCast = User(user);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customUserService.createUser(user));
+        resolve(this.customUserService.createUser(userCast));
       } catch (e) {
         reject(e);
       }
@@ -32,10 +33,11 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   createUsersWithArrayInput(...args: any): Promise<void> {
-    const user: Array<User> = args[1 - 1];
+    const { user } = args[1 - 1];
+    const userCast = Array<User>(user);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customUserService.createUsersWithArrayInput(user));
+        resolve(this.customUserService.createUsersWithArrayInput(userCast));
       } catch (e) {
         reject(e);
       }
@@ -48,10 +50,11 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   createUsersWithListInput(...args: any): Promise<void> {
-    const user: Array<User> = args[1 - 1];
+    const { user } = args[1 - 1];
+    const userCast = Array<User>(user);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customUserService.createUsersWithListInput(user));
+        resolve(this.customUserService.createUsersWithListInput(userCast));
       } catch (e) {
         reject(e);
       }
@@ -65,11 +68,13 @@ export class UserPrivateService {
    * returns string
    */
   loginUser(...args: any): Promise<string> {
-    const username: string = args[1 - 1];
-    const password: string = args[2 - 1];
+    const { username } = args[1 - 1];
+    const usernameCast = string(username);
+    const { password } = args[2 - 1];
+    const passwordCast = string(password);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customUserService.loginUser(username, password));
+        resolve(this.customUserService.loginUser(usernameCast, passwordCast));
       } catch (e) {
         reject(e);
       }
@@ -97,10 +102,11 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   deleteUser(...args: any): Promise<void> {
-    const username: string = args[1 - 1];
+    const { username } = args[1 - 1];
+    const usernameCast = string(username);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customUserService.deleteUser(username));
+        resolve(this.customUserService.deleteUser(usernameCast));
       } catch (e) {
         reject(e);
       }
@@ -113,10 +119,11 @@ export class UserPrivateService {
    * returns User
    */
   getUserByName(...args: any): Promise<User> {
-    const username: string = args[1 - 1];
+    const { username } = args[1 - 1];
+    const usernameCast = string(username);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customUserService.getUserByName(username));
+        resolve(this.customUserService.getUserByName(usernameCast));
       } catch (e) {
         reject(e);
       }
@@ -131,11 +138,13 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   updateUser(...args: any): Promise<void> {
-    const username: string = args[1 - 1];
-    const user: User = args[2 - 1];
+    const { username } = args[1 - 1];
+    const usernameCast = string(username);
+    const { user } = args[2 - 1];
+    const userCast = User(user);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customUserService.updateUser(username, user));
+        resolve(this.customUserService.updateUser(usernameCast, userCast));
       } catch (e) {
         reject(e);
       }

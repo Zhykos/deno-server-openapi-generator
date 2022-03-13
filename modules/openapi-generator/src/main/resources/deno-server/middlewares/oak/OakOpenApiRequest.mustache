@@ -1,6 +1,8 @@
 import {
   OpenApiRequest,
   OpenApiRequestMetadata,
+  OperationObject,
+  ParameterObject,
 } from "./OpenApiRequestModel.ts";
 import { RouterContext } from "../deps-oak.ts";
 
@@ -25,6 +27,9 @@ export class OakOpenApiRequest implements OpenApiRequest {
   bodyUsed: boolean;
 
   constructor(context: RouterContext<string, any, Record<string, any>>) {
+    const schema: OperationObject = { parameters: this.createParameters(context.params) };
+    this.openapi = { pathParams: this.createPathParameters(context.params), schema: schema };
+
     this.cache = "default";
     this.credentials = "same-origin";
     this.destination = "object";
@@ -42,6 +47,23 @@ export class OakOpenApiRequest implements OpenApiRequest {
     this.url = "";
     this.body = null;
     this.bodyUsed = true;
+  }
+
+  private createParameters(params: any): Array<ParameterObject> {
+    const parameters = new Array<ParameterObject>();
+    for (const [key] of Object.entries(params)) {
+      const param: ParameterObject = {name: `${key}`, in: 'path'};
+      parameters.push(param);
+    }
+    return parameters;
+  }
+
+  private createPathParameters(params: any): {[index: string]: string} {
+    const parameters:{[index: string]: string} = {};
+    for (const [key, value] of Object.entries(params)) {
+      parameters[key as string] = value as string;
+    }
+    return parameters;
   }
 
   clone(): Request {

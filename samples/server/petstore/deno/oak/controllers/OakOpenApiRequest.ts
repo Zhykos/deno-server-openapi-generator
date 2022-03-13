@@ -27,9 +27,14 @@ export class OakOpenApiRequest implements OpenApiRequest {
   bodyUsed: boolean;
 
   constructor(context: RouterContext<string, any, Record<string, any>>) {
-    // console.log(context.params)
-    const schema: OperationObject = { parameters: this.createParameters(context.params) };
-    this.openapi = { pathParams: this.createPathParameters(context.params), schema: schema };
+    const schema: OperationObject = {
+      parameters: this.createParameters(context.params),
+    };
+    this.openapi = {
+      pathParams: this.createPathParameters(context.params),
+      schema: schema,
+    };
+
     this.cache = "default";
     this.credentials = "same-origin";
     this.destination = "object";
@@ -52,14 +57,14 @@ export class OakOpenApiRequest implements OpenApiRequest {
   private createParameters(params: any): Array<ParameterObject> {
     const parameters = new Array<ParameterObject>();
     for (const [key] of Object.entries(params)) {
-      const param: ParameterObject = {name: `${key}`, in: 'path'};
+      const param: ParameterObject = { name: `${key}`, in: "path" };
       parameters.push(param);
     }
     return parameters;
   }
 
-  private createPathParameters(params: any): {[index: string]: string} {
-    const parameters:{[index: string]: string} = {};
+  private createPathParameters(params: any): { [index: string]: string } {
+    const parameters: { [index: string]: string } = {};
     for (const [key, value] of Object.entries(params)) {
       parameters[key as string] = value as string;
     }
@@ -92,22 +97,3 @@ export class OakOpenApiRequest implements OpenApiRequest {
 }
 
 class OakHeaders extends Headers {}
-
-// class OakOpenApiRequestMetadata implements OpenApiRequestMetadata {
-//   expressRoute: string;
-//   openApiRoute: string;
-//   pathParams: { [index: string]: string };
-//   schema: OperationObject;
-
-//   constructor(
-//     expressRoute: string,
-//     openApiRoute: string,
-//     pathParams: { [index: string]: string },
-//     schema: OperationObject
-//   ) {
-//     this.expressRoute = expressRoute;
-//     this.openApiRoute = openApiRoute;
-//     this.pathParams = pathParams;
-//     this.schema = schema;
-//   }
-// }

@@ -30,10 +30,11 @@ export class StorePrivateService {
    * returns Order
    */
   placeOrder(...args: any): Promise<Order> {
-    const order: Order = args[1 - 1];
+    const { order } = args[1 - 1];
+    const orderCast = Order(order);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customStoreService.placeOrder(order));
+        resolve(this.customStoreService.placeOrder(orderCast));
       } catch (e) {
         reject(e);
       }
@@ -47,10 +48,11 @@ export class StorePrivateService {
    * no response value expected for this operation
    */
   deleteOrder(...args: any): Promise<void> {
-    const orderId: string = args[1 - 1];
+    const { orderId } = args[1 - 1];
+    const orderIdCast = string(orderId);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customStoreService.deleteOrder(orderId));
+        resolve(this.customStoreService.deleteOrder(orderIdCast));
       } catch (e) {
         reject(e);
       }
@@ -64,10 +66,11 @@ export class StorePrivateService {
    * returns Order
    */
   getOrderById(...args: any): Promise<Order> {
-    const orderId: number = args[1 - 1];
+    const { orderId } = args[1 - 1];
+    const orderIdCast = number(orderId);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customStoreService.getOrderById(orderId));
+        resolve(this.customStoreService.getOrderById(orderIdCast));
       } catch (e) {
         reject(e);
       }

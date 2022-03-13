@@ -23,21 +23,18 @@ export class Controller {
     } else if (error instanceof Deno.errors.InvalidData) {
       status = 400;
     }
-      return new Response(JSON.stringify({
-        message: error.message
-      }), {
+    return new Response(
+      JSON.stringify({
+        message: error.message,
+      }),
+      {
         status: status,
         headers: {
           "content-type": "application/json; charset=utf-8",
         },
-      });
-    }
-    // return new Response(error, {
-    //   status: 500,
-    //   headers: {
-    //     "content-type": "application/json; charset=utf-8",
-    //   },
-    // });
+      },
+    );
+  }
 
   /**
    * Files have been uploaded to the directory defined by config.js as upload directory
@@ -52,7 +49,7 @@ export class Controller {
    */
   private static collectFile(
     request: OpenApiRequest,
-    fieldName: string
+    fieldName: string,
   ): string {
     /*let uploadedFileName = '';
     if (request.files && request.files.length > 0) {
@@ -86,7 +83,6 @@ export class Controller {
   }
 
   static collectRequestParams(request: OpenApiRequest): any {
-    // console.log(request)
     const requestParams: any = {};
     if (
       request.openapi !== undefined &&
@@ -103,20 +99,22 @@ export class Controller {
       ) {
         const properties: { [name: string]: SchemaObject } =
           content["multipart/form-data"].schema.properties;
-        Object.keys(properties).forEach((property) => {
-          const propertyObject: SchemaObject = properties[property];
-          if (
-            propertyObject.format !== undefined &&
-            propertyObject.format === "binary"
-          ) {
-            requestParams[property] = this.collectFile(request, property);
-          } else if (request.body !== null) {
-            //requestParams[property] = request.body[property];
-            console.error("TODO: body property");
-            requestParams[property] =
-              "TODO: body property (collectRequestParams)";
-          }
-        });
+        Object.keys(properties).forEach(
+          (property) => {
+            const propertyObject: SchemaObject = properties[property];
+            if (
+              propertyObject.format !== undefined &&
+              propertyObject.format === "binary"
+            ) {
+              requestParams[property] = this.collectFile(request, property);
+            } else if (request.body !== null) {
+              //requestParams[property] = request.body[property];
+              console.error("TODO: body property");
+              requestParams[property] =
+                "TODO: body property (collectRequestParams)";
+            }
+          },
+        );
       } else {
         throw "Cannot treat content other than a JSON or a Form-data content.";
       }
@@ -124,8 +122,7 @@ export class Controller {
 
     const openApi = request.openapi;
     if (
-      openApi !== undefined &&
-      openApi.schema !== undefined &&
+      openApi !== undefined && openApi.schema !== undefined &&
       openApi.schema.parameters !== undefined
     ) {
       openApi.schema.parameters.forEach((param: ParameterObject) => {

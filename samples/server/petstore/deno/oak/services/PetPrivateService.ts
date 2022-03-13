@@ -1,7 +1,6 @@
 import { PetService } from "./PetService.ts";
 import { ApiResponse } from "../models/ApiResponse.ts";
 import { Pet } from "../models/Pet.ts";
-// import { HttpError } from "./HttpError.ts";
 
 export class PetPrivateService {
   private customPetService: PetService;
@@ -17,10 +16,11 @@ export class PetPrivateService {
    * returns Pet
    */
   addPet(...args: any): Promise<Pet> {
-    const pet: Pet = args[1 - 1];
+    const { pet } = args[1 - 1];
+    const petCast = Pet(pet);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customPetService.addPet(pet));
+        resolve(this.customPetService.addPet(petCast));
       } catch (e) {
         reject(e);
       }
@@ -33,10 +33,11 @@ export class PetPrivateService {
    * returns Pet
    */
   updatePet(...args: any): Promise<Pet> {
-    const pet: Pet = args[1 - 1];
+    const { pet } = args[1 - 1];
+    const petCast = Pet(pet);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customPetService.updatePet(pet));
+        resolve(this.customPetService.updatePet(petCast));
       } catch (e) {
         reject(e);
       }
@@ -50,10 +51,11 @@ export class PetPrivateService {
    * returns Array<Pet>
    */
   findPetsByStatus(...args: any): Promise<Array<Pet>> {
-    const status: Array<"available" | "pending" | "sold"> = args[1 - 1];
+    const { status } = args[1 - 1];
+    const statusCast = Array<"available" | "pending" | "sold">(status);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customPetService.findPetsByStatus(status));
+        resolve(this.customPetService.findPetsByStatus(statusCast));
       } catch (e) {
         reject(e);
       }
@@ -67,10 +69,11 @@ export class PetPrivateService {
    * returns Array<Pet>
    */
   findPetsByTags(...args: any): Promise<Array<Pet>> {
-    const tags: Array<string> = args[1 - 1];
+    const { tags } = args[1 - 1];
+    const tagsCast = Array<string>(tags);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customPetService.findPetsByTags(tags));
+        resolve(this.customPetService.findPetsByTags(tagsCast));
       } catch (e) {
         reject(e);
       }
@@ -84,11 +87,13 @@ export class PetPrivateService {
    * no response value expected for this operation
    */
   deletePet(...args: any): Promise<void> {
-    const petId: number = args[1 - 1];
-    const apiKey: string = args[2 - 1];
+    const { petId } = args[1 - 1];
+    const petIdCast = number(petId);
+    const { apiKey } = args[2 - 1];
+    const apiKeyCast = string(apiKey);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customPetService.deletePet(petId, apiKey));
+        resolve(this.customPetService.deletePet(petIdCast, apiKeyCast));
       } catch (e) {
         reject(e);
       }
@@ -103,23 +108,12 @@ export class PetPrivateService {
    */
   getPetById(...args: any): Promise<Pet> {
     const { petId } = args[1 - 1];
-    const petIdCast = Number(petId);
+    const petIdCast = number(petId);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.getPetById(petIdCast));
       } catch (e) {
         reject(e);
-        // if (e instanceof HttpError) {
-        //   reject(JSON.stringify({
-        //     error: e.message,
-        //     code: e.httpCode,
-        //   }));
-        // } else {
-        //   reject(JSON.stringify({
-        //     error: e.message || "Error in service Pet >> getPetById",
-        //     code: 500,
-        //   }));
-        // }
       }
     });
   }
@@ -132,12 +126,21 @@ export class PetPrivateService {
    * no response value expected for this operation
    */
   updatePetWithForm(...args: any): Promise<void> {
-    const petId: number = args[1 - 1];
-    const name: string = args[2 - 1];
-    const status: string = args[3 - 1];
+    const { petId } = args[1 - 1];
+    const petIdCast = number(petId);
+    const { name } = args[2 - 1];
+    const nameCast = string(name);
+    const { status } = args[3 - 1];
+    const statusCast = string(status);
     return new Promise((resolve, reject) => {
       try {
-        resolve(this.customPetService.updatePetWithForm(petId, name, status));
+        resolve(
+          this.customPetService.updatePetWithForm(
+            petIdCast,
+            nameCast,
+            statusCast,
+          ),
+        );
       } catch (e) {
         reject(e);
       }
@@ -152,13 +155,20 @@ export class PetPrivateService {
    * returns ApiResponse
    */
   uploadFile(...args: any): Promise<ApiResponse> {
-    const petId: number = args[1 - 1];
-    const additionalMetadata: string = args[2 - 1];
-    const file: any = args[3 - 1];
+    const { petId } = args[1 - 1];
+    const petIdCast = number(petId);
+    const { additionalMetadata } = args[2 - 1];
+    const additionalMetadataCast = string(additionalMetadata);
+    const { file } = args[3 - 1];
+    const fileCast = any(file);
     return new Promise((resolve, reject) => {
       try {
         resolve(
-          this.customPetService.uploadFile(petId, additionalMetadata, file),
+          this.customPetService.uploadFile(
+            petIdCast,
+            additionalMetadataCast,
+            fileCast,
+          ),
         );
       } catch (e) {
         reject(e);

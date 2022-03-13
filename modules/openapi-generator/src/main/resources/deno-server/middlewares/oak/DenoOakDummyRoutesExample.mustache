@@ -16,6 +16,8 @@ import { {{classname}} } from "./models/{{classname}}.ts";
 {{/model}}
 {{/models}}
 
+// deno run --allow-net --watch DenoOakDummyRoutesExample.ts
+
 // Custom services
 
 {{#apiInfo}}
@@ -24,7 +26,7 @@ class My{{classname}}Service implements {{classname}}Service {
     {{#operations}}
     {{#operation}}
     {{{operationId}}} ({{#allParams}}_{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : {{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}} {
-        throw new Error("Method not implemented yet: {{classname}}Service >> {{{operationId}}}");
+        throw new Deno.errors.NotSupported("Method not implemented yet: {{classname}}Service >> {{{operationId}}}");
     }
     {{/operation}}
     {{/operations}}
@@ -49,5 +51,3 @@ const my{{classname}}Service: {{classname}}Service = new My{{classname}}Service(
 // Create then start Deno server
 
 new DenoOakServer(3000{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}).start();
-
-// deno run --allow-net --watch DenoOakDummyRoutesExample.ts

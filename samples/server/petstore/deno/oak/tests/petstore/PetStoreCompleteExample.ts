@@ -15,13 +15,15 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> addPet");
   }
   updatePet(_pet: Pet): Pet {
-    throw new Error("Method not implemented yet: PetService >> updatePeffffffffffft");
+    throw new Error(
+      "Method not implemented yet: PetService >> updatePeffffffffffft",
+    );
   }
   findPetsByStatus(
-    _status: Array<"available" | "pending" | "sold">
+    _status: Array<"available" | "pending" | "sold">,
   ): Array<Pet> {
     throw new Error(
-      "Method not implemented yet: PetService >> findPetsByStatus"
+      "Method not implemented yet: PetService >> findPetsByStatus",
     );
   }
   findPetsByTags(_tags: Array<string>): Array<Pet> {
@@ -31,8 +33,8 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> deletePet");
   }
   getPetById(petId: number): Pet {
-    if(isNaN(petId)) {
-      throw new Deno.errors.InvalidData('Invalid Id to find pet');
+    if (isNaN(petId)) {
+      throw new Deno.errors.InvalidData("Invalid Id to find pet");
     }
     const pet = petDatabase.get("pet-" + petId);
     if (pet) {
@@ -42,13 +44,13 @@ class MyPetService implements PetService {
   }
   updatePetWithForm(_petId: number, _name?: string, _status?: string): void {
     throw new Error(
-      "Method not implemented yet: PetService >> updatePetWithForm"
+      "Method not implemented yet: PetService >> updatePetWithForm",
     );
   }
   uploadFile(
     _petId: number,
     _additionalMetadata?: string,
-    _file?: any
+    _file?: any,
   ): ApiResponse {
     throw new Error("Method not implemented yet: PetService >> uploadFile");
   }
@@ -73,12 +75,12 @@ class MyUserService implements UserService {
   }
   createUsersWithArrayInput(_user: Array<User>): void {
     throw new Error(
-      "Method not implemented yet: UserService >> createUsersWithArrayInput"
+      "Method not implemented yet: UserService >> createUsersWithArrayInput",
     );
   }
   createUsersWithListInput(_user: Array<User>): void {
     throw new Error(
-      "Method not implemented yet: UserService >> createUsersWithListInput"
+      "Method not implemented yet: UserService >> createUsersWithListInput",
     );
   }
   loginUser(_username: string, _password: string): string {

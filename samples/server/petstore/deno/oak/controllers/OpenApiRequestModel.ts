@@ -193,18 +193,18 @@ export interface PathItemObject {
 }
 
 export interface OperationObject {
-  // tags?: string[];
-  // summary?: string;
-  // description?: string;
-  // externalDocs?: ExternalDocumentationObject;
-  // operationId?: string;
+  //tags?: string[];
+  //summary?: string;
+  //description?: string;
+  //externalDocs?: ExternalDocumentationObject;
+  //operationId?: string;
   parameters?: Array</*ReferenceObject | */ ParameterObject>;
   requestBody?: /*ReferenceObject |*/ RequestBodyObject;
-  // responses?: ResponsesObject;
-  // callbacks?: { [callback: string]: ReferenceObject | CallbackObject };
-  // deprecated?: boolean;
-  // security?: SecurityRequirementObject[];
-  // servers?: ServerObject[];
+  //responses?: ResponsesObject;
+  //callbacks?: { [callback: string]: ReferenceObject | CallbackObject };
+  //deprecated?: boolean;
+  //security?: SecurityRequirementObject[];
+  //servers?: ServerObject[];
 }
 
 export interface ExternalDocumentationObject {
@@ -464,8 +464,8 @@ export interface OpenAPIFrameworkVisitor {
 }
 
 export interface OpenApiRequestMetadata {
-  // expressRoute: string;
-  // openApiRoute: string;
+  //expressRoute: string;
+  //openApiRoute: string;
   pathParams: { [index: string]: string };
   schema: OperationObject;
 }
