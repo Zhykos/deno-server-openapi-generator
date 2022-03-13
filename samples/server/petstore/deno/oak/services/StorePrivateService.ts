@@ -31,7 +31,7 @@ export class StorePrivateService {
    */
   placeOrder(...args: any): Promise<Order> {
     const { order } = args[1 - 1];
-    const orderCast = Order(order);
+    const orderCast = new Order(order);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customStoreService.placeOrder(orderCast));
@@ -49,7 +49,7 @@ export class StorePrivateService {
    */
   deleteOrder(...args: any): Promise<void> {
     const { orderId } = args[1 - 1];
-    const orderIdCast = string(orderId);
+    const orderIdCast = String(orderId);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customStoreService.deleteOrder(orderIdCast));
@@ -67,7 +67,7 @@ export class StorePrivateService {
    */
   getOrderById(...args: any): Promise<Order> {
     const { orderId } = args[1 - 1];
-    const orderIdCast = number(orderId);
+    const orderIdCast = Number(orderId);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customStoreService.getOrderById(orderIdCast));

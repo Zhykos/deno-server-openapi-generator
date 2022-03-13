@@ -17,7 +17,7 @@ export class UserPrivateService {
    */
   createUser(...args: any): Promise<void> {
     const { user } = args[1 - 1];
-    const userCast = User(user);
+    const userCast = new User(user);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUser(userCast));
@@ -34,7 +34,8 @@ export class UserPrivateService {
    */
   createUsersWithArrayInput(...args: any): Promise<void> {
     const { user } = args[1 - 1];
-    const userCast = Array<User>(user);
+    const userCast = new Array<User>();
+    userCast.push(user);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUsersWithArrayInput(userCast));
@@ -51,7 +52,8 @@ export class UserPrivateService {
    */
   createUsersWithListInput(...args: any): Promise<void> {
     const { user } = args[1 - 1];
-    const userCast = Array<User>(user);
+    const userCast = new Array<User>();
+    userCast.push(user);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUsersWithListInput(userCast));
@@ -69,9 +71,9 @@ export class UserPrivateService {
    */
   loginUser(...args: any): Promise<string> {
     const { username } = args[1 - 1];
-    const usernameCast = string(username);
+    const usernameCast = String(username);
     const { password } = args[2 - 1];
-    const passwordCast = string(password);
+    const passwordCast = String(password);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.loginUser(usernameCast, passwordCast));
@@ -103,7 +105,7 @@ export class UserPrivateService {
    */
   deleteUser(...args: any): Promise<void> {
     const { username } = args[1 - 1];
-    const usernameCast = string(username);
+    const usernameCast = String(username);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.deleteUser(usernameCast));
@@ -120,7 +122,7 @@ export class UserPrivateService {
    */
   getUserByName(...args: any): Promise<User> {
     const { username } = args[1 - 1];
-    const usernameCast = string(username);
+    const usernameCast = String(username);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.getUserByName(usernameCast));
@@ -139,9 +141,9 @@ export class UserPrivateService {
    */
   updateUser(...args: any): Promise<void> {
     const { username } = args[1 - 1];
-    const usernameCast = string(username);
+    const usernameCast = String(username);
     const { user } = args[2 - 1];
-    const userCast = User(user);
+    const userCast = new User(user);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.updateUser(usernameCast, userCast));

@@ -13,15 +13,26 @@
  * A User who is purchasing from the pet store
  */
 export class User {
-  "id"?: number;
-  "username"?: string;
-  "firstName"?: string;
-  "lastName"?: string;
-  "email"?: string;
-  "password"?: string;
-  "phone"?: string;
+  id?: number;
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
+  phone?: string;
   /**
    * User Status
    */
-  "userStatus"?: number;
+  userStatus?: number;
+
+  constructor(anotherUser: any) {
+    this.id = anotherUser.id;
+    this.username = anotherUser.username;
+    this.firstName = anotherUser.firstName;
+    this.lastName = anotherUser.lastName;
+    this.email = anotherUser.email;
+    this.password = anotherUser.password;
+    this.phone = anotherUser.phone;
+    this.userStatus = anotherUser.userStatus;
+  }
 }

@@ -1,10 +1,16 @@
 package org.openapitools.codegen.languages;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template;
 
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
@@ -67,6 +73,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
         // Additional properties
         super.additionalProperties.put("lowercase", new LowercaseLambda());
+        super.additionalProperties.put("castForType", new CastForTypeLambda());
     }
 
     @Override
@@ -178,6 +185,26 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
             }
             return result;
         });
+    }
+
+    private class CastForTypeLambda implements Mustache.Lambda {
+        @Override
+        public void execute(final Template.Fragment fragment, final Writer writer) throws IOException {
+            final String text = fragment.execute();
+            final String[] split = text.split("---");
+            final String valueType = split[0];
+            final String valueName = split[1];
+            if ("number".equals(valueType) || "string".equals(valueType)) {
+                writer.write(valueType.substring(0, 1).toUpperCase(Locale.ROOT)
+                        + valueType.substring(1).toLowerCase(Locale.ROOT) + '(' + valueName + ')');
+            } else if ("any".equals(valueType)) {
+                writer.write(valueName);
+            } else if (valueType.startsWith("Array")) {
+                writer.write("new " + valueType + "(); " + valueName + "Cast.push(" + valueName + ')');
+            } else {
+                writer.write("new " + valueType + '(' + valueName + ')');
+            }
+        }
     }
 
 }

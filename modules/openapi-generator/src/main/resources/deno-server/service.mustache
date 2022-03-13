@@ -34,7 +34,7 @@ export class {{classname}}PrivateService {
   {{{operationId}}} (...{{^allParams.0}}_{{/allParams.0}}args: any) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}> {
     {{#allParams}}
     const { {{paramName}} } = args[{{-index}} - 1];
-    const {{paramName}}Cast = {{{dataType}}}({{paramName}});
+    const {{paramName}}Cast = {{#castForType}}{{{dataType}}}---{{paramName}}{{/castForType}};
     {{/allParams}}
     return new Promise((resolve, reject) => {
       try {

@@ -16,15 +16,24 @@ import { Tag } from "./Tag.ts";
  * A pet for sale in the pet store
  */
 export class Pet {
-  "id"?: number;
-  "category"?: Category;
-  "name": string;
-  "photoUrls": Array<string>;
-  "tags"?: Array<Tag>;
+  id?: number;
+  category?: Category;
+  name: string;
+  photoUrls: Array<string>;
+  tags?: Array<Tag>;
   /**
    * pet status in the store
    */
-  "status"?: StatusEnum;
+  status?: StatusEnum;
+
+  constructor(anotherPet: any) {
+    this.id = anotherPet.id;
+    this.category = anotherPet.category;
+    this.name = anotherPet.name;
+    this.photoUrls = anotherPet.photoUrls;
+    this.tags = anotherPet.tags;
+    this.status = anotherPet.status;
+  }
 }
 
 export enum StatusEnum {
