@@ -20,7 +20,7 @@ export class UserController {
   async createUser(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.createUser(Controller.collectRequestParams(request)),
+        await this.service.createUser(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -31,7 +31,7 @@ export class UserController {
     try {
       return Controller.sendResponse(
         await this.service.createUsersWithArrayInput(
-          Controller.collectRequestParams(request),
+          await Controller.collectRequestParams(request),
         ),
       );
     } catch (error) {
@@ -43,7 +43,7 @@ export class UserController {
     try {
       return Controller.sendResponse(
         await this.service.createUsersWithListInput(
-          Controller.collectRequestParams(request),
+          await Controller.collectRequestParams(request),
         ),
       );
     } catch (error) {
@@ -54,7 +54,7 @@ export class UserController {
   async loginUser(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.loginUser(Controller.collectRequestParams(request)),
+        await this.service.loginUser(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -64,7 +64,7 @@ export class UserController {
   async logoutUser(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.logoutUser(Controller.collectRequestParams(request)),
+        await this.service.logoutUser(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -74,7 +74,7 @@ export class UserController {
   async deleteUser(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.deleteUser(Controller.collectRequestParams(request)),
+        await this.service.deleteUser(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -85,7 +85,7 @@ export class UserController {
     try {
       return Controller.sendResponse(
         await this.service.getUserByName(
-          Controller.collectRequestParams(request),
+          await Controller.collectRequestParams(request),
         ),
       );
     } catch (error) {
@@ -96,7 +96,7 @@ export class UserController {
   async updateUser(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.updateUser(Controller.collectRequestParams(request)),
+        await this.service.updateUser(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);

@@ -3,8 +3,9 @@ import {
   OpenApiRequestMetadata,
   OperationObject,
   ParameterObject,
+  RequestBodyObject
 } from "./OpenApiRequestModel.ts";
-import { RouterContext } from "../deps-oak.ts";
+import { RouterContext, OakRequest } from "../deps-oak.ts";
 
 export class OakOpenApiRequest implements OpenApiRequest {
   openapi?: OpenApiRequestMetadata | undefined;
@@ -32,6 +33,7 @@ export class OakOpenApiRequest implements OpenApiRequest {
         context.params,
         context.request.url.searchParams,
       ),
+      requestBody: this.createRequestBody(context.request)
     };
     this.openapi = {
       pathParams: this.createPathParameters(
@@ -40,6 +42,7 @@ export class OakOpenApiRequest implements OpenApiRequest {
       ),
       schema: schema,
     };
+    console.log( context)
 
     this.cache = "default";
     this.credentials = "same-origin";
@@ -55,9 +58,18 @@ export class OakOpenApiRequest implements OpenApiRequest {
     this.referrer = "";
     this.referrerPolicy = "no-referrer";
     this.signal = new AbortController().signal;
-    this.url = "";
-    this.body = null;
-    this.bodyUsed = true;
+    this.url = context.request.url.toString();
+    this.bodyUsed = context.request.hasBody;
+    if (this.bodyUsed) {
+      this.body = context.request.body({type:'stream'}).value;
+    } else {
+      this.body = null;
+    }
+  }
+
+  private createRequestBody(request: OakRequest): RequestBodyObject {
+    console.log(request)
+    return { content: { "[media: string]": { } } };
   }
 
   private createParameters(

@@ -33,6 +33,7 @@ export class PetPrivateService {
    * returns Pet
    */
   updatePet(...args: any): Promise<Pet> {
+    console.log(args)
     const { pet } = args[0];
     const petCast = new Pet(pet);
     return new Promise((resolve, reject) => {

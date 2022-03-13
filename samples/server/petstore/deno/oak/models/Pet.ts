@@ -27,6 +27,7 @@ export class Pet {
   status?: StatusEnum;
 
   constructor(anotherPet: any) {
+    console.log(anotherPet)
     this.id = anotherPet.id;
     this.category = anotherPet.category;
     this.name = anotherPet.name;

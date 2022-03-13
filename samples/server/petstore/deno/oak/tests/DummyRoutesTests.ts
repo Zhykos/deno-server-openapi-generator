@@ -245,8 +245,10 @@ async function assertRouteResult(
   httpMethod: string,
   expectedErrorMessage: string,
 ): Promise<void> {
+  const body = null;
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: httpMethod,
+    body: body,
     client,
   });
 

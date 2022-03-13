@@ -21,7 +21,7 @@ export class StoreController {
     try {
       return Controller.sendResponse(
         await this.service.getInventory(
-          Controller.collectRequestParams(request),
+          await Controller.collectRequestParams(request),
         ),
       );
     } catch (error) {
@@ -32,7 +32,7 @@ export class StoreController {
   async placeOrder(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.placeOrder(Controller.collectRequestParams(request)),
+        await this.service.placeOrder(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -43,7 +43,7 @@ export class StoreController {
     try {
       return Controller.sendResponse(
         await this.service.deleteOrder(
-          Controller.collectRequestParams(request),
+          await Controller.collectRequestParams(request),
         ),
       );
     } catch (error) {
@@ -55,7 +55,7 @@ export class StoreController {
     try {
       return Controller.sendResponse(
         await this.service.getOrderById(
-          Controller.collectRequestParams(request),
+          await Controller.collectRequestParams(request),
         ),
       );
     } catch (error) {

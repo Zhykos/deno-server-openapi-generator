@@ -20,7 +20,7 @@ export class PetController {
   async addPet(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.addPet(Controller.collectRequestParams(request)),
+        await this.service.addPet(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -30,7 +30,7 @@ export class PetController {
   async updatePet(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.updatePet(Controller.collectRequestParams(request)),
+        await this.service.updatePet(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -41,7 +41,7 @@ export class PetController {
     try {
       return Controller.sendResponse(
         await this.service.findPetsByStatus(
-          Controller.collectRequestParams(request),
+          await Controller.collectRequestParams(request),
         ),
       );
     } catch (error) {
@@ -53,7 +53,7 @@ export class PetController {
     try {
       return Controller.sendResponse(
         await this.service.findPetsByTags(
-          Controller.collectRequestParams(request),
+          await Controller.collectRequestParams(request),
         ),
       );
     } catch (error) {
@@ -64,7 +64,7 @@ export class PetController {
   async deletePet(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.deletePet(Controller.collectRequestParams(request)),
+        await this.service.deletePet(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -74,7 +74,7 @@ export class PetController {
   async getPetById(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.getPetById(Controller.collectRequestParams(request)),
+        await this.service.getPetById(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
@@ -85,7 +85,7 @@ export class PetController {
     try {
       return Controller.sendResponse(
         await this.service.updatePetWithForm(
-          Controller.collectRequestParams(request),
+          await Controller.collectRequestParams(request),
         ),
       );
     } catch (error) {
@@ -96,7 +96,7 @@ export class PetController {
   async uploadFile(request: OpenApiRequest): Promise<Response> {
     try {
       return Controller.sendResponse(
-        await this.service.uploadFile(Controller.collectRequestParams(request)),
+        await this.service.uploadFile(await Controller.collectRequestParams(request)),
       );
     } catch (error) {
       return Controller.sendError(error);
