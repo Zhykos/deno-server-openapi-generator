@@ -16,8 +16,8 @@ export class PetPrivateService {
    * returns Pet
    */
   addPet(...args: any): Promise<Pet> {
-    const { pet } = args[0];
-    const petCast = new Pet(pet);
+    const { objBody } = args[0];
+    const petCast = new Pet(objBody);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.addPet(petCast));
@@ -33,8 +33,8 @@ export class PetPrivateService {
    * returns Pet
    */
   updatePet(...args: any): Promise<Pet> {
-    const { pet } = args[0];
-    const petCast = new Pet(pet);
+    const { objBody } = args[0];
+    const petCast = new Pet(objBody);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.updatePet(petCast));

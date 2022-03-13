@@ -16,8 +16,8 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   createUser(...args: any): Promise<void> {
-    const { user } = args[0];
-    const userCast = new User(user);
+    const { objBody } = args[0];
+    const userCast = new User(objBody);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUser(userCast));
@@ -139,9 +139,9 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   updateUser(...args: any): Promise<void> {
-    const { username, user } = args[0];
+    const { username, objBody } = args[0];
     const usernameCast = String(username);
-    const userCast = new User(user);
+    const userCast = new User(objBody);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.updateUser(usernameCast, userCast));

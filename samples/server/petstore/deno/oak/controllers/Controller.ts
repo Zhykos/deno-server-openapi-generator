@@ -86,15 +86,13 @@ export class Controller {
   static async collectRequestParams(request: OpenApiRequest): Promise<any> {
     const requestParams: any = {};
     if (request.bodyUsed) {
-      // requestParams["pet"] = request.body?.getReader;
-
       const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
         await request.body?.getReader();
       if (responseReader) {
         const reader: Deno.Reader = readerFromStreamReader(responseReader);
         const charArray: Uint8Array = await readAll(reader);
         const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
-        requestParams["pet"] = jsonObj;
+        requestParams["objBody"] = jsonObj;
         // assertEquals(jsonObj.message, expectedErrorMessage);
       } else {
         // fail("Cannot read body");
