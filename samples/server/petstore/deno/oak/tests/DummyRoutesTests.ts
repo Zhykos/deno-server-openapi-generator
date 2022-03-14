@@ -275,6 +275,7 @@ async function assertRouteResult(
     body: body,
     headers: {
       "Content-Type": "application/json",
+      "accept": "application/json",
     },
     client,
   });
