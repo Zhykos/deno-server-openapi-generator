@@ -9,7 +9,7 @@ const client = Deno.createHttpClient({});
 {{#apis}}
 {{#operations}}
 {{#operation}}
-Deno.test("check if route exists for service: {{classname}}Service >> {{{operationId}}}", async() => {
+Deno.test("check if route exists for service: {{classname}}Service >> {{{operationId}}} (test id {{classname}}-{{-index}})", async() => {
     const localVarPath = '{{{path}}}'{{#pathParams}}.replace('{${"{{baseName}}"}}', stubParameter("{{{dataType}}}")){{/pathParams}};
     await assertRouteResult(localVarPath, "{{httpMethod}}", "Method not implemented yet: {{classname}}Service >> {{{operationId}}}", "{{bodyParam.paramName}}");
 });

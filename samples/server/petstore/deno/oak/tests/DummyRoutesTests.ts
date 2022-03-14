@@ -5,7 +5,7 @@ import { assertEquals, fail, readAll, readerFromStreamReader } from "./deps.ts";
 
 const client = Deno.createHttpClient({});
 
-Deno.test("check if route exists for service: PetService >> addPet", async () => {
+Deno.test("check if route exists for service: PetService >> addPet (test id Pet-1)", async () => {
   const localVarPath = "/pet";
   await assertRouteResult(
     localVarPath,
@@ -15,7 +15,7 @@ Deno.test("check if route exists for service: PetService >> addPet", async () =>
   );
 });
 
-Deno.test("check if route exists for service: PetService >> updatePet", async () => {
+Deno.test("check if route exists for service: PetService >> updatePet (test id Pet-2)", async () => {
   const localVarPath = "/pet";
   await assertRouteResult(
     localVarPath,
@@ -25,7 +25,7 @@ Deno.test("check if route exists for service: PetService >> updatePet", async ()
   );
 });
 
-Deno.test("check if route exists for service: PetService >> findPetsByStatus", async () => {
+Deno.test("check if route exists for service: PetService >> findPetsByStatus (test id Pet-3)", async () => {
   const localVarPath = "/pet/findByStatus";
   await assertRouteResult(
     localVarPath,
@@ -35,7 +35,7 @@ Deno.test("check if route exists for service: PetService >> findPetsByStatus", a
   );
 });
 
-Deno.test("check if route exists for service: PetService >> findPetsByTags", async () => {
+Deno.test("check if route exists for service: PetService >> findPetsByTags (test id Pet-4)", async () => {
   const localVarPath = "/pet/findByTags";
   await assertRouteResult(
     localVarPath,
@@ -45,7 +45,7 @@ Deno.test("check if route exists for service: PetService >> findPetsByTags", asy
   );
 });
 
-Deno.test("check if route exists for service: PetService >> deletePet", async () => {
+Deno.test("check if route exists for service: PetService >> deletePet (test id Pet-5)", async () => {
   const localVarPath = "/pet/{petId}".replace(
     '{${"petId"}}',
     stubParameter("number"),
@@ -58,7 +58,7 @@ Deno.test("check if route exists for service: PetService >> deletePet", async ()
   );
 });
 
-Deno.test("check if route exists for service: PetService >> getPetById", async () => {
+Deno.test("check if route exists for service: PetService >> getPetById (test id Pet-6)", async () => {
   const localVarPath = "/pet/{petId}".replace(
     '{${"petId"}}',
     stubParameter("number"),
@@ -71,7 +71,7 @@ Deno.test("check if route exists for service: PetService >> getPetById", async (
   );
 });
 
-Deno.test("check if route exists for service: PetService >> updatePetWithForm", async () => {
+Deno.test("check if route exists for service: PetService >> updatePetWithForm (test id Pet-7)", async () => {
   const localVarPath = "/pet/{petId}".replace(
     '{${"petId"}}',
     stubParameter("number"),
@@ -84,7 +84,7 @@ Deno.test("check if route exists for service: PetService >> updatePetWithForm", 
   );
 });
 
-Deno.test("check if route exists for service: PetService >> uploadFile", async () => {
+Deno.test("check if route exists for service: PetService >> uploadFile (test id Pet-8)", async () => {
   const localVarPath = "/pet/{petId}/uploadImage".replace(
     '{${"petId"}}',
     stubParameter("number"),
@@ -97,7 +97,7 @@ Deno.test("check if route exists for service: PetService >> uploadFile", async (
   );
 });
 
-Deno.test("check if route exists for service: StoreService >> getInventory", async () => {
+Deno.test("check if route exists for service: StoreService >> getInventory (test id Store-1)", async () => {
   const localVarPath = "/store/inventory";
   await assertRouteResult(
     localVarPath,
@@ -107,7 +107,7 @@ Deno.test("check if route exists for service: StoreService >> getInventory", asy
   );
 });
 
-Deno.test("check if route exists for service: StoreService >> placeOrder", async () => {
+Deno.test("check if route exists for service: StoreService >> placeOrder (test id Store-2)", async () => {
   const localVarPath = "/store/order";
   await assertRouteResult(
     localVarPath,
@@ -117,7 +117,7 @@ Deno.test("check if route exists for service: StoreService >> placeOrder", async
   );
 });
 
-Deno.test("check if route exists for service: StoreService >> deleteOrder", async () => {
+Deno.test("check if route exists for service: StoreService >> deleteOrder (test id Store-3)", async () => {
   const localVarPath = "/store/order/{orderId}".replace(
     '{${"orderId"}}',
     stubParameter("string"),
@@ -130,7 +130,7 @@ Deno.test("check if route exists for service: StoreService >> deleteOrder", asyn
   );
 });
 
-Deno.test("check if route exists for service: StoreService >> getOrderById", async () => {
+Deno.test("check if route exists for service: StoreService >> getOrderById (test id Store-4)", async () => {
   const localVarPath = "/store/order/{orderId}".replace(
     '{${"orderId"}}',
     stubParameter("number"),
@@ -143,7 +143,7 @@ Deno.test("check if route exists for service: StoreService >> getOrderById", asy
   );
 });
 
-Deno.test("check if route exists for service: UserService >> createUser", async () => {
+Deno.test("check if route exists for service: UserService >> createUser (test id User-1)", async () => {
   const localVarPath = "/user";
   await assertRouteResult(
     localVarPath,
@@ -153,7 +153,7 @@ Deno.test("check if route exists for service: UserService >> createUser", async 
   );
 });
 
-Deno.test("check if route exists for service: UserService >> createUsersWithArrayInput", async () => {
+Deno.test("check if route exists for service: UserService >> createUsersWithArrayInput (test id User-2)", async () => {
   const localVarPath = "/user/createWithArray";
   await assertRouteResult(
     localVarPath,
@@ -163,7 +163,7 @@ Deno.test("check if route exists for service: UserService >> createUsersWithArra
   );
 });
 
-Deno.test("check if route exists for service: UserService >> createUsersWithListInput", async () => {
+Deno.test("check if route exists for service: UserService >> createUsersWithListInput (test id User-3)", async () => {
   const localVarPath = "/user/createWithList";
   await assertRouteResult(
     localVarPath,
@@ -173,7 +173,7 @@ Deno.test("check if route exists for service: UserService >> createUsersWithList
   );
 });
 
-Deno.test("check if route exists for service: UserService >> loginUser", async () => {
+Deno.test("check if route exists for service: UserService >> loginUser (test id User-4)", async () => {
   const localVarPath = "/user/login";
   await assertRouteResult(
     localVarPath,
@@ -183,7 +183,7 @@ Deno.test("check if route exists for service: UserService >> loginUser", async (
   );
 });
 
-Deno.test("check if route exists for service: UserService >> logoutUser", async () => {
+Deno.test("check if route exists for service: UserService >> logoutUser (test id User-5)", async () => {
   const localVarPath = "/user/logout";
   await assertRouteResult(
     localVarPath,
@@ -193,7 +193,7 @@ Deno.test("check if route exists for service: UserService >> logoutUser", async 
   );
 });
 
-Deno.test("check if route exists for service: UserService >> deleteUser", async () => {
+Deno.test("check if route exists for service: UserService >> deleteUser (test id User-6)", async () => {
   const localVarPath = "/user/{username}".replace(
     '{${"username"}}',
     stubParameter("string"),
@@ -206,7 +206,7 @@ Deno.test("check if route exists for service: UserService >> deleteUser", async 
   );
 });
 
-Deno.test("check if route exists for service: UserService >> getUserByName", async () => {
+Deno.test("check if route exists for service: UserService >> getUserByName (test id User-7)", async () => {
   const localVarPath = "/user/{username}".replace(
     '{${"username"}}',
     stubParameter("string"),
@@ -219,7 +219,7 @@ Deno.test("check if route exists for service: UserService >> getUserByName", asy
   );
 });
 
-Deno.test("check if route exists for service: UserService >> updateUser", async () => {
+Deno.test("check if route exists for service: UserService >> updateUser (test id User-8)", async () => {
   const localVarPath = "/user/{username}".replace(
     '{${"username"}}',
     stubParameter("string"),
