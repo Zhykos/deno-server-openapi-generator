@@ -268,11 +268,14 @@ async function assertRouteResult(
 ): Promise<void> {
   let body: BodyInit | null | undefined = null;
   if (bodyParamName !== "") {
-    body = "{}";
+    body = "{\"id\": 1}";
   }
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: httpMethod,
     body: body,
+    headers: {
+      "Content-Type": "application/json",
+    },
     client,
   });
 
@@ -283,8 +286,13 @@ async function assertRouteResult(
   if (responseReader) {
     const reader: Deno.Reader = readerFromStreamReader(responseReader);
     const charArray: Uint8Array = await readAll(reader);
-    const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
-    assertEquals(jsonObj.message, expectedErrorMessage);
+    const decodedBody: string = new TextDecoder().decode(charArray);
+    try {
+      const jsonObj = JSON.parse(decodedBody);
+      assertEquals(jsonObj.message, expectedErrorMessage);
+    } catch (_e) {
+      fail("Cannot read body: " + decodedBody);
+    }
   } else {
     fail("Cannot read body");
   }

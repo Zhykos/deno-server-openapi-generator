@@ -39,7 +39,9 @@ export class OakOpenApiRequest implements OpenApiRequest {
   private async readBody(request: OakRequest): Promise<void> {
     // console.log(request.headers.get("accept"))
     const headerAccept: string | null = request.headers.get("accept");
-
+    if (!request.hasBody) {
+      return;
+    }
     const responseReader = request.body({ type: "stream" }).value.getReader();
     if (responseReader) {
       const reader: Deno.Reader = readerFromStreamReader(responseReader);

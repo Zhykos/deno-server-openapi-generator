@@ -8,6 +8,8 @@ import { Pet } from "../../models/Pet.ts";
 import { User } from "../../models/User.ts";
 import { petDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 
+// deno run --allow-net --allow-read --allow-write --watch PetStoreCompleteExample.ts
+
 // Custom services
 
 class MyPetService implements PetService {
@@ -109,5 +111,3 @@ const myUserService: UserService = new MyUserService();
 // Create then start Deno server
 
 new DenoOakServer(3000, myPetService, myStoreService, myUserService).start();
-
-// deno run --allow-net --allow-read --allow-write --watch PetStoreCompleteExample.ts

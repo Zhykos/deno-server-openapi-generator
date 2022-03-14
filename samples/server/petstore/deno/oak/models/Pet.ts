@@ -18,15 +18,15 @@ import { Tag } from "./Tag.ts";
 export class Pet {
   id?: number;
   category?: Category;
-  name: string;
-  photoUrls: Array<string>;
+  "name": string;
+  "photoUrls": Array<string>;
   tags?: Array<Tag>;
   /**
    * pet status in the store
    */
   status?: StatusEnum;
 
-  constructor(anotherPet: any) {
+  copyFrom(anotherPet: any) {
     this.id = anotherPet.id;
     this.category = anotherPet.category;
     this.name = anotherPet.name;
