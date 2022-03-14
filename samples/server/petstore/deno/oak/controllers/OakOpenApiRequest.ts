@@ -3,37 +3,22 @@ import {
   OpenApiRequestMetadata,
   OperationObject,
   ParameterObject,
-  RequestBodyObject
 } from "./OpenApiRequestModel.ts";
-import { RouterContext, OakRequest } from "../deps-oak.ts";
+import { RouterContext } from "../deps-oak.ts";
 
 export class OakOpenApiRequest implements OpenApiRequest {
-  openapi?: OpenApiRequestMetadata | undefined;
-  cache: RequestCache;
-  credentials: RequestCredentials;
-  destination: RequestDestination;
+  openapi?: OpenApiRequestMetadata|undefined;
+  hasBody: boolean;
+  body?: string|undefined;
   headers: Headers;
-  integrity: string;
-  isHistoryNavigation: boolean;
-  isReloadNavigation: boolean;
-  keepalive: boolean;
-  method: string;
-  mode: RequestMode;
-  redirect: RequestRedirect;
-  referrer: string;
-  referrerPolicy: ReferrerPolicy;
-  signal: AbortSignal;
-  url: string;
-  body: ReadableStream<Uint8Array> | null;
-  bodyUsed: boolean;
 
   constructor(context: RouterContext<string, any, Record<string, any>>) {
+    console.log(context.request)
     const schema: OperationObject = {
       parameters: this.createParameters(
         context.params,
         context.request.url.searchParams,
       ),
-      // requestBody: this.createRequestBody(context.request)
     };
     this.openapi = {
       pathParams: this.createPathParameters(
@@ -43,32 +28,15 @@ export class OakOpenApiRequest implements OpenApiRequest {
       schema: schema,
     };
 
-    this.cache = "default";
-    this.credentials = "same-origin";
-    this.destination = "object";
-    this.headers = new OakHeaders();
-    this.integrity = "";
-    this.isHistoryNavigation = false;
-    this.isReloadNavigation = false;
-    this.keepalive = true;
-    this.method = "";
-    this.mode = "cors";
-    this.redirect = "manual";
-    this.referrer = "";
-    this.referrerPolicy = "no-referrer";
-    this.signal = new AbortController().signal;
-    this.url = context.request.url.toString();
-    this.bodyUsed = context.request.hasBody;
-    if (this.bodyUsed) {
-      this.body = context.request.body({type:'stream'}).value;
+    this.headers = new Headers();
+    this.hasBody = context.request.hasBody;
+    if (this.hasBody) {
+      // this.body = context.request.body({type:'stream'}).value;
+      this.body = ""
     } else {
-      this.body = null;
+      // this.body = null;
     }
   }
-
-  // private createRequestBody(request: OakRequest): RequestBodyObject {
-  //   return { content: { "[media: string]": { } } }; // TODO Remove ???
-  // }
 
   private createParameters(
     routeParams: any,
@@ -128,29 +96,4 @@ export class OakOpenApiRequest implements OpenApiRequest {
     });
   }
 
-  clone(): Request {
-    throw new Error("Method not implemented: clone.");
-  }
-
-  arrayBuffer(): Promise<ArrayBuffer> {
-    throw new Error("Method not implemented: arrayBuffer.");
-  }
-
-  blob(): Promise<Blob> {
-    throw new Error("Method not implemented: blob.");
-  }
-
-  formData(): Promise<FormData> {
-    throw new Error("Method not implemented: formData.");
-  }
-
-  json(): Promise<any> {
-    throw new Error("Method not implemented: json.");
-  }
-
-  text(): Promise<string> {
-    throw new Error("Method not implemented: text.");
-  }
 }
-
-class OakHeaders extends Headers {}

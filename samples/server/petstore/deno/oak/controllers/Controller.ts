@@ -83,16 +83,16 @@ export class Controller {
   //   throw "Cannot get request body name (getRequestBodyName).";
   // }
 
-  static async collectRequestParams(request: OpenApiRequest): Promise<any> {
+  static collectRequestParams(request: OpenApiRequest): Promise<any> {
+    console.log(request)
     const requestParams: any = {};
-    if (request.bodyUsed) {
-      const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
-        await request.body?.getReader();
+    if (request.hasBody) {
+      const responseReader= request.body;
       if (responseReader) {
-        const reader: Deno.Reader = readerFromStreamReader(responseReader);
-        const charArray: Uint8Array = await readAll(reader);
-        const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
-        requestParams["objBody"] = jsonObj;
+        // const reader: Deno.Reader = readerFromStreamReader(responseReader);
+        // const charArray: Uint8Array = await readAll(reader);
+        // const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+        // requestParams["objBody"] = jsonObj;
         // assertEquals(jsonObj.message, expectedErrorMessage);
       } else {
         // fail("Cannot read body");
