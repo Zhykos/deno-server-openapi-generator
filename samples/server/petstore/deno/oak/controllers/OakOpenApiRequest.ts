@@ -7,13 +7,12 @@ import {
 import { RouterContext } from "../deps-oak.ts";
 
 export class OakOpenApiRequest implements OpenApiRequest {
-  openapi?: OpenApiRequestMetadata|undefined;
+  openapi?: OpenApiRequestMetadata | undefined;
   hasBody: boolean;
-  body?: string|undefined;
+  body?: string | undefined;
   headers: Headers;
 
   constructor(context: RouterContext<string, any, Record<string, any>>) {
-    console.log(context.request)
     const schema: OperationObject = {
       parameters: this.createParameters(
         context.params,
@@ -32,7 +31,7 @@ export class OakOpenApiRequest implements OpenApiRequest {
     this.hasBody = context.request.hasBody;
     if (this.hasBody) {
       // this.body = context.request.body({type:'stream'}).value;
-      this.body = ""
+      this.body = "";
     } else {
       // this.body = null;
     }
@@ -95,5 +94,4 @@ export class OakOpenApiRequest implements OpenApiRequest {
       allParameters[key] = value;
     });
   }
-
 }
