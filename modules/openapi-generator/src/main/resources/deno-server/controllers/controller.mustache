@@ -1,6 +1,7 @@
-import { join, camelCaseSync } from "../deps.ts";
-import { config } from "../config.ts";
-import { OpenApiRequest, ParameterObject, SchemaObject } from "./OpenApiRequestModel.ts";
+{{! import { join, camelCaseSync } from "../deps.ts";
+import { config } from "../config.ts"; }}
+import { OpenApiRequest, ParameterObject/*, SchemaObject*/ } from "./OpenApiRequestModel.ts";
+import { readAll, readerFromStreamReader } from "../deps.ts";
 
 export class Controller {
   static sendResponse(body: any): Response {
@@ -29,7 +30,7 @@ export class Controller {
     });
   }
 
-  /**
+  {{! /**
   * Files have been uploaded to the directory defined by config.js as upload directory
   * Files have a temporary name, that was saved as 'filename' of the file object that is
   * referenced in request.files array.
@@ -70,11 +71,23 @@ export class Controller {
     return 'body';*/
     console.error("TODO: getRequestBodyName");
     throw "Cannot get request body name (getRequestBodyName).";
-  }
+  } }}
 
   static collectRequestParams(request: OpenApiRequest): any {
     const requestParams: any = {};
-    if (request.openapi !== undefined && request.openapi.schema.requestBody !== undefined) {
+    if (request.hasBody) {
+      const responseReader = request.body;
+      if (responseReader) {
+        // const reader: Deno.Reader = readerFromStreamReader(responseReader);
+        // const charArray: Uint8Array = await readAll(reader);
+        // const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
+        // requestParams["objBody"] = jsonObj;
+        // assertEquals(jsonObj.message, expectedErrorMessage);
+      } else {
+        // fail("Cannot read body");
+      }
+    }
+    {{! if (request.openapi !== undefined && request.openapi.schema.requestBody !== undefined) {
       const { content } = request.openapi.schema.requestBody;
       if (content['application/json'] !== undefined) {
         const requestBodyName = camelCaseSync(this.getRequestBodyName(request));
@@ -96,7 +109,7 @@ export class Controller {
       } else {
         throw "Cannot treat content other than a JSON or a Form-data content.";
       }
-    }
+    } }}
 
     const openApi = request.openapi;
     if (openApi !== undefined && openApi.schema !== undefined && openApi.schema.parameters !== undefined) {
@@ -110,13 +123,12 @@ export class Controller {
     }
     return requestParams;
   }
-
-  /*static async handleRequest(request: OpenApiRequest, serviceOperation: Function): Promise<Response> {
+  {{! /*static async handleRequest(request: OpenApiRequest, serviceOperation: Function): Promise<Response> {
     try {
       const serviceResponse = await serviceOperation(Controller.collectRequestParams(request));
       return Controller.sendResponse(serviceResponse);
     } catch (error) {
       return Controller.sendError(error);
     }
-  }*/
+  }*/ }}
 }

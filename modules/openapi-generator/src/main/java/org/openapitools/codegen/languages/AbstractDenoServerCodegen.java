@@ -74,6 +74,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         // Additional properties
         super.additionalProperties.put("lowercase", new LowercaseLambda());
         super.additionalProperties.put("castForType", new CastForTypeLambda());
+        super.additionalProperties.put("paramNameDestructuring", new ParamNameDestructuringLambda());
     }
 
     @Override
@@ -202,7 +203,23 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
             } else if (valueType.startsWith("Array")) {
                 writer.write("new " + valueType + "(); " + valueName + "Cast.push(" + valueName + ')');
             } else {
-                writer.write("new " + valueType + '(' + valueName + ')');
+                writer.write("new " + valueType + "(objBody)");
+            }
+        }
+    }
+
+    private class ParamNameDestructuringLambda implements Mustache.Lambda {
+        @Override
+        public void execute(final Template.Fragment fragment, final Writer writer) throws IOException {
+            final String text = fragment.execute();
+            final String[] split = text.split("---");
+            final String valueType = split[0];
+            final String valueName = split[1];
+            if ("number".equals(valueType) || "string".equals(valueType) || "any".equals(valueType)
+                    || valueType.startsWith("Array")) {
+                writer.write(valueName);
+            } else {
+                writer.write("objBody");
             }
         }
     }
