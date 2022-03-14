@@ -15,5 +15,5 @@ export interface OpenApiRequestMetadata {
 export interface OpenApiRequest {
   openapi?: OpenApiRequestMetadata;
   body?: string;
-  // headers: Headers;
+  //headers: Headers;
 }

@@ -1,7 +1,6 @@
 {{! import { join, camelCaseSync } from "../deps.ts";
 import { config } from "../config.ts"; }}
-import { OpenApiRequest, ParameterObject/*, SchemaObject*/ } from "./OpenApiRequestModel.ts";
-import { readAll, readerFromStreamReader } from "../deps.ts";
+import { OpenApiRequest, ParameterObject } from "./OpenApiRequestModel.ts";
 
 export class Controller {
   static sendResponse(body: any): Response {
@@ -75,17 +74,11 @@ export class Controller {
 
   static collectRequestParams(request: OpenApiRequest): any {
     const requestParams: any = {};
-    if (request.hasBody) {
-      const responseReader = request.body;
-      if (responseReader) {
-        // const reader: Deno.Reader = readerFromStreamReader(responseReader);
-        // const charArray: Uint8Array = await readAll(reader);
-        // const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
-        // requestParams["objBody"] = jsonObj;
-        // assertEquals(jsonObj.message, expectedErrorMessage);
-      } else {
-        // fail("Cannot read body");
-      }
+    const requestBody = request.body;
+    if (requestBody) {
+      requestParams["objBody"] = requestBody;
+    } else {
+      // TODO?
     }
     {{! if (request.openapi !== undefined && request.openapi.schema.requestBody !== undefined) {
       const { content } = request.openapi.schema.requestBody;
@@ -117,7 +110,7 @@ export class Controller {
         if (param.in === 'path' || param.in === 'url') {
           requestParams[param.name] = openApi.pathParams[param.name];
         } else if (param.in === 'header') {
-          requestParams[param.name] = request.headers.get(param.name);
+          //requestParams[param.name] = request.headers.get(param.name);
         }
       });
     }

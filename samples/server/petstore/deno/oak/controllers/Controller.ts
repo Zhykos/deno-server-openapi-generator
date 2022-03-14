@@ -1,7 +1,4 @@
-import {
-  OpenApiRequest,
-  ParameterObject
-} from "./OpenApiRequestModel.ts";
+import { OpenApiRequest, ParameterObject } from "./OpenApiRequestModel.ts";
 
 export class Controller {
   static sendResponse(body: any): Response {
@@ -39,7 +36,7 @@ export class Controller {
     if (requestBody) {
       requestParams["objBody"] = requestBody;
     } else {
-      // fail("Cannot read body"); // TODO do something?
+      // TODO?
     }
 
     const openApi = request.openapi;
@@ -51,7 +48,7 @@ export class Controller {
         if (param.in === "path" || param.in === "url") {
           requestParams[param.name] = openApi.pathParams[param.name];
         } else if (param.in === "header") {
-          // requestParams[param.name] = request.headers.get(param.name);
+          //requestParams[param.name] = request.headers.get(param.name);
         }
       });
     }
