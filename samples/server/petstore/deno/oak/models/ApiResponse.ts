@@ -13,11 +13,11 @@
  * Describes the result of uploading an image resource
  */
 export class ApiResponse {
-  code?: number;
-  type?: string;
-  message?: string;
+  "code"?: number;
+  "type"?: string;
+  "message"?: string;
 
-  constructor(anotherApiResponse: any) {
+  copyFrom(anotherApiResponse: any) {
     this.code = anotherApiResponse.code;
     this.type = anotherApiResponse.type;
     this.message = anotherApiResponse.message;

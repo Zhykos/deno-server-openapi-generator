@@ -268,7 +268,7 @@ async function assertRouteResult(
 ): Promise<void> {
   let body: BodyInit | null | undefined = null;
   if (bodyParamName !== "") {
-    body = "{\"id\": 1}";
+    body = "{}";
   }
   const res = await fetch("http://localhost:3000" + localVarPath, {
     method: httpMethod,

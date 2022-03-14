@@ -17,7 +17,8 @@ export class UserPrivateService {
    */
   createUser(...args: any): Promise<void> {
     const { objBody } = args[0];
-    const userCast = new User(objBody);
+    const userCast = new User();
+    userCast.copyFrom(objBody);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUser(userCast));
@@ -141,7 +142,8 @@ export class UserPrivateService {
   updateUser(...args: any): Promise<void> {
     const { username, objBody } = args[0];
     const usernameCast = String(username);
-    const userCast = new User(objBody);
+    const userCast = new User();
+    userCast.copyFrom(objBody);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.updateUser(usernameCast, userCast));

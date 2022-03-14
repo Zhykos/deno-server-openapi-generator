@@ -31,7 +31,8 @@ export class StorePrivateService {
    */
   placeOrder(...args: any): Promise<Order> {
     const { objBody } = args[0];
-    const orderCast = new Order(objBody);
+    const orderCast = new Order();
+    orderCast.copyFrom(objBody);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customStoreService.placeOrder(orderCast));

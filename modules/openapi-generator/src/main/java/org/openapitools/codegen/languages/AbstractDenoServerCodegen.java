@@ -203,7 +203,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
             } else if (valueType.startsWith("Array")) {
                 writer.write("new " + valueType + "(); " + valueName + "Cast.push(" + valueName + ')');
             } else {
-                writer.write("new " + valueType + "(objBody)");
+                writer.write("new " + valueType + "(); " + valueName + "Cast.copyFrom(objBody);");
             }
         }
     }

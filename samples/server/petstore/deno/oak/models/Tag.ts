@@ -13,10 +13,10 @@
  * A tag for a pet
  */
 export class Tag {
-  id?: number;
-  name?: string;
+  "id"?: number;
+  "name"?: string;
 
-  constructor(anotherTag: any) {
+  copyFrom(anotherTag: any) {
     this.id = anotherTag.id;
     this.name = anotherTag.name;
   }

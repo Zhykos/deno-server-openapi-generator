@@ -13,10 +13,10 @@
  * A category for a pet
  */
 export class Category {
-  id?: number;
-  name?: string;
+  "id"?: number;
+  "name"?: string;
 
-  constructor(anotherCategory: any) {
+  copyFrom(anotherCategory: any) {
     this.id = anotherCategory.id;
     this.name = anotherCategory.name;
   }
