@@ -1,8 +1,7 @@
 import {
   OpenApiRequest,
-  ParameterObject, /*, SchemaObject*/
+  ParameterObject
 } from "./OpenApiRequestModel.ts";
-import { readAll, readerFromStreamReader } from "../deps.ts";
 
 export class Controller {
   static sendResponse(body: any): Response {
@@ -36,17 +35,11 @@ export class Controller {
 
   static collectRequestParams(request: OpenApiRequest): any {
     const requestParams: any = {};
-    if (request.hasBody) {
-      const responseReader = request.body;
-      if (responseReader) {
-        // const reader: Deno.Reader = readerFromStreamReader(responseReader);
-        // const charArray: Uint8Array = await readAll(reader);
-        // const jsonObj = JSON.parse(new TextDecoder().decode(charArray));
-        // requestParams["objBody"] = jsonObj;
-        // assertEquals(jsonObj.message, expectedErrorMessage);
-      } else {
-        // fail("Cannot read body");
-      }
+    const requestBody = request.body;
+    if (requestBody) {
+      requestParams["objBody"] = requestBody;
+    } else {
+      // fail("Cannot read body"); // TODO do something?
     }
 
     const openApi = request.openapi;
@@ -58,7 +51,7 @@ export class Controller {
         if (param.in === "path" || param.in === "url") {
           requestParams[param.name] = openApi.pathParams[param.name];
         } else if (param.in === "header") {
-          requestParams[param.name] = request.headers.get(param.name);
+          // requestParams[param.name] = request.headers.get(param.name);
         }
       });
     }

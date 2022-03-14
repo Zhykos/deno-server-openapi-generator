@@ -4,15 +4,18 @@ import {
   OperationObject,
   ParameterObject,
 } from "./OpenApiRequestModel.ts";
-import { RouterContext } from "../deps-oak.ts";
+import { RouterContext, OakRequest } from "../deps-oak.ts";
+import {
+  readAll,
+  readerFromStreamReader,
+} from "../tests/deps.ts";
 
 export class OakOpenApiRequest implements OpenApiRequest {
   openapi?: OpenApiRequestMetadata | undefined;
-  hasBody: boolean;
   body?: string | undefined;
-  headers: Headers;
+  // headers: Headers;
 
-  constructor(context: RouterContext<string, any, Record<string, any>>) {
+  private constructor(context: RouterContext<string, any, Record<string, any>>) {
     const schema: OperationObject = {
       parameters: this.createParameters(
         context.params,
@@ -27,13 +30,31 @@ export class OakOpenApiRequest implements OpenApiRequest {
       schema: schema,
     };
 
-    this.headers = new Headers();
-    this.hasBody = context.request.hasBody;
-    if (this.hasBody) {
-      // this.body = context.request.body({type:'stream'}).value;
-      this.body = "";
+    // this.headers = new Headers();
+    // this.body = context.request.body({type:'stream'}).value;
+    // this.body = this.readBody(context.request);
+  }
+
+  private async readBody(request: OakRequest): Promise<void> {
+    // console.log(request.headers.get("accept"))
+    const headerAccept: string | null = request.headers.get("accept");
+    
+    const responseReader = request.body({type:'stream'}).value.getReader();
+    if (responseReader) {
+      const reader: Deno.Reader = readerFromStreamReader(responseReader);
+      const bodyRaw: Uint8Array = await readAll(reader);
+
+      if (bodyRaw.length > 0) {
+        if (headerAccept === "application/json") {
+          this.body = new TextDecoder().decode(bodyRaw);
+          // this.body = JSON.parse(new TextDecoder().decode(bodyRaw));
+          // this.body = JSON.stringify(await request.body({ type: "reader" }).value);
+        } else {
+          // TODO?
+        }
+      }
     } else {
-      // this.body = null;
+      // TODO?
     }
   }
 
@@ -93,5 +114,11 @@ export class OakOpenApiRequest implements OpenApiRequest {
     urlParams.forEach((value, key) => {
       allParameters[key] = value;
     });
+  }
+
+  static async build(context: RouterContext<string, any, Record<string, any>>): Promise<OakOpenApiRequest> {
+    const request = new OakOpenApiRequest(context);
+    await request.readBody(context.request);
+    return request;
   }
 }
