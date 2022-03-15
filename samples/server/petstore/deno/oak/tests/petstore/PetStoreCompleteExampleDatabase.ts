@@ -1,11 +1,10 @@
-import { DsDDB } from "https://deno.land/x/dsddb@v2.1.0/mod.ts";
 import { Pet } from "../../models/Pet.ts";
 
 export class PetStoreDatabase {
-  private petDatabase: DsDDB<Pet>;
+  private petDatabase: Map<string, Pet>;
 
   constructor() {
-    this.petDatabase = new DsDDB<Pet>();
+    this.petDatabase = new Map<string, Pet>();
     this.initDatabase();
   }
 
@@ -19,6 +18,10 @@ export class PetStoreDatabase {
 
   addPet(pet: Pet): void {
     this.petDatabase.set(this.getPetIdForDatabaseFromObject(pet), pet);
+  }
+
+  allPetsIterator(): IterableIterator<Pet> {
+    return this.petDatabase.values();
   }
 
   private initDatabase() {
@@ -40,6 +43,6 @@ export class PetStoreDatabase {
       ],
       "status": "available",
     });
-    this.petDatabase.set(this.getPetIdForDatabaseFromObject(pet0), pet0);
+    this.addPet(pet0);
   }
 }

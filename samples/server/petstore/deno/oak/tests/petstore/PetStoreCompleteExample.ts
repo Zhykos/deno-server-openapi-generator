@@ -4,9 +4,10 @@ import { StoreService } from "../../services/StoreService.ts";
 import { UserService } from "../../services/UserService.ts";
 import { ApiResponse } from "../../models/ApiResponse.ts";
 import { Order } from "../../models/Order.ts";
-import { Pet } from "../../models/Pet.ts";
+import { Pet, StatusEnum } from "../../models/Pet.ts";
 import { User } from "../../models/User.ts";
 import { PetStoreDatabase } from "./PetStoreCompleteExampleDatabase.ts";
+import { iterFilter, iterMap } from "./deps.ts";
 
 // deno run --allow-net --allow-read --allow-write --watch PetStoreCompleteExample.ts
 
@@ -46,10 +47,16 @@ class MyPetService implements PetService {
     throw new Deno.errors.NotFound("Cannot find pet with ID: " + petId);
   }
   findPetsByStatus(
-    _status: Array<"available" | "pending" | "sold">,
+    status: Array<"available" | "pending" | "sold">,
   ): Array<Pet> {
-    throw new Error(
-      "Method not implemented yet: PetService >> findPetsByStatus",
+    const petStoreDB = new PetStoreDatabase();
+
+    const wishedStatus: Array<StatusEnum> = Array.from(
+      iterMap(status, (statusStr) => statusStr as StatusEnum),
+    );
+    return Array.from(
+      iterFilter<Pet>(petStoreDB.allPetsIterator(), (pet) =>
+        pet.status !== undefined && wishedStatus.includes(pet.status)),
     );
   }
   findPetsByTags(_tags: Array<string>): Array<Pet> {
