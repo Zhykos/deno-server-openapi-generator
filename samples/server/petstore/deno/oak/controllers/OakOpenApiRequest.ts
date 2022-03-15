@@ -55,12 +55,12 @@ export class OakOpenApiRequest implements OpenApiRequest {
           // this.body = JSON.stringify(await request.body({ type: "reader" }).value);
         } else {
           // TODO?
-          console.error("TODO: readBody with header accept: " + headerAccept)
+          console.error("TODO: readBody with header accept: " + headerAccept);
         }
       }
     } else {
       // TODO?
-      console.error("TODO: empty body")
+      console.error("TODO: empty body");
     }
   }
 

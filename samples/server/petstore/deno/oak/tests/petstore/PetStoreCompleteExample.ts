@@ -47,7 +47,7 @@ class MyPetService implements PetService {
   }
   getPetById(petId: number): Pet {
     petStoreDB.reset();
-  
+
     if (isNaN(petId)) {
       throw new Deno.errors.InvalidData("Invalid Id to find pet");
     }
