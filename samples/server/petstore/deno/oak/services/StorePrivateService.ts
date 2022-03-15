@@ -77,4 +77,15 @@ export class StorePrivateService {
       }
     });
   }
+
+  private fillArray(val: any): Array<any> {
+    let newArray;
+    if (val instanceof Array) {
+      newArray = val;
+    } else {
+      newArray = new Array<any>();
+      newArray.push(val);
+    }
+    return newArray;
+  }
 }

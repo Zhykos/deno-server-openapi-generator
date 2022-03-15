@@ -54,7 +54,7 @@ export class PetPrivateService {
    */
   findPetsByStatus(...args: any): Promise<Array<Pet>> {
     const { status } = args[0];
-    const statusCast = status;
+    const statusCast = this.fillArray(status);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.findPetsByStatus(statusCast));
@@ -72,7 +72,7 @@ export class PetPrivateService {
    */
   findPetsByTags(...args: any): Promise<Array<Pet>> {
     const { tags } = args[0];
-    const tagsCast = tags;
+    const tagsCast = this.fillArray(tags);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.findPetsByTags(tagsCast));
@@ -171,5 +171,16 @@ export class PetPrivateService {
         reject(e);
       }
     });
+  }
+
+  private fillArray(val: any): Array<any> {
+    let newArray;
+    if (val instanceof Array) {
+      newArray = val;
+    } else {
+      newArray = new Array<any>();
+      newArray.push(val);
+    }
+    return newArray;
   }
 }

@@ -35,7 +35,7 @@ export class UserPrivateService {
    */
   createUsersWithArrayInput(...args: any): Promise<void> {
     const { user } = args[0];
-    const userCast = user;
+    const userCast = this.fillArray(user);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUsersWithArrayInput(userCast));
@@ -52,7 +52,7 @@ export class UserPrivateService {
    */
   createUsersWithListInput(...args: any): Promise<void> {
     const { user } = args[0];
-    const userCast = user;
+    const userCast = this.fillArray(user);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUsersWithListInput(userCast));
@@ -149,5 +149,16 @@ export class UserPrivateService {
         reject(e);
       }
     });
+  }
+
+  private fillArray(val: any): Array<any> {
+    let newArray;
+    if (val instanceof Array) {
+      newArray = val;
+    } else {
+      newArray = new Array<any>();
+      newArray.push(val);
+    }
+    return newArray;
   }
 }
