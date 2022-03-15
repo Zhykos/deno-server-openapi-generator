@@ -55,8 +55,10 @@ class MyPetService implements PetService {
       iterMap(status, (statusStr) => statusStr as StatusEnum),
     );
     return Array.from(
-      iterFilter<Pet>(petStoreDB.allPetsIterator(), (pet) =>
-        pet.status !== undefined && wishedStatus.includes(pet.status)),
+      iterFilter<Pet>(
+        petStoreDB.allPetsIterator(),
+        (pet) => pet.status !== undefined && wishedStatus.includes(pet.status),
+      ),
     );
   }
   findPetsByTags(_tags: Array<string>): Array<Pet> {

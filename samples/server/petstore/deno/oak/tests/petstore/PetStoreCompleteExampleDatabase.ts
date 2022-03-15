@@ -1,4 +1,4 @@
-import { Pet } from "../../models/Pet.ts";
+import { Pet, StatusEnum } from "../../models/Pet.ts";
 
 export class PetStoreDatabase {
   private petDatabase: Map<string, Pet>;
@@ -24,14 +24,19 @@ export class PetStoreDatabase {
     return this.petDatabase.values();
   }
 
-  private initDatabase() {
-    const pet0 = new Pet().copyFrom({
-      "id": 0,
+  private initDatabase(): void {
+    this.registerPet(0, "doggie", StatusEnum.Available);
+    this.registerPet(7, "doggo", StatusEnum.Sold);
+  }
+
+  private registerPet(id: number, name: string, status: StatusEnum): void {
+    const pet = new Pet().copyFrom({
+      "id": id,
       "category": {
         "id": 0,
         "name": "string",
       },
-      "name": "doggie",
+      "name": name,
       "photoUrls": [
         "string",
       ],
@@ -41,8 +46,8 @@ export class PetStoreDatabase {
           "name": "string",
         },
       ],
-      "status": "available",
+      "status": status.toString(),
     });
-    this.addPet(pet0);
+    this.addPet(pet);
   }
 }
