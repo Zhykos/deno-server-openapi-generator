@@ -73,7 +73,11 @@ export class OakOpenApiRequest implements OpenApiRequest {
     allParameters: Array<ParameterObject>,
   ): void {
     for (const [key, value] of Object.entries(routeParams)) {
-      const param: ParameterObject = { name: `${key}`, value: value as string, origin: "path" };
+      const param: ParameterObject = {
+        name: `${key}`,
+        value: value as string,
+        origin: "path",
+      };
       allParameters.push(param);
     }
   }
@@ -83,7 +87,11 @@ export class OakOpenApiRequest implements OpenApiRequest {
     allParameters: Array<ParameterObject>,
   ): void {
     urlParams.forEach((value, key) => {
-      const param: ParameterObject = { name: `${key}`, value: value, origin: "query" };
+      const param: ParameterObject = {
+        name: `${key}`,
+        value: value,
+        origin: "query",
+      };
       allParameters.push(param);
     });
   }

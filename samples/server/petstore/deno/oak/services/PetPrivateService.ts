@@ -72,8 +72,7 @@ export class PetPrivateService {
    */
   findPetsByTags(...args: any): Promise<Array<Pet>> {
     const { tags } = args[0];
-    const tagsCast = new Array<string>();
-    tagsCast.push(tags);
+    const tagsCast = tags;
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.findPetsByTags(tagsCast));
