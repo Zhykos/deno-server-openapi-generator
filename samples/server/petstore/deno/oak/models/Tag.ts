@@ -16,8 +16,9 @@ export class Tag {
   "id"?: number;
   "name"?: string;
 
-  copyFrom(anotherTag: any) {
+  copyFrom(anotherTag: any): Tag {
     this.id = anotherTag.id;
     this.name = anotherTag.name;
+    return this;
   }
 }

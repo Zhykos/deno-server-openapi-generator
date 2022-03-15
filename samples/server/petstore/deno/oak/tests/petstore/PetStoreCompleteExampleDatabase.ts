@@ -15,10 +15,24 @@ export class PetStoreDatabase {
 
   reset() {
     this.petDatabase.deleteStore();
-    const pet1 = new Pet();
-    pet1.id = 1;
-    pet1.name = "Firulais";
-    pet1.status = StatusEnum.Pending;
-    this.petDatabase.set("pet-1", pet1);
+    const pet0 = new Pet().copyFrom({
+      "id": 0,
+      "category": {
+        "id": 0,
+        "name": "string",
+      },
+      "name": "doggie",
+      "photoUrls": [
+        "string",
+      ],
+      "tags": [
+        {
+          "id": 0,
+          "name": "string",
+        },
+      ],
+      "status": "available",
+    });
+    this.petDatabase.set("pet-0", pet0);
   }
 }

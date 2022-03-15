@@ -17,9 +17,10 @@ export class ApiResponse {
   "type"?: string;
   "message"?: string;
 
-  copyFrom(anotherApiResponse: any) {
+  copyFrom(anotherApiResponse: any): ApiResponse {
     this.code = anotherApiResponse.code;
     this.type = anotherApiResponse.type;
     this.message = anotherApiResponse.message;
+    return this;
   }
 }

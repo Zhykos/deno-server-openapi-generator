@@ -25,7 +25,7 @@ export class User {
    */
   "userStatus"?: number;
 
-  copyFrom(anotherUser: any) {
+  copyFrom(anotherUser: any): User {
     this.id = anotherUser.id;
     this.username = anotherUser.username;
     this.firstName = anotherUser.firstName;
@@ -34,5 +34,6 @@ export class User {
     this.password = anotherUser.password;
     this.phone = anotherUser.phone;
     this.userStatus = anotherUser.userStatus;
+    return this;
   }
 }

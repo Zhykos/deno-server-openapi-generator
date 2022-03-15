@@ -16,8 +16,9 @@ export class Category {
   "id"?: number;
   "name"?: string;
 
-  copyFrom(anotherCategory: any) {
+  copyFrom(anotherCategory: any): Category {
     this.id = anotherCategory.id;
     this.name = anotherCategory.name;
+    return this;
   }
 }

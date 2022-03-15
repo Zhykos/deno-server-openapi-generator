@@ -23,13 +23,14 @@ export class Order {
   "status"?: StatusEnum;
   "complete"?: boolean = false;
 
-  copyFrom(anotherOrder: any) {
+  copyFrom(anotherOrder: any): Order {
     this.id = anotherOrder.id;
     this.petId = anotherOrder.petId;
     this.quantity = anotherOrder.quantity;
     this.shipDate = anotherOrder.shipDate;
     this.status = anotherOrder.status;
     this.complete = anotherOrder.complete;
+    return this;
   }
 }
 

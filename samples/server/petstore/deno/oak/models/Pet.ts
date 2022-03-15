@@ -26,13 +26,14 @@ export class Pet {
    */
   "status"?: StatusEnum;
 
-  copyFrom(anotherPet: any) {
+  copyFrom(anotherPet: any): Pet {
     this.id = anotherPet.id;
     this.category = anotherPet.category;
     this.name = anotherPet.name;
     this.photoUrls = anotherPet.photoUrls;
     this.tags = anotherPet.tags;
     this.status = anotherPet.status;
+    return this;
   }
 }
 

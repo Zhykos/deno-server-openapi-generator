@@ -22,7 +22,7 @@ class MyPetService implements PetService {
     petStoreDB.reset();
 
     const petId: number | undefined = pet.id;
-    if (!petId || isNaN(petId)) {
+    if (petId === undefined || isNaN(petId)) {
       throw new Deno.errors.InvalidData(`Invalid Id to find pet: '${petId}'`);
     }
     const petInDB: Pet | undefined = petStoreDB.getPet("pet-" + petId);
