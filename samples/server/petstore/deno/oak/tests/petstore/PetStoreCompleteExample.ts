@@ -19,6 +19,7 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> addPet");
   }
   updatePet(pet: Pet): Pet {
+    // TODO ERROR 405: Validation exception
     petStoreDB.reset();
 
     const petId: number | undefined = pet.id;
