@@ -14,6 +14,7 @@ import { PetStoreDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 
 class MyPetService implements PetService {
   addPet(pet: Pet): Pet {
+    // TODO ERROR 405: Validation exception (model format / JSON format)
     const petStoreDB = new PetStoreDatabase();
 
     const petId: number | undefined = pet.id;
@@ -30,7 +31,7 @@ class MyPetService implements PetService {
     return pet;
   }
   updatePet(pet: Pet): Pet {
-    // TODO ERROR 405: Validation exception
+    // TODO ERROR 405: Validation exception (model format / JSON format)
     const petStoreDB = new PetStoreDatabase();
 
     const petId: number | undefined = pet.id;
