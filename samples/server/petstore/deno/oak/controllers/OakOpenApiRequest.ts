@@ -14,7 +14,7 @@ import {
 export class OakOpenApiRequest implements OpenApiRequest {
   openapi?: OpenApiRequestMetadata | undefined;
   body?: string | undefined;
-  // headers: Headers;
+  headers: Headers;
 
   private constructor(
     context: RouterContext<string, any, Record<string, any>>,
@@ -33,7 +33,7 @@ export class OakOpenApiRequest implements OpenApiRequest {
       schema: schema,
     };
 
-    // this.headers = new Headers();
+    this.headers = context.request.headers;
   }
 
   private async readBody(request: OakRequest): Promise<void> {
@@ -55,10 +55,12 @@ export class OakOpenApiRequest implements OpenApiRequest {
           // this.body = JSON.stringify(await request.body({ type: "reader" }).value);
         } else {
           // TODO?
+          console.error("TODO: readBody with header accept: " + headerAccept)
         }
       }
     } else {
       // TODO?
+      console.error("TODO: empty body")
     }
   }
 

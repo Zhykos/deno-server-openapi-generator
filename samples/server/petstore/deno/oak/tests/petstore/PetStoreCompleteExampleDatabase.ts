@@ -14,6 +14,7 @@ export class PetStoreDatabase {
   }
 
   reset() {
+    this.petDatabase.deleteStore();
     const pet1 = new Pet();
     pet1.id = 1;
     pet1.name = "Firulais";

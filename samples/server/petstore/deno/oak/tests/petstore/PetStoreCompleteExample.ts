@@ -18,10 +18,19 @@ class MyPetService implements PetService {
   addPet(_pet: Pet): Pet {
     throw new Error("Method not implemented yet: PetService >> addPet");
   }
-  updatePet(_pet: Pet): Pet {
-    throw new Error(
-      "Method not implemented yet: PetService >> updatePeffffffffffft",
-    );
+  updatePet(pet: Pet): Pet {
+    petStoreDB.reset();
+
+    const petId: number | undefined = pet.id;
+    if (!petId || isNaN(petId)) {
+      throw new Deno.errors.InvalidData(`Invalid Id to find pet: '${petId}'`);
+    }
+    const petInDB: Pet | undefined = petStoreDB.getPet("pet-" + petId);
+    if (petInDB) {
+      petInDB.copyFrom(pet);
+      return petInDB;
+    }
+    throw new Deno.errors.NotFound("Cannot find pet with ID: " + petId);
   }
   findPetsByStatus(
     _status: Array<"available" | "pending" | "sold">,
@@ -38,6 +47,7 @@ class MyPetService implements PetService {
   }
   getPetById(petId: number): Pet {
     petStoreDB.reset();
+  
     if (isNaN(petId)) {
       throw new Deno.errors.InvalidData("Invalid Id to find pet");
     }

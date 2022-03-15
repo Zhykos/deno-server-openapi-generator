@@ -15,5 +15,10 @@ export interface OpenApiRequestMetadata {
 export interface OpenApiRequest {
   openapi?: OpenApiRequestMetadata;
   body?: string;
-  //headers: Headers;
+  headers: Headers;
+}
+
+export function isJsonBody(openApi: OpenApiRequest): boolean {
+  const headerAccept: string | null = openApi.headers.get("accept");
+  return openApi.body !== null && headerAccept === "application/json";
 }

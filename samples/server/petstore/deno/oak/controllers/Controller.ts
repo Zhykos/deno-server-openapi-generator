@@ -1,4 +1,4 @@
-import { OpenApiRequest, ParameterObject } from "./OpenApiRequestModel.ts";
+import { OpenApiRequest, ParameterObject, isJsonBody } from "./OpenApiRequestModel.ts";
 
 export class Controller {
   static sendResponse(body: any): Response {
@@ -34,7 +34,12 @@ export class Controller {
     const requestParams: any = {};
     const requestBody = request.body;
     if (requestBody) {
-      requestParams["objBody"] = requestBody;
+      if (isJsonBody(request)) {
+        requestParams["objBody"] = JSON.parse(requestBody);
+      } else {
+        requestParams["objBody"] = requestBody;
+        console.log("CAREFUL!!!!!!!!!")
+      }
     } else {
       // TODO?
     }

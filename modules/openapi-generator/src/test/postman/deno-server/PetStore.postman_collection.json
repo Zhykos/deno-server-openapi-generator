@@ -148,52 +148,202 @@
 					]
 				},
 				{
-					"name": "WIP - Update an existing pet",
-					"event": [
+					"name": "Update an existing pet [PUT]",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"pm.test(\"Check the PetId\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"petId\")));\r",
-									"});\r",
-									""
+							"name": "Update an existing pet",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"pm.test(\"Check the Pet\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.eql(1);\r",
+											"    pm.expect(jsonData.name).to.eql(\"doggie\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
 								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}pet",
+									"host": [
+										"{{baseUrl}}pet"
+									]
+								}
 							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": 1,  \n  \"category\": {\n    \"id\": 1,\n    \"name\": \"Dogs\"\n  },\n  \"name\": \"Firulais\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"Reserved\"\n}"
+							"response": []
 						},
-						"url": {
-							"raw": "{{baseUrl}}pet",
-							"host": [
-								"{{baseUrl}}pet"
-							]
+						{
+							"name": "Update an existing pet - No id in json",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"pm.test(\"Check the Pet\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet: 'undefined'\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}pet",
+									"host": [
+										"{{baseUrl}}pet"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update an existing pet - Invalid id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"pm.test(\"Check the Pet\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet: 'foo'\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": \"foo\",\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}pet",
+									"host": [
+										"{{baseUrl}}pet"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update an existing pet - id does not exist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"pm.test(\"Check the Pet\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Cannot find pet with ID: 2\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 2,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}pet",
+									"host": [
+										"{{baseUrl}}pet"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "TODO - Updates a Pet with Form Data",
@@ -334,15 +484,20 @@
 							{
 								"key": "accept",
 								"value": "application/json"
+							},
+							{
+								"key": "api_key",
+								"value": "TOKEN",
+								"type": "default"
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}pet/{{petId}}",
+							"raw": "{{baseUrl}}pet/1",
 							"host": [
 								"{{baseUrl}}pet"
 							],
 							"path": [
-								"{{petId}}"
+								"1"
 							]
 						}
 					},
@@ -394,7 +549,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": {{orderId}},\n  \"petId\": {{petId}},\n  \"quantity\": 0,\n  \"shipDate\": \"2022-01-16T09:52:23.792Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}"
+							"raw": "{\n  \"id\": 1,\n  \"petId\": 2,\n  \"quantity\": 0,\n  \"shipDate\": \"2022-01-16T09:52:23.792Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}store/order",
@@ -536,13 +691,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}store/order/{{orderId}}",
+							"raw": "{{baseUrl}}store/order/1",
 							"host": [
 								"{{baseUrl}}store"
 							],
 							"path": [
 								"order",
-								"{{orderId}}"
+								"1"
 							]
 						}
 					},
