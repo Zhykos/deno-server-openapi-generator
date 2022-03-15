@@ -6,9 +6,11 @@ import { ApiResponse } from "../../models/ApiResponse.ts";
 import { Order } from "../../models/Order.ts";
 import { Pet } from "../../models/Pet.ts";
 import { User } from "../../models/User.ts";
-import { petDatabase } from "./PetStoreCompleteExampleDatabase.ts";
+import { PetStoreDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 
 // deno run --allow-net --allow-read --allow-write --watch PetStoreCompleteExample.ts
+
+const petStoreDB = new PetStoreDatabase();
 
 // Custom services
 
@@ -35,10 +37,11 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> deletePet");
   }
   getPetById(petId: number): Pet {
+    petStoreDB.reset();
     if (isNaN(petId)) {
       throw new Deno.errors.InvalidData("Invalid Id to find pet");
     }
-    const pet = petDatabase.get("pet-" + petId);
+    const pet: Pet | undefined = petStoreDB.getPet("pet-" + petId);
     if (pet) {
       return pet;
     }
