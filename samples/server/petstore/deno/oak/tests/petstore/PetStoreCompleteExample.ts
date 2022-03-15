@@ -51,9 +51,21 @@ class MyPetService implements PetService {
   ): Array<Pet> {
     const petStoreDB = new PetStoreDatabase();
 
+    const checkStatus = Array.from(iterFilter(status, (statusStr) => {
+      const statusObj = statusStr as StatusEnum;
+      return statusObj == StatusEnum.Available ||
+        statusObj == StatusEnum.Sold || statusObj == StatusEnum.Pending;
+    }));
+    if (checkStatus.length != status.length) {
+      throw new Deno.errors.InvalidData(
+        `Invalid status to find pet: '${status}'`,
+      );
+    }
+
     const wishedStatus: Array<StatusEnum> = Array.from(
       iterMap(status, (statusStr) => statusStr as StatusEnum),
     );
+
     return Array.from(
       iterFilter<Pet>(
         petStoreDB.allPetsIterator(),
