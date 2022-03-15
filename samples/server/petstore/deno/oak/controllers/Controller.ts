@@ -20,6 +20,8 @@ export class Controller {
       status = 404;
     } else if (error instanceof Deno.errors.InvalidData) {
       status = 400;
+    } else if (error instanceof Deno.errors.NotSupported) {
+      status = 405;
     }
     return new Response(
       JSON.stringify({

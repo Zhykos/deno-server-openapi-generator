@@ -10,17 +10,28 @@ import { PetStoreDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 
 // deno run --allow-net --allow-read --allow-write --watch PetStoreCompleteExample.ts
 
-const petStoreDB = new PetStoreDatabase();
-
 // Custom services
 
 class MyPetService implements PetService {
-  addPet(_pet: Pet): Pet {
-    throw new Error("Method not implemented yet: PetService >> addPet");
+  addPet(pet: Pet): Pet {
+    const petStoreDB = new PetStoreDatabase();
+
+    const petId: number | undefined = pet.id;
+    if (petId === undefined || isNaN(petId)) {
+      throw new Deno.errors.NotSupported("Invalid input");
+    }
+    const petInDB: Pet | undefined = petStoreDB.getPet("pet-" + petId);
+    if (petInDB) {
+      throw new Deno.errors.NotSupported(
+        `A Pet already exists with Id: ${petId}`,
+      );
+    }
+    petStoreDB.addPet(pet);
+    return pet;
   }
   updatePet(pet: Pet): Pet {
     // TODO ERROR 405: Validation exception
-    petStoreDB.reset();
+    const petStoreDB = new PetStoreDatabase();
 
     const petId: number | undefined = pet.id;
     if (petId === undefined || isNaN(petId)) {
@@ -47,7 +58,7 @@ class MyPetService implements PetService {
     throw new Error("Method not implemented yet: PetService >> deletePet");
   }
   getPetById(petId: number): Pet {
-    petStoreDB.reset();
+    const petStoreDB = new PetStoreDatabase();
 
     if (isNaN(petId)) {
       throw new Deno.errors.InvalidData("Invalid Id to find pet");

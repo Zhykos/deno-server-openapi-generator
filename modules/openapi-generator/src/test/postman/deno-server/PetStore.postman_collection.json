@@ -14,7 +14,66 @@
 				},
 				{
 					"name": "TODO [POST] Add a new pet to the store",
-					"item": []
+					"item": [
+						{
+							"name": "Add a new pet to the store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.name).to.eql(\"doggie\");\r",
+											"    pm.expect(jsonData.status).to.eql(\"available\");\r",
+											"    pm.expect(jsonData.id).to.eql(1);\r",
+											"    pm.expect(jsonData.category.id).to.eql(0);\r",
+											"    pm.expect(jsonData.category.name).to.eql(\"string\");\r",
+											"    pm.expect(jsonData.photoUrls.length).to.eql(1);\r",
+											"    pm.expect(jsonData.photoUrls[0]).to.eql(\"string\");\r",
+											"    pm.expect(jsonData.tags.length).to.eql(1);\r",
+											"    pm.expect(jsonData.tags[0].id).to.eql(0);\r",
+											"    pm.expect(jsonData.tags[0].name).to.eql(\"string\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"id\": 1,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}pet",
+									"host": [
+										"{{baseUrl}}pet"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "[PUT] Update an existing pet",
@@ -87,14 +146,15 @@
 											"pm.test(\"Check status code\", function () {\r",
 											"    pm.response.to.have.status(400);\r",
 											"});\r",
+											"\r",
 											"pm.test(\"Check response time\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});\r",
+											"\r",
 											"pm.test(\"Check the Pet\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet: 'undefined'\");\r",
-											"});\r",
-											""
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -135,14 +195,15 @@
 											"pm.test(\"Check status code\", function () {\r",
 											"    pm.response.to.have.status(400);\r",
 											"});\r",
+											"\r",
 											"pm.test(\"Check response time\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});\r",
+											"\r",
 											"pm.test(\"Check the Pet\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet: 'foo'\");\r",
-											"});\r",
-											""
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -183,14 +244,15 @@
 											"pm.test(\"Check status code\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
+											"\r",
 											"pm.test(\"Check response time\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});\r",
+											"\r",
 											"pm.test(\"Check the Pet\", function () {\r",
 											"    var jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.message).to.eql(\"Cannot find pet with ID: 2\");\r",
-											"});\r",
-											""
+											"});"
 										],
 										"type": "text/javascript"
 									}
@@ -244,6 +306,7 @@
 											"pm.test(\"Check response time\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});\r",
+											"\r",
 											"pm.test(\"Check status code\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
@@ -297,6 +360,7 @@
 											"pm.test(\"Check response time\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});\r",
+											"\r",
 											"pm.test(\"Check status code\", function () {\r",
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
@@ -341,6 +405,7 @@
 											"pm.test(\"Check response time\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});\r",
+											"\r",
 											"pm.test(\"Check status code\", function () {\r",
 											"    pm.response.to.have.status(400);\r",
 											"});\r",
