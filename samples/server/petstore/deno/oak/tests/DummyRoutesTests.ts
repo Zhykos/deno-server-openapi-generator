@@ -282,7 +282,7 @@ async function assertRouteResult(
 
   const responseReader: ReadableStreamDefaultReader<Uint8Array> | undefined =
     await res.body?.getReader();
-  assertEquals(res.status, 500);
+  assertEquals(res.status, 405);
 
   if (responseReader) {
     const reader: Deno.Reader = readerFromStreamReader(responseReader);
