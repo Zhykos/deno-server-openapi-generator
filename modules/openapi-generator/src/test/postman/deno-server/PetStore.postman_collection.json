@@ -446,7 +446,7 @@
 					"name": "WIP -- TODO [GET] Finds Pets by status",
 					"item": [
 						{
-							"name": "Finds Pets by status",
+							"name": "Finds Pets by status - available",
 							"event": [
 								{
 									"listen": "test",
@@ -505,6 +505,278 @@
 										{
 											"key": "status",
 											"value": "available"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Finds Pets by status - sold",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.eql(1);\r",
+											"\r",
+											"    const data = jsonData[0];\r",
+											"    pm.expect(data.name).to.eql(\"doggo\");\r",
+											"    pm.expect(data.status).to.eql(\"sold\");\r",
+											"    pm.expect(data.id).to.eql(7);\r",
+											"    pm.expect(data.category.id).to.eql(0);\r",
+											"    pm.expect(data.category.name).to.eql(\"string\");\r",
+											"    pm.expect(data.photoUrls.length).to.eql(1);\r",
+											"    pm.expect(data.photoUrls[0]).to.eql(\"string\");\r",
+											"    pm.expect(data.tags.length).to.eql(1);\r",
+											"    pm.expect(data.tags[0].id).to.eql(0);\r",
+											"    pm.expect(data.tags[0].name).to.eql(\"string\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}pet/findByStatus?status=sold",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"findByStatus"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "sold"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Finds Pets by status - pending",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.eql(0);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}pet/findByStatus?status=pending",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"findByStatus"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "pending"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Finds Pets by status - available & sold",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.eql(2);\r",
+											"\r",
+											"    const dataDoggie = jsonData[0];\r",
+											"    pm.expect(dataDoggie.name).to.eql(\"doggie\");\r",
+											"    pm.expect(dataDoggie.status).to.eql(\"available\");\r",
+											"    pm.expect(dataDoggie.id).to.eql(0);\r",
+											"    pm.expect(dataDoggie.category.id).to.eql(0);\r",
+											"    pm.expect(dataDoggie.category.name).to.eql(\"string\");\r",
+											"    pm.expect(dataDoggie.photoUrls.length).to.eql(1);\r",
+											"    pm.expect(dataDoggie.photoUrls[0]).to.eql(\"string\");\r",
+											"    pm.expect(dataDoggie.tags.length).to.eql(1);\r",
+											"    pm.expect(dataDoggie.tags[0].id).to.eql(0);\r",
+											"    pm.expect(dataDoggie.tags[0].name).to.eql(\"string\");\r",
+											"\r",
+											"    const dataDoggo = jsonData[1];\r",
+											"    pm.expect(dataDoggo.name).to.eql(\"doggo\");\r",
+											"    pm.expect(dataDoggo.status).to.eql(\"sold\");\r",
+											"    pm.expect(dataDoggo.id).to.eql(7);\r",
+											"    pm.expect(dataDoggo.category.id).to.eql(0);\r",
+											"    pm.expect(dataDoggo.category.name).to.eql(\"string\");\r",
+											"    pm.expect(dataDoggo.photoUrls.length).to.eql(1);\r",
+											"    pm.expect(dataDoggo.photoUrls[0]).to.eql(\"string\");\r",
+											"    pm.expect(dataDoggo.tags.length).to.eql(1);\r",
+											"    pm.expect(dataDoggo.tags[0].id).to.eql(0);\r",
+											"    pm.expect(dataDoggo.tags[0].name).to.eql(\"string\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}pet/findByStatus?status=available&status=sold",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"findByStatus"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "available"
+										},
+										{
+											"key": "status",
+											"value": "sold"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Finds Pets by status - available & pending",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.eql(1);\r",
+											"\r",
+											"    const data = jsonData[0];\r",
+											"    pm.expect(data.name).to.eql(\"doggie\");\r",
+											"    pm.expect(data.status).to.eql(\"available\");\r",
+											"    pm.expect(data.id).to.eql(0);\r",
+											"    pm.expect(data.category.id).to.eql(0);\r",
+											"    pm.expect(data.category.name).to.eql(\"string\");\r",
+											"    pm.expect(data.photoUrls.length).to.eql(1);\r",
+											"    pm.expect(data.photoUrls[0]).to.eql(\"string\");\r",
+											"    pm.expect(data.tags.length).to.eql(1);\r",
+											"    pm.expect(data.tags[0].id).to.eql(0);\r",
+											"    pm.expect(data.tags[0].name).to.eql(\"string\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}pet/findByStatus?status=available&status=pending",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"findByStatus"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "available"
+										},
+										{
+											"key": "status",
+											"value": "pending"
 										}
 									]
 								}

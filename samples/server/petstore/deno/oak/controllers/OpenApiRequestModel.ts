@@ -4,11 +4,11 @@ export interface OperationObject {
 
 export interface ParameterObject {
   name: string;
-  in: string;
+  value: string;
+  origin: string;
 }
 
 export interface OpenApiRequestMetadata {
-  pathParams: { [index: string]: string };
   schema: OperationObject;
 }
 

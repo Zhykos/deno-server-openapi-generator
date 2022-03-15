@@ -26,10 +26,6 @@ export class OakOpenApiRequest implements OpenApiRequest {
       ),
     };
     this.openapi = {
-      pathParams: this.createPathParameters(
-        context.params,
-        context.request.url.searchParams,
-      ),
       schema: schema,
     };
 
@@ -51,8 +47,6 @@ export class OakOpenApiRequest implements OpenApiRequest {
       if (bodyRaw.length > 0) {
         if (headerAccept === "application/json") {
           this.body = new TextDecoder().decode(bodyRaw);
-          // this.body = JSON.parse(new TextDecoder().decode(bodyRaw));
-          // this.body = JSON.stringify(await request.body({ type: "reader" }).value);
         } else {
           // TODO?
           console.error("TODO: readBody with header accept: " + headerAccept);
@@ -78,8 +72,8 @@ export class OakOpenApiRequest implements OpenApiRequest {
     routeParams: any,
     allParameters: Array<ParameterObject>,
   ): void {
-    for (const [key] of Object.entries(routeParams)) {
-      const param: ParameterObject = { name: `${key}`, in: "path" };
+    for (const [key, value] of Object.entries(routeParams)) {
+      const param: ParameterObject = { name: `${key}`, value: value as string, origin: "path" };
       allParameters.push(param);
     }
   }
@@ -88,37 +82,9 @@ export class OakOpenApiRequest implements OpenApiRequest {
     urlParams: URLSearchParams,
     allParameters: Array<ParameterObject>,
   ): void {
-    for (const key of urlParams.keys()) {
-      const param: ParameterObject = { name: `${key}`, in: "url" };
-      allParameters.push(param);
-    }
-  }
-
-  private createPathParameters(
-    routeParams: any,
-    urlParams: URLSearchParams,
-  ): { [index: string]: string } {
-    const allParameters: { [index: string]: string } = {};
-    this.createPathParametersFromRoute(routeParams, allParameters);
-    this.createPathParametersFromURL(urlParams, allParameters);
-    return allParameters;
-  }
-
-  private createPathParametersFromRoute(
-    routeParams: any,
-    allParameters: { [index: string]: string },
-  ): void {
-    for (const [key, value] of Object.entries(routeParams)) {
-      allParameters[key as string] = value as string;
-    }
-  }
-
-  private createPathParametersFromURL(
-    urlParams: URLSearchParams,
-    allParameters: { [index: string]: string },
-  ): void {
     urlParams.forEach((value, key) => {
-      allParameters[key] = value;
+      const param: ParameterObject = { name: `${key}`, value: value, origin: "query" };
+      allParameters.push(param);
     });
   }
 

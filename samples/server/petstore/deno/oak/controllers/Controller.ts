@@ -36,8 +36,8 @@ export class Controller {
     );
   }
 
-  static collectRequestParams(request: OpenApiRequest): any {
-    const requestParams: any = {};
+  static collectRequestParams(request: OpenApiRequest): { [index: string]: any } {
+    const requestParams: { [index: string]: any } = {};
     const requestBody = request.body;
     if (requestBody) {
       if (isJsonBody(request)) {
@@ -55,14 +55,21 @@ export class Controller {
       openApi !== undefined && openApi.schema !== undefined &&
       openApi.schema.parameters !== undefined
     ) {
+      console.log(openApi.schema.parameters)
       openApi.schema.parameters.forEach((param: ParameterObject) => {
-        if (param.in === "path" || param.in === "url") {
-          requestParams[param.name] = openApi.pathParams[param.name];
-        } else if (param.in === "header") {
-          //requestParams[param.name] = request.headers.get(param.name);
+        if (requestParams[param.name] && param.origin === "query") {
+          if (!(requestParams[param.name] instanceof Array)) {
+            const previousValue = requestParams[param.name];
+            requestParams[param.name] = new Array<string>();
+            requestParams[param.name].push(previousValue);
+          }
+          requestParams[param.name].push(param.value);
+        } else {
+          requestParams[param.name] = param.value;
         }
       });
     }
+    console.log(requestParams)
     return requestParams;
   }
 }

@@ -54,8 +54,7 @@ export class PetPrivateService {
    */
   findPetsByStatus(...args: any): Promise<Array<Pet>> {
     const { status } = args[0];
-    const statusCast = new Array<"available" | "pending" | "sold">();
-    statusCast.push(status);
+    const statusCast = status;
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.findPetsByStatus(statusCast));
