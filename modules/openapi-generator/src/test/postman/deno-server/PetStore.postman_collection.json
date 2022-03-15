@@ -6,156 +6,18 @@
 	},
 	"item": [
 		{
-			"name": "Pet",
+			"name": "[WIP] Pet",
 			"item": [
 				{
-					"name": "Find pet by ID [GET]",
-					"item": [
-						{
-							"name": "Find pet by ID",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Check response time\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"pm.test(\"Check status code\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Check JSON\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.name).to.eql(\"doggie\");\r",
-											"    pm.expect(jsonData.status).to.eql(\"available\");\r",
-											"    pm.expect(jsonData.id).to.eql(0);\r",
-											"    pm.expect(jsonData.category.id).to.eql(0);\r",
-											"    pm.expect(jsonData.category.name).to.eql(\"string\");\r",
-											"    pm.expect(jsonData.photoUrls.length).to.eql(1);\r",
-											"    pm.expect(jsonData.photoUrls[0]).to.eql(\"string\");\r",
-											"    pm.expect(jsonData.tags.length).to.eql(1);\r",
-											"    pm.expect(jsonData.tags[0].id).to.eql(0);\r",
-											"    pm.expect(jsonData.tags[0].name).to.eql(\"string\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "default"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}pet/0",
-									"host": [
-										"{{baseUrl}}pet"
-									],
-									"path": [
-										"0"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Find pet by ID - Not found",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Check response time\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"pm.test(\"Check status code\", function () {\r",
-											"    pm.response.to.have.status(404);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Check JSON\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.message).to.eql(\"Cannot find pet with ID: 12\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "default"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}pet/12",
-									"host": [
-										"{{baseUrl}}pet"
-									],
-									"path": [
-										"12"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Find pet by ID - Wrong type",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Check response time\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-											"});\r",
-											"pm.test(\"Check status code\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Check JSON\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet\");\r",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "default"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}pet/ee",
-									"host": [
-										"{{baseUrl}}pet"
-									],
-									"path": [
-										"ee"
-									]
-								}
-							},
-							"response": []
-						}
-					]
+					"name": "TODO [POST] Uploads an image",
+					"item": []
 				},
 				{
-					"name": "Update an existing pet [PUT]",
+					"name": "TODO [POST] Add a new pet to the store",
+					"item": []
+				},
+				{
+					"name": "[PUT] Update an existing pet",
 					"item": [
 						{
 							"name": "Update an existing pet",
@@ -362,168 +224,188 @@
 					]
 				},
 				{
-					"name": "TODO - Updates a Pet with Form Data",
-					"event": [
+					"name": "TODO [GET] Finds Pets by status",
+					"item": []
+				},
+				{
+					"name": "TODO [GET] Finds Pets by tags (deprecated)",
+					"item": []
+				},
+				{
+					"name": "[GET] Find pet by ID",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"The PetId is the same\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.message).to.eql(pm.environment.get(\"petId\"));\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"name": "Find pet by ID",
+							"event": [
 								{
-									"key": "name",
-									"value": "Firulais",
-									"type": "text"
-								},
-								{
-									"key": "status",
-									"value": "Waiting",
-									"type": "text"
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.name).to.eql(\"doggie\");\r",
+											"    pm.expect(jsonData.status).to.eql(\"available\");\r",
+											"    pm.expect(jsonData.id).to.eql(0);\r",
+											"    pm.expect(jsonData.category.id).to.eql(0);\r",
+											"    pm.expect(jsonData.category.name).to.eql(\"string\");\r",
+											"    pm.expect(jsonData.photoUrls.length).to.eql(1);\r",
+											"    pm.expect(jsonData.photoUrls[0]).to.eql(\"string\");\r",
+											"    pm.expect(jsonData.tags.length).to.eql(1);\r",
+											"    pm.expect(jsonData.tags[0].id).to.eql(0);\r",
+											"    pm.expect(jsonData.tags[0].name).to.eql(\"string\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
-						},
-						"url": {
-							"raw": "{{baseUrl}}pet/{{petId}}",
-							"host": [
-								"{{baseUrl}}pet"
 							],
-							"path": [
-								"{{petId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "TODO - Get a pet with id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Check the name, status and PetID\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.name).to.eql(\"Firulais\");\r",
-									"    pm.expect(jsonData.status).to.eql(\"Waiting\");\r",
-									"    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"petId\")));\r",
-									"});"
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
 								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}pet/{{petId}}",
-							"host": [
-								"{{baseUrl}}pet"
-							],
-							"path": [
-								"{{petId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "TODO - Delete a pet with id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Check PetId\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.message).to.eql(pm.environment.get(\"petId\"));\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
+								"url": {
+									"raw": "{{baseUrl}}pet/0",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"0"
+									]
+								}
 							},
-							{
-								"key": "api_key",
-								"value": "TOKEN",
-								"type": "default"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}pet/1",
-							"host": [
-								"{{baseUrl}}pet"
+							"response": []
+						},
+						{
+							"name": "Find pet by ID - Not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Cannot find pet with ID: 12\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"1"
-							]
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}pet/12",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find pet by ID - Wrong type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}pet/ee",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"ee"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "TODO [POST] Updates a pet in the store with form data",
+					"item": []
+				},
+				{
+					"name": "TODO [DELETE] Deletes a pet",
+					"item": []
 				}
 			]
 		},
 		{
 			"name": "TODO - Store",
 			"item": [
+				{
+					"name": "TODO [POST] Place an order for a pet",
+					"item": []
+				},
+				{
+					"name": "TODO [GET] Find purchase order by ID",
+					"item": []
+				},
+				{
+					"name": "TODO [DELETE] Delete purchase order by ID",
+					"item": []
+				},
+				{
+					"name": "TODO [GET] Returns pet inventories by status",
+					"item": []
+				},
 				{
 					"name": "Place an order for a pet",
 					"event": [
@@ -724,6 +606,38 @@
 		{
 			"name": "TODO - User",
 			"item": [
+				{
+					"name": "TODO [POST] Creates list of users with given input array 1",
+					"item": []
+				},
+				{
+					"name": "TODO [POST] Creates list of users with given input array 2",
+					"item": []
+				},
+				{
+					"name": "TODO [GET] Get user by user name",
+					"item": []
+				},
+				{
+					"name": "TODO [PUT] Updated user",
+					"item": []
+				},
+				{
+					"name": "TODO [DELETE] Delete user",
+					"item": []
+				},
+				{
+					"name": "TODO [GET] Logs user into the system",
+					"item": []
+				},
+				{
+					"name": "TODO [GET] Logs out current logged in user session",
+					"item": []
+				},
+				{
+					"name": "TODO [POST] Create user",
+					"item": []
+				},
 				{
 					"name": "Create a list of users with given input array",
 					"event": [
@@ -1160,6 +1074,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		}
@@ -1188,6 +1110,12 @@
 		{
 			"key": "originally downloaded from",
 			"value": "https://www.postman.com/navigation-geologist-81350630/workspace/petstore/request/15284061-4e049ba0-b780-48ae-9763-176af01f63c1",
+			"type": "default",
+			"disabled": true
+		},
+		{
+			"key": "target OpenAPI definition",
+			"value": "https://petstore.swagger.io/#/pet",
 			"type": "default",
 			"disabled": true
 		}
