@@ -10,6 +10,7 @@ import {
   readerFromStreamReader,
   RouterContext,
 } from "../deps-oak.ts";
+import { camelCaseSync } from "../deps.ts";
 
 export class OakOpenApiRequest implements OpenApiRequest {
   openapi?: OpenApiRequestMetadata | undefined;
@@ -20,10 +21,7 @@ export class OakOpenApiRequest implements OpenApiRequest {
     context: RouterContext<string, any, Record<string, any>>,
   ) {
     const schema: OperationObject = {
-      parameters: this.createParameters(
-        context.params,
-        context.request.url.searchParams,
-      ),
+      parameters: this.createParameters(context),
     };
     this.openapi = {
       schema: schema,
@@ -59,13 +57,30 @@ export class OakOpenApiRequest implements OpenApiRequest {
   }
 
   private createParameters(
-    routeParams: any,
-    urlParams: URLSearchParams,
+    context: RouterContext<string, any, Record<string, any>>,
   ): Array<ParameterObject> {
     const allParameters = new Array<ParameterObject>();
-    this.createParametersFromRoute(routeParams, allParameters);
-    this.createParametersFromURL(urlParams, allParameters);
+    this.createParametersFromRoute(context.params, allParameters);
+    this.createParametersFromURL(
+      context.request.url.searchParams,
+      allParameters,
+    );
+    this.createParametersFromHeaders(context.request.headers, allParameters);
     return allParameters;
+  }
+
+  private createParametersFromHeaders(
+    headers: Headers,
+    allParameters: ParameterObject[],
+  ): void {
+    headers.forEach((value, key) => {
+      const param: ParameterObject = {
+        name: camelCaseSync(key),
+        value: value,
+        origin: "headers",
+      };
+      allParameters.push(param);
+    });
   }
 
   private createParametersFromRoute(
