@@ -1,21 +1,30 @@
-import { Pet, StatusEnum } from "../../models/Pet.ts";
+import { Pet, StatusEnum as PetStatus } from "../../models/Pet.ts";
 import { Tag } from "../../models/Tag.ts";
 import { Category } from "../../models/Category.ts";
+import { Order, StatusEnum as OrderStatus } from "../../models/Order.ts";
 
-export class PetStoreDatabase {
+export class PetStoreCompleteExampleDatabase {
   private petDatabase: Map<string, Pet>;
+  private orderDatabase: Map<string, Order>;
 
   constructor() {
     this.petDatabase = new Map<string, Pet>();
+    this.orderDatabase = new Map<string, Order>();
     this.initDatabase();
   }
 
+  // Pets -------------------------------------------------------
+
+  private static PET_PREFIX = "pet-";
+
   private getPetIdForDatabaseFromObject(pet: Pet): string {
-    return `pet-${pet.id}`;
+    return PetStoreCompleteExampleDatabase.PET_PREFIX + pet.id;
   }
 
-  getPet(petId: string): Pet | undefined {
-    return this.petDatabase.get(petId);
+  getPet(petId: number): Pet | undefined {
+    return this.petDatabase.get(
+      PetStoreCompleteExampleDatabase.PET_PREFIX + petId,
+    );
   }
 
   addPet(pet: Pet): void {
@@ -26,16 +35,10 @@ export class PetStoreDatabase {
     return this.petDatabase.values();
   }
 
-  private initDatabase(): void {
-    this.registerPet(0, "doggie", StatusEnum.Available, ["tag01"]);
-    this.registerPet(7, "doggo", StatusEnum.Sold, ["yo", "cute"]);
-    this.registerPet(12, "dog", StatusEnum.Sold, []);
-  }
-
   private registerPet(
     id: number,
     name: string,
-    status: StatusEnum,
+    status: PetStatus,
     tags: Array<string>,
   ): void {
     const pet = new Pet();
@@ -58,5 +61,45 @@ export class PetStoreDatabase {
       });
     }
     this.addPet(pet);
+  }
+
+  // Orders -------------------------------------------------------
+
+  private static ORDER_PREFIX = "order-";
+
+  private getOrderIdForDatabaseFromObject(order: Order): string {
+    return PetStoreCompleteExampleDatabase.ORDER_PREFIX + order.id;
+  }
+
+  getOrder(orderId: number): Order | undefined {
+    return this.orderDatabase.get(
+      PetStoreCompleteExampleDatabase.ORDER_PREFIX + orderId,
+    );
+  }
+
+  addOrder(order: Order): void {
+    this.orderDatabase.set(this.getOrderIdForDatabaseFromObject(order), order);
+  }
+
+  private registerOrder(id: number): void {
+    const order = new Order();
+    order.id = id;
+    order.petId = id;
+    order.quantity = 0;
+    order.shipDate = "";
+    order.status = OrderStatus.Placed;
+    order.complete = true;
+    this.addOrder(order);
+  }
+
+  // Misc. -------------------------------------------------------
+
+  private initDatabase(): void {
+    this.registerPet(0, "doggie", PetStatus.Available, ["tag01"]);
+    this.registerPet(7, "doggo", PetStatus.Sold, ["yo", "cute"]);
+    this.registerPet(12, "dog", PetStatus.Sold, []);
+
+    this.registerOrder(0);
+    this.registerOrder(1);
   }
 }

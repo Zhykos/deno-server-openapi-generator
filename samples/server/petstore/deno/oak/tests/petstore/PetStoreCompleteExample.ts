@@ -6,7 +6,7 @@ import { ApiResponse } from "../../models/ApiResponse.ts";
 import { Order } from "../../models/Order.ts";
 import { Pet, StatusEnum } from "../../models/Pet.ts";
 import { User } from "../../models/User.ts";
-import { PetStoreDatabase } from "./PetStoreCompleteExampleDatabase.ts";
+import { PetStoreCompleteExampleDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 import { iterFilter } from "./deps.ts";
 
 // deno run --allow-net --watch PetStoreCompleteExample.ts
@@ -16,13 +16,13 @@ import { iterFilter } from "./deps.ts";
 class MyPetService implements PetService {
   addPet(pet: Pet): Pet {
     // TODO ERROR 405: Validation exception (model format / JSON format)
-    const petStoreDB = new PetStoreDatabase();
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const petId: number | undefined = pet.id;
     if (petId === undefined || isNaN(petId)) {
       throw new Deno.errors.NotSupported("Invalid input");
     }
-    const petInDB: Pet | undefined = petStoreDB.getPet("pet-" + petId);
+    const petInDB: Pet | undefined = petStoreDB.getPet(petId);
     if (petInDB) {
       throw new Deno.errors.NotSupported(
         `A Pet already exists with Id: ${petId}`,
@@ -33,13 +33,13 @@ class MyPetService implements PetService {
   }
   updatePet(pet: Pet): Pet {
     // TODO ERROR 405: Validation exception (model format / JSON format)
-    const petStoreDB = new PetStoreDatabase();
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const petId: number | undefined = pet.id;
     if (petId === undefined || isNaN(petId)) {
       throw new Deno.errors.InvalidData(`Invalid Id to find pet: '${petId}'`);
     }
-    const petInDB: Pet | undefined = petStoreDB.getPet("pet-" + petId);
+    const petInDB: Pet | undefined = petStoreDB.getPet(petId);
     if (petInDB) {
       petInDB.copyFrom(pet);
       return petInDB;
@@ -49,7 +49,7 @@ class MyPetService implements PetService {
   findPetsByStatus(
     status: Array<"available" | "pending" | "sold">,
   ): Array<Pet> {
-    const petStoreDB = new PetStoreDatabase();
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const checkStatus = status.filter((statusStr) => {
       const statusObj = statusStr as StatusEnum;
@@ -75,7 +75,7 @@ class MyPetService implements PetService {
   }
   findPetsByTags(tags: Array<string>): Array<Pet> {
     // TODO ERROR 400: Invalid tag value (no idea how...)
-    const petStoreDB = new PetStoreDatabase();
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     return Array.from(
       iterFilter<Pet>(
@@ -97,7 +97,7 @@ class MyPetService implements PetService {
     );
   }
   deletePet(petId: number, apiKey?: string): void {
-    const petStoreDB = new PetStoreDatabase();
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (apiKey !== undefined && apiKey !== "secret-token") {
       throw new Deno.errors.PermissionDenied(`Wrong API key: '${apiKey}'`);
@@ -106,7 +106,7 @@ class MyPetService implements PetService {
     if (isNaN(petId)) {
       throw new Deno.errors.InvalidData("Invalid Id to find pet to delete");
     }
-    const pet: Pet | undefined = petStoreDB.getPet("pet-" + petId);
+    const pet: Pet | undefined = petStoreDB.getPet(petId);
     if (!pet) {
       throw new Deno.errors.NotFound(
         "Cannot find pet to delete with ID: " + petId,
@@ -114,12 +114,12 @@ class MyPetService implements PetService {
     }
   }
   getPetById(petId: number): Pet {
-    const petStoreDB = new PetStoreDatabase();
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (isNaN(petId)) {
       throw new Deno.errors.InvalidData("Invalid Id to find pet");
     }
-    const pet: Pet | undefined = petStoreDB.getPet("pet-" + petId);
+    const pet: Pet | undefined = petStoreDB.getPet(petId);
     if (pet) {
       return pet;
     }
@@ -148,8 +148,17 @@ class MyStoreService implements StoreService {
   deleteOrder(_orderId: string): void {
     throw new Error("Method not implemented yet: StoreService >> deleteOrder");
   }
-  getOrderById(_orderId: number): Order {
-    throw new Error("Method not implemented yet: StoreService >> getOrderById");
+  getOrderById(orderId: number): Order {
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+
+    if (isNaN(orderId)) {
+      throw new Deno.errors.InvalidData("Invalid Id to find order");
+    }
+    const order: Order | undefined = petStoreDB.getOrder(orderId);
+    if (order) {
+      return order;
+    }
+    throw new Deno.errors.NotFound("Cannot find order with ID: " + orderId);
   }
 }
 class MyUserService implements UserService {
