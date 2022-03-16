@@ -20,12 +20,12 @@ class MyPetService implements PetService {
 
     const petId: number | undefined = pet.id;
     if (petId === undefined || isNaN(petId)) {
-      throw new Deno.errors.NotSupported("Invalid input");
+      throw new Deno.errors.NotSupported(`Invalid ID to add pet: '${petId}'`);
     }
     const petInDB: Pet | undefined = petStoreDB.getPet(petId);
     if (petInDB) {
       throw new Deno.errors.NotSupported(
-        `A Pet already exists with Id: ${petId}`,
+        `A pet already exists with ID: ${petId}`,
       );
     }
     petStoreDB.addPet(pet);
@@ -37,14 +37,14 @@ class MyPetService implements PetService {
 
     const petId: number | undefined = pet.id;
     if (petId === undefined || isNaN(petId)) {
-      throw new Deno.errors.InvalidData(`Invalid Id to find pet: '${petId}'`);
+      throw new Deno.errors.InvalidData(`Invalid ID to update pet: '${petId}'`);
     }
     const petInDB: Pet | undefined = petStoreDB.getPet(petId);
     if (petInDB) {
       petInDB.copyFrom(pet);
       return petInDB;
     }
-    throw new Deno.errors.NotFound("Cannot find pet with ID: " + petId);
+    throw new Deno.errors.NotFound(`Cannot update pet with ID: ${petId}`);
   }
   findPetsByStatus(
     status: Array<"available" | "pending" | "sold">,
@@ -104,12 +104,12 @@ class MyPetService implements PetService {
     }
 
     if (isNaN(petId)) {
-      throw new Deno.errors.InvalidData("Invalid Id to find pet to delete");
+      throw new Deno.errors.InvalidData(`Invalid ID to delete pet: '${petId}'`);
     }
     const pet: Pet | undefined = petStoreDB.getPet(petId);
     if (!pet) {
       throw new Deno.errors.NotFound(
-        "Cannot find pet to delete with ID: " + petId,
+        `Cannot delete pet with ID: ${petId}`,
       );
     }
   }
@@ -117,13 +117,13 @@ class MyPetService implements PetService {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (isNaN(petId)) {
-      throw new Deno.errors.InvalidData("Invalid Id to find pet");
+      throw new Deno.errors.InvalidData(`Invalid ID to find pet: '${petId}'`);
     }
     const pet: Pet | undefined = petStoreDB.getPet(petId);
     if (pet) {
       return pet;
     }
-    throw new Deno.errors.NotFound("Cannot find pet with ID: " + petId);
+    throw new Deno.errors.NotFound(`Cannot find pet with ID: ${petId}`);
   }
   updatePetWithForm(_petId: number, _name?: string, _status?: string): void {
     throw new Error(
@@ -143,16 +143,17 @@ class MyStoreService implements StoreService {
     throw new Error("Method not implemented yet: StoreService >> getInventory");
   }
   placeOrder(order: Order): Order {
+    // TODO ERROR 405: Validation exception (model format / JSON format)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const orderId: number | undefined = order.id;
     if (orderId === undefined || isNaN(orderId)) {
-      throw new Deno.errors.NotSupported(`Invalid input: ${orderId}`);
+      throw new Deno.errors.NotSupported(`Invalid ID to place order: '${orderId}'`);
     }
     const orderInDB: Order | undefined = petStoreDB.getOrder(orderId);
     if (orderInDB) {
       throw new Deno.errors.NotSupported(
-        `An order already exists with Id: ${orderId}`,
+        `An order already exists with ID: ${orderId}`,
       );
     }
     petStoreDB.addOrder(order);
@@ -165,25 +166,28 @@ class MyStoreService implements StoreService {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (isNaN(orderId)) {
-      throw new Deno.errors.InvalidData("Invalid Id to find order");
+      throw new Deno.errors.InvalidData(`Invalid ID to find order: '${orderId}'`);
     }
     const order: Order | undefined = petStoreDB.getOrder(orderId);
     if (order) {
       return order;
     }
-    throw new Deno.errors.NotFound("Cannot find order with ID: " + orderId);
+    throw new Deno.errors.NotFound(`Cannot find order with ID: ${orderId}`);
   }
 }
 class MyUserService implements UserService {
   createUser(_user: User): void {
+    // TODO ERROR 405: Validation exception (model format / JSON format)
     throw new Error("Method not implemented yet: UserService >> createUser");
   }
   createUsersWithArrayInput(_user: Array<User>): void {
+    // TODO ERROR 405: Validation exception (model format / JSON format)
     throw new Error(
       "Method not implemented yet: UserService >> createUsersWithArrayInput",
     );
   }
   createUsersWithListInput(_user: Array<User>): void {
+    // TODO ERROR 405: Validation exception (model format / JSON format)
     throw new Error(
       "Method not implemented yet: UserService >> createUsersWithListInput",
     );

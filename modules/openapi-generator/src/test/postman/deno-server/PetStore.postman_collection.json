@@ -19,7 +19,7 @@
 							"name": "Errors",
 							"item": [
 								{
-									"name": "Add a new pet to the store - Undefined Id",
+									"name": "Add a new pet to the store - Undefined ID",
 									"event": [
 										{
 											"listen": "test",
@@ -35,7 +35,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.message).to.eql(\"Invalid input\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Invalid ID to add pet: 'undefined'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -68,7 +68,7 @@
 									"response": []
 								},
 								{
-									"name": "Add a new pet to the store - Wrong Id format",
+									"name": "Add a new pet to the store - Wrong ID format",
 									"event": [
 										{
 											"listen": "test",
@@ -84,7 +84,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.message).to.eql(\"Invalid input\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Invalid ID to add pet: 'foo'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -117,7 +117,7 @@
 									"response": []
 								},
 								{
-									"name": "Add a new pet to the store - Id already exists",
+									"name": "Add a new pet to the store - ID already exists",
 									"event": [
 										{
 											"listen": "test",
@@ -133,7 +133,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.message).to.eql(\"A Pet already exists with Id: 0\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"A pet already exists with ID: 0\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -234,7 +234,7 @@
 							"name": "Errors",
 							"item": [
 								{
-									"name": "Update an existing pet - No id in json",
+									"name": "Update an existing pet - No ID in json",
 									"event": [
 										{
 											"listen": "test",
@@ -250,7 +250,7 @@
 													"\r",
 													"pm.test(\"Check the Pet\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet: 'undefined'\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Invalid ID to update pet: 'undefined'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -283,7 +283,7 @@
 									"response": []
 								},
 								{
-									"name": "Update an existing pet - Invalid id",
+									"name": "Update an existing pet - Invalid ID",
 									"event": [
 										{
 											"listen": "test",
@@ -299,7 +299,7 @@
 													"\r",
 													"pm.test(\"Check the Pet\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet: 'foo'\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Invalid ID to update pet: 'foo'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -332,7 +332,7 @@
 									"response": []
 								},
 								{
-									"name": "Update an existing pet - id does not exist",
+									"name": "Update an existing pet - ID does not exist",
 									"event": [
 										{
 											"listen": "test",
@@ -348,7 +348,7 @@
 													"\r",
 													"pm.test(\"Check the Pet\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.message).to.eql(\"Cannot find pet with ID: 2\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Cannot update pet with ID: 2\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -449,7 +449,7 @@
 							"name": "Errors",
 							"item": [
 								{
-									"name": "Finds Pets by status - wrong status",
+									"name": "Finds Pets by status - Wrong status",
 									"event": [
 										{
 											"listen": "test",
@@ -561,7 +561,7 @@
 									"response": []
 								},
 								{
-									"name": "Finds Pets by status - no status",
+									"name": "Finds Pets by status - No status",
 									"event": [
 										{
 											"listen": "test",
@@ -1660,7 +1660,7 @@
 							"response": []
 						},
 						{
-							"name": "Finds Pets by tags - no tag",
+							"name": "Finds Pets by tags - No tag",
 							"event": [
 								{
 									"listen": "test",
@@ -1777,7 +1777,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Invalid ID to find pet: 'NaN'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1890,7 +1890,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.message).to.eql(\"Cannot find pet to delete with ID: 1\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Cannot delete pet with ID: 1\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1935,7 +1935,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet to delete\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Invalid ID to delete pet: 'NaN'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -1964,7 +1964,7 @@
 									"response": []
 								},
 								{
-									"name": "Deletes a pet - wrong API key",
+									"name": "Deletes a pet - Wrong API key",
 									"event": [
 										{
 											"listen": "test",
@@ -2061,7 +2061,7 @@
 							"response": []
 						},
 						{
-							"name": "Deletes a pet - with API key",
+							"name": "Deletes a pet - With API key",
 							"event": [
 								{
 									"listen": "test",
@@ -2118,7 +2118,7 @@
 			"name": "-----TODO - Store",
 			"item": [
 				{
-					"name": "-----TODO [POST] Place an order for a pet",
+					"name": "[POST] Place an order for a pet",
 					"item": [
 						{
 							"name": "Errors",
@@ -2140,7 +2140,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const order = pm.response.json();\r",
-													"    pm.expect(order.message).to.eql(\"An order already exists with Id: 1\");\r",
+													"    pm.expect(order.message).to.eql(\"An order already exists with ID: 1\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2194,7 +2194,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const order = pm.response.json();\r",
-													"    pm.expect(order.message).to.eql(\"Invalid input: foo\");\r",
+													"    pm.expect(order.message).to.eql(\"Invalid ID to place order: 'foo'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2248,7 +2248,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const order = pm.response.json();\r",
-													"    pm.expect(order.message).to.eql(\"Invalid input: undefined\");\r",
+													"    pm.expect(order.message).to.eql(\"Invalid ID to place order: 'undefined'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2400,7 +2400,7 @@
 									"response": []
 								},
 								{
-									"name": "Find purchase order By ID - wrong format ID",
+									"name": "Find purchase order By ID - Wrong format ID",
 									"event": [
 										{
 											"listen": "test",
@@ -2416,7 +2416,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const order1 = pm.response.json();\r",
-													"    pm.expect(order1.message).to.eql(\"Invalid Id to find order\");\r",
+													"    pm.expect(order1.message).to.eql(\"Invalid ID to find order: 'NaN'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
