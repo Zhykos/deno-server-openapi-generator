@@ -1868,8 +1868,149 @@
 					"item": []
 				},
 				{
-					"name": "TODO [DELETE] Deletes a pet",
-					"item": []
+					"name": "[DELETE] Deletes a pet",
+					"item": [
+						{
+							"name": "Errors",
+							"item": [
+								{
+									"name": "Deletes a pet - Not found",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.message).to.eql(\"Cannot find pet to delete with ID: 1\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}pet/1",
+											"host": [
+												"{{baseUrl}}pet"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Deletes a pet - Wrong type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.message).to.eql(\"Invalid Id to find pet to delete\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "default"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}pet/foo",
+											"host": [
+												"{{baseUrl}}pet"
+											],
+											"path": [
+												"foo"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Deletes a pet",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.be.undefined;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}pet/0",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},

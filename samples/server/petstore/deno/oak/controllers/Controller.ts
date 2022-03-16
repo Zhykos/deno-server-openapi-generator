@@ -6,7 +6,11 @@ import {
 
 export class Controller {
   static sendResponse(body: any): Response {
-    return new Response(JSON.stringify(body), {
+    let bodyResponse = "{}";
+    if (body instanceof Object) {
+      bodyResponse = JSON.stringify(body);
+    }
+    return new Response(bodyResponse, {
       status: 200,
       headers: {
         "content-type": "application/json; charset=utf-8",

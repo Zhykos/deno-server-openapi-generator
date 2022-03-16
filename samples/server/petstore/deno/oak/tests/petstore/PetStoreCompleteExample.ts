@@ -96,8 +96,18 @@ class MyPetService implements PetService {
       ),
     );
   }
-  deletePet(_petId: number, _apiKey?: string): void {
-    throw new Error("Method not implemented yet: PetService >> deletePet");
+  deletePet(petId: number, _apiKey?: string): void {
+    const petStoreDB = new PetStoreDatabase();
+
+    if (isNaN(petId)) {
+      throw new Deno.errors.InvalidData("Invalid Id to find pet to delete");
+    }
+    const pet: Pet | undefined = petStoreDB.getPet("pet-" + petId);
+    if (!pet) {
+      throw new Deno.errors.NotFound(
+        "Cannot find pet to delete with ID: " + petId,
+      );
+    }
   }
   getPetById(petId: number): Pet {
     const petStoreDB = new PetStoreDatabase();
