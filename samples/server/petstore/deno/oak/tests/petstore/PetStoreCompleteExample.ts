@@ -142,8 +142,21 @@ class MyStoreService implements StoreService {
   getInventory(): { [key: string]: number } {
     throw new Error("Method not implemented yet: StoreService >> getInventory");
   }
-  placeOrder(_order: Order): Order {
-    throw new Error("Method not implemented yet: StoreService >> placeOrder");
+  placeOrder(order: Order): Order {
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+
+    const orderId: number | undefined = order.id;
+    if (orderId === undefined || isNaN(orderId)) {
+      throw new Deno.errors.NotSupported(`Invalid input: ${orderId}`);
+    }
+    const orderInDB: Order | undefined = petStoreDB.getOrder(orderId);
+    if (orderInDB) {
+      throw new Deno.errors.NotSupported(
+        `An order already exists with Id: ${orderId}`,
+      );
+    }
+    petStoreDB.addOrder(order);
+    return order;
   }
   deleteOrder(_orderId: string): void {
     throw new Error("Method not implemented yet: StoreService >> deleteOrder");

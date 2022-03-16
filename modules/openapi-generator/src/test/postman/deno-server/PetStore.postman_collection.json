@@ -2119,7 +2119,234 @@
 			"item": [
 				{
 					"name": "-----TODO [POST] Place an order for a pet",
-					"item": []
+					"item": [
+						{
+							"name": "Errors",
+							"item": [
+								{
+									"name": "Place an order for a pet - ID already exists",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(405);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const order = pm.response.json();\r",
+													"    pm.expect(order.message).to.eql(\"An order already exists with Id: 1\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": 1,\r\n  \"petId\": 2,\r\n  \"quantity\": 2,\r\n  \"shipDate\": \"2022-03-16T13:36:47.437Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}store/order/",
+											"host": [
+												"{{baseUrl}}store"
+											],
+											"path": [
+												"order",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Place an order for a pet - ID wrong format",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(405);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const order = pm.response.json();\r",
+													"    pm.expect(order.message).to.eql(\"Invalid input: foo\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": \"foo\",\r\n  \"petId\": 2,\r\n  \"quantity\": 2,\r\n  \"shipDate\": \"2022-03-16T13:36:47.437Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}store/order/",
+											"host": [
+												"{{baseUrl}}store"
+											],
+											"path": [
+												"order",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Place an order for a pet - ID does not exist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(405);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const order = pm.response.json();\r",
+													"    pm.expect(order.message).to.eql(\"Invalid input: undefined\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"petId\": 2,\r\n  \"quantity\": 2,\r\n  \"shipDate\": \"2022-03-16T13:36:47.437Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}store/order/",
+											"host": [
+												"{{baseUrl}}store"
+											],
+											"path": [
+												"order",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Place an order for a pet",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const order2 = pm.response.json();\r",
+											"    pm.expect(order2.id).to.eql(2);\r",
+											"    pm.expect(order2.petId).to.eql(2);\r",
+											"    pm.expect(order2.quantity).to.eql(2);\r",
+											"    pm.expect(order2.shipDate).to.eql(\"2022-03-16T13:36:47.437Z\");\r",
+											"    pm.expect(order2.status).to.eql(\"placed\");\r",
+											"    pm.expect(order2.complete).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 2,\r\n  \"petId\": 2,\r\n  \"quantity\": 2,\r\n  \"shipDate\": \"2022-03-16T13:36:47.437Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}store/order/",
+									"host": [
+										"{{baseUrl}}store"
+									],
+									"path": [
+										"order",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "[GET] Find purchase order by ID",
