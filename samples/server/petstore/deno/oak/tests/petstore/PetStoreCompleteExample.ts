@@ -148,7 +148,9 @@ class MyStoreService implements StoreService {
 
     const orderId: number | undefined = order.id;
     if (orderId === undefined || isNaN(orderId)) {
-      throw new Deno.errors.NotSupported(`Invalid ID to place order: '${orderId}'`);
+      throw new Deno.errors.NotSupported(
+        `Invalid ID to place order: '${orderId}'`,
+      );
     }
     const orderInDB: Order | undefined = petStoreDB.getOrder(orderId);
     if (orderInDB) {
@@ -166,7 +168,9 @@ class MyStoreService implements StoreService {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (isNaN(orderId)) {
-      throw new Deno.errors.InvalidData(`Invalid ID to find order: '${orderId}'`);
+      throw new Deno.errors.InvalidData(
+        `Invalid ID to find order: '${orderId}'`,
+      );
     }
     const order: Order | undefined = petStoreDB.getOrder(orderId);
     if (order) {
