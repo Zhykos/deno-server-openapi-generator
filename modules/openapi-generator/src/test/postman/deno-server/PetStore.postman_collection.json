@@ -6,10 +6,10 @@
 	},
 	"item": [
 		{
-			"name": "[WIP] Pet",
+			"name": "-----TODO - Pet",
 			"item": [
 				{
-					"name": "TODO [POST] Uploads an image",
+					"name": "------TODO [POST] Uploads an image",
 					"item": []
 				},
 				{
@@ -1864,7 +1864,7 @@
 					]
 				},
 				{
-					"name": "TODO [POST] Updates a pet in the store with form data",
+					"name": "-----TODO [POST] Updates a pet in the store with form data",
 					"item": []
 				},
 				{
@@ -2015,22 +2015,22 @@
 			]
 		},
 		{
-			"name": "TODO - Store",
+			"name": "-----TODO - Store",
 			"item": [
 				{
-					"name": "TODO [POST] Place an order for a pet",
+					"name": "-----TODO [POST] Place an order for a pet",
 					"item": []
 				},
 				{
-					"name": "TODO [GET] Find purchase order by ID",
+					"name": "-----TODO [GET] Find purchase order by ID",
 					"item": []
 				},
 				{
-					"name": "TODO [DELETE] Delete purchase order by ID",
+					"name": "-----TODO [DELETE] Delete purchase order by ID",
 					"item": []
 				},
 				{
-					"name": "TODO [GET] Returns pet inventories by status",
+					"name": "-----TODO [GET] Returns pet inventories by status",
 					"item": []
 				},
 				{
@@ -2231,38 +2231,38 @@
 			]
 		},
 		{
-			"name": "TODO - User",
+			"name": "-----TODO - User",
 			"item": [
 				{
-					"name": "TODO [POST] Creates list of users with given input array 1",
+					"name": "-----TODO [POST] Creates list of users with given input array 1",
 					"item": []
 				},
 				{
-					"name": "TODO [POST] Creates list of users with given input array 2",
+					"name": "-----TODO [POST] Creates list of users with given input array 2",
 					"item": []
 				},
 				{
-					"name": "TODO [GET] Get user by user name",
+					"name": "-----TODO [GET] Get user by user name",
 					"item": []
 				},
 				{
-					"name": "TODO [PUT] Updated user",
+					"name": "-----TODO [PUT] Updated user",
 					"item": []
 				},
 				{
-					"name": "TODO [DELETE] Delete user",
+					"name": "-----TODO [DELETE] Delete user",
 					"item": []
 				},
 				{
-					"name": "TODO [GET] Logs user into the system",
+					"name": "-----TODO [GET] Logs user into the system",
 					"item": []
 				},
 				{
-					"name": "TODO [GET] Logs out current logged in user session",
+					"name": "-----TODO [GET] Logs out current logged in user session",
 					"item": []
 				},
 				{
-					"name": "TODO [POST] Create user",
+					"name": "-----TODO [POST] Create user",
 					"item": []
 				},
 				{
