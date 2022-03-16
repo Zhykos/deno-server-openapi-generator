@@ -677,6 +677,76 @@
 							"response": []
 						},
 						{
+							"name": "Finds Pets by status - available duplicate arg",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.length).to.eql(1);\r",
+											"\r",
+											"    const data = jsonData[0];\r",
+											"    pm.expect(data.name).to.eql(\"doggie\");\r",
+											"    pm.expect(data.status).to.eql(\"available\");\r",
+											"    pm.expect(data.id).to.eql(0);\r",
+											"    pm.expect(data.category.id).to.eql(0);\r",
+											"    pm.expect(data.category.name).to.eql(\"string\");\r",
+											"    pm.expect(data.photoUrls.length).to.eql(1);\r",
+											"    pm.expect(data.photoUrls[0]).to.eql(\"string\");\r",
+											"    pm.expect(data.tags.length).to.eql(1);\r",
+											"    pm.expect(data.tags[0].id).to.eql(0);\r",
+											"    pm.expect(data.tags[0].name).to.eql(\"tag01\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}pet/findByStatus?status=available&status=available",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"findByStatus"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "available"
+										},
+										{
+											"key": "status",
+											"value": "available"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Finds Pets by status - sold",
 							"event": [
 								{
