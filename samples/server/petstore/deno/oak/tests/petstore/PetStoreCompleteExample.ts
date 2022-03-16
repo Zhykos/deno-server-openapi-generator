@@ -96,8 +96,12 @@ class MyPetService implements PetService {
       ),
     );
   }
-  deletePet(petId: number, _apiKey?: string): void {
+  deletePet(petId: number, apiKey?: string): void {
     const petStoreDB = new PetStoreDatabase();
+
+    if (apiKey !== undefined && apiKey !== "secret-token") {
+      throw new Deno.errors.PermissionDenied("Wrong API key: " + apiKey);
+    }
 
     if (isNaN(petId)) {
       throw new Deno.errors.InvalidData("Invalid Id to find pet to delete");

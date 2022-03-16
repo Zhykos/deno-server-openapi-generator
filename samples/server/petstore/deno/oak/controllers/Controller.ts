@@ -26,6 +26,8 @@ export class Controller {
       status = 400;
     } else if (error instanceof Deno.errors.NotSupported) {
       status = 405;
+    } else if (error instanceof Deno.errors.PermissionDenied) {
+      status = 403;
     }
     return new Response(
       JSON.stringify({

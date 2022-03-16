@@ -192,12 +192,24 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         @Override
         public void execute(final Template.Fragment fragment, final Writer writer) throws IOException {
             final String text = fragment.execute();
-            final String[] split = text.split("---");
+            final boolean isRequired = !text.startsWith("?");
+            final String generatedText;
+            if (isRequired) {
+                generatedText = text;
+            } else {
+                generatedText = text.substring(1);
+            }
+            final String[] split = generatedText.split("---");
             final String valueType = split[0];
             final String valueName = split[1];
             if ("number".equals(valueType) || "string".equals(valueType)) {
-                writer.write(valueType.substring(0, 1).toUpperCase(Locale.ROOT)
+                final StringBuilder builder = new StringBuilder();
+                if (!isRequired) {
+                    builder.append(valueName + " === undefined ? undefined : ");
+                }
+                builder.append(valueType.substring(0, 1).toUpperCase(Locale.ROOT)
                         + valueType.substring(1).toLowerCase(Locale.ROOT) + '(' + valueName + ')');
+                writer.write(builder.toString());
             } else if ("any".equals(valueType)) {
                 writer.write(valueName);
             } else if (valueType.startsWith("Array")) {

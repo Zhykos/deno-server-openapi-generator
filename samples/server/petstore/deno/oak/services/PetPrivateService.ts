@@ -91,7 +91,7 @@ export class PetPrivateService {
   deletePet(...args: any): Promise<void> {
     const { petId, apiKey } = args[0];
     const petIdCast = Number(petId);
-    const apiKeyCast = String(apiKey);
+    const apiKeyCast = apiKey === undefined ? undefined : String(apiKey);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.deletePet(petIdCast, apiKeyCast));
@@ -129,8 +129,8 @@ export class PetPrivateService {
   updatePetWithForm(...args: any): Promise<void> {
     const { petId, name, status } = args[0];
     const petIdCast = Number(petId);
-    const nameCast = String(name);
-    const statusCast = String(status);
+    const nameCast = name === undefined ? undefined : String(name);
+    const statusCast = status === undefined ? undefined : String(status);
     return new Promise((resolve, reject) => {
       try {
         resolve(
@@ -156,7 +156,9 @@ export class PetPrivateService {
   uploadFile(...args: any): Promise<ApiResponse> {
     const { petId, additionalMetadata, file } = args[0];
     const petIdCast = Number(petId);
-    const additionalMetadataCast = String(additionalMetadata);
+    const additionalMetadataCast = additionalMetadata === undefined
+      ? undefined
+      : String(additionalMetadata);
     const fileCast = file;
     return new Promise((resolve, reject) => {
       try {
