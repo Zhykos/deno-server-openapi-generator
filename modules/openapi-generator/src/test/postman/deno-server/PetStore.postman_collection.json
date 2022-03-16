@@ -2122,8 +2122,204 @@
 					"item": []
 				},
 				{
-					"name": "-----TODO [GET] Find purchase order by ID",
-					"item": []
+					"name": "[GET] Find purchase order by ID",
+					"item": [
+						{
+							"name": "Errors",
+							"item": [
+								{
+									"name": "Find purchase order By ID - ID not found",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const order1 = pm.response.json();\r",
+													"    pm.expect(order1.message).to.eql(\"Cannot find order with ID: 2\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}store/order/2",
+											"host": [
+												"{{baseUrl}}store"
+											],
+											"path": [
+												"order",
+												"2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Find purchase order By ID - wrong format ID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const order1 = pm.response.json();\r",
+													"    pm.expect(order1.message).to.eql(\"Invalid Id to find order\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}store/order/foo",
+											"host": [
+												"{{baseUrl}}store"
+											],
+											"path": [
+												"order",
+												"foo"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Find purchase order By ID - ID 0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const order0 = pm.response.json();\r",
+											"    pm.expect(order0.id).to.eql(0);\r",
+											"    pm.expect(order0.petId).to.eql(0);\r",
+											"    pm.expect(order0.quantity).to.eql(0);\r",
+											"    pm.expect(order0.shipDate).to.eql(\"2022\");\r",
+											"    pm.expect(order0.status).to.eql(\"placed\");\r",
+											"    pm.expect(order0.complete).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}store/order/0",
+									"host": [
+										"{{baseUrl}}store"
+									],
+									"path": [
+										"order",
+										"0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Find purchase order By ID - ID 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const order1 = pm.response.json();\r",
+											"    pm.expect(order1.id).to.eql(1);\r",
+											"    pm.expect(order1.petId).to.eql(1);\r",
+											"    pm.expect(order1.quantity).to.eql(1);\r",
+											"    pm.expect(order1.shipDate).to.eql(\"2022\");\r",
+											"    pm.expect(order1.status).to.eql(\"placed\");\r",
+											"    pm.expect(order1.complete).to.be.true;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}store/order/1",
+									"host": [
+										"{{baseUrl}}store"
+									],
+									"path": [
+										"order",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "-----TODO [DELETE] Delete purchase order by ID",
@@ -2132,201 +2328,6 @@
 				{
 					"name": "-----TODO [GET] Returns pet inventories by status",
 					"item": []
-				},
-				{
-					"name": "Place an order for a pet",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Check the name, status and PetId\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.id).to.eql(parseInt(pm.environment.get(\"orderId\")));\r",
-									"    pm.expect(jsonData.petId).to.eql(parseInt(pm.environment.get(\"petId\")));\r",
-									"    pm.expect(jsonData.status).to.eql((\"placed\"));\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": 1,\n  \"petId\": 2,\n  \"quantity\": 0,\n  \"shipDate\": \"2022-01-16T09:52:23.792Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}"
-						},
-						"url": {
-							"raw": "{{baseUrl}}store/order",
-							"host": [
-								"{{baseUrl}}store"
-							],
-							"path": [
-								"order"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find purchase order By ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Your test name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.petId).to.eql(parseInt(pm.environment.get(\"petId\")));\r",
-									"    pm.expect(jsonData.status).to.eql(\"placed\")\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}store/order/{{orderId}}",
-							"host": [
-								"{{baseUrl}}store"
-							],
-							"path": [
-								"order",
-								"{{orderId}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Pet inventory by status",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": []
-						},
-						"url": {
-							"raw": "{{baseUrl}}store/inventory",
-							"host": [
-								"{{baseUrl}}store"
-							],
-							"path": [
-								"inventory"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete purchase order by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Your test name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.message).to.eql(pm.environment.get(\"orderId\"));\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"    pm.response.to.have.header(\"Content-Type\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}store/order/1",
-							"host": [
-								"{{baseUrl}}store"
-							],
-							"path": [
-								"order",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},

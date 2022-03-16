@@ -85,8 +85,8 @@ export class PetStoreCompleteExampleDatabase {
     const order = new Order();
     order.id = id;
     order.petId = id;
-    order.quantity = 0;
-    order.shipDate = "";
+    order.quantity = id;
+    order.shipDate = "2022";
     order.status = OrderStatus.Placed;
     order.complete = true;
     this.addOrder(order);
