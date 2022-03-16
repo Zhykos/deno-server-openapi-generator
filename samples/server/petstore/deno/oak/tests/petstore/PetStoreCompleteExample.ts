@@ -100,7 +100,7 @@ class MyPetService implements PetService {
     const petStoreDB = new PetStoreDatabase();
 
     if (apiKey !== undefined && apiKey !== "secret-token") {
-      throw new Deno.errors.PermissionDenied("Wrong API key: " + apiKey);
+      throw new Deno.errors.PermissionDenied(`Wrong API key: '${apiKey}'`);
     }
 
     if (isNaN(petId)) {
