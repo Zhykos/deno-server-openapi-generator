@@ -1,4 +1,6 @@
 import { Pet, StatusEnum } from "../../models/Pet.ts";
+import { Tag } from "../../models/Tag.ts";
+import { Category } from "../../models/Category.ts";
 
 export class PetStoreDatabase {
   private petDatabase: Map<string, Pet>;
@@ -25,29 +27,28 @@ export class PetStoreDatabase {
   }
 
   private initDatabase(): void {
-    this.registerPet(0, "doggie", StatusEnum.Available);
-    this.registerPet(7, "doggo", StatusEnum.Sold);
+    this.registerPet(0, "doggie", StatusEnum.Available, "tag01");
+    this.registerPet(7, "doggo", StatusEnum.Sold, "yo");
+    this.registerPet(12, "dog", StatusEnum.Sold);
   }
 
-  private registerPet(id: number, name: string, status: StatusEnum): void {
-    const pet = new Pet().copyFrom({
-      "id": id,
-      "category": {
-        "id": 0,
-        "name": "string",
-      },
-      "name": name,
-      "photoUrls": [
-        "string",
-      ],
-      "tags": [
-        {
-          "id": 0,
-          "name": "string",
-        },
-      ],
-      "status": status.toString(),
-    });
+  private registerPet(id: number, name: string, status: StatusEnum, tag?: string): void {
+    const pet = new Pet();
+    pet.id = id;
+    pet.name = name;
+    pet.category = new Category();
+    pet.category.id = 0;
+    pet.category.name = "string";
+    pet.photoUrls = new Array<string>();
+    pet.photoUrls.push("string");
+    pet.status = status;
+    if (tag) {
+      const tagObj = new Tag();
+      tagObj.id = 0;
+      tagObj.name = tag;
+      pet.tags = new Array<Tag>();
+      pet.tags.push(tagObj);
+    }
     this.addPet(pet);
   }
 }

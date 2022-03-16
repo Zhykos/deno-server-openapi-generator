@@ -73,8 +73,23 @@ class MyPetService implements PetService {
       ),
     );
   }
-  findPetsByTags(_tags: Array<string>): Array<Pet> {
-    throw new Error("Method not implemented yet: PetService >> findPetsByTags");
+  findPetsByTags(tags: Array<string>): Array<Pet> {
+    const petStoreDB = new PetStoreDatabase();
+
+    return Array.from(
+      iterFilter<Pet>(
+        petStoreDB.allPetsIterator(),
+        (pet) => {
+          if (pet.tags) {
+            const petTags: Array<string | undefined> = pet.tags.map(tag => tag.name);
+            const filteredArray = petTags.filter(tag => tag !== undefined && tags.includes(tag));
+            return filteredArray.length > 0;
+          } else {
+            return false;
+          }
+        }
+      ),
+    );
   }
   deletePet(_petId: number, _apiKey?: string): void {
     throw new Error("Method not implemented yet: PetService >> deletePet");
