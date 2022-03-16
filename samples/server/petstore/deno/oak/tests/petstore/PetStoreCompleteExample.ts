@@ -7,7 +7,7 @@ import { Order } from "../../models/Order.ts";
 import { Pet, StatusEnum } from "../../models/Pet.ts";
 import { User } from "../../models/User.ts";
 import { PetStoreDatabase } from "./PetStoreCompleteExampleDatabase.ts";
-import { iterFilter, iterMap } from "./deps.ts";
+import { iterFilter } from "./deps.ts";
 
 // deno run --allow-net --watch PetStoreCompleteExample.ts
 
@@ -51,19 +51,19 @@ class MyPetService implements PetService {
   ): Array<Pet> {
     const petStoreDB = new PetStoreDatabase();
 
-    const checkStatus = Array.from(iterFilter(status, (statusStr) => {
+    const checkStatus = status.filter((statusStr) => {
       const statusObj = statusStr as StatusEnum;
       return statusObj == StatusEnum.Available ||
         statusObj == StatusEnum.Sold || statusObj == StatusEnum.Pending;
-    }));
+    });
     if (checkStatus.length != status.length) {
       throw new Deno.errors.InvalidData(
         `Invalid status to find pet: '${status}'`,
       );
     }
 
-    const wishedStatus: Array<StatusEnum> = Array.from(
-      iterMap(status, (statusStr) => statusStr as StatusEnum),
+    const wishedStatus: Array<StatusEnum> = status.map((statusStr) =>
+      statusStr as StatusEnum
     );
 
     return Array.from(
