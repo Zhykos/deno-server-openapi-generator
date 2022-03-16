@@ -9,7 +9,7 @@ import { User } from "../../models/User.ts";
 import { PetStoreDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 import { iterFilter, iterMap } from "./deps.ts";
 
-// deno run --allow-net --allow-read --allow-write --watch PetStoreCompleteExample.ts
+// deno run --allow-net --watch PetStoreCompleteExample.ts
 
 // Custom services
 
