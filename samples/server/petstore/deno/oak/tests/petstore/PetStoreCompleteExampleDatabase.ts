@@ -27,16 +27,16 @@ export class PetStoreDatabase {
   }
 
   private initDatabase(): void {
-    this.registerPet(0, "doggie", StatusEnum.Available, "tag01");
-    this.registerPet(7, "doggo", StatusEnum.Sold, "yo");
-    this.registerPet(12, "dog", StatusEnum.Sold);
+    this.registerPet(0, "doggie", StatusEnum.Available, ["tag01"]);
+    this.registerPet(7, "doggo", StatusEnum.Sold, ["yo", "cute"]);
+    this.registerPet(12, "dog", StatusEnum.Sold, []);
   }
 
   private registerPet(
     id: number,
     name: string,
     status: StatusEnum,
-    tag?: string,
+    tags: Array<string>,
   ): void {
     const pet = new Pet();
     pet.id = id;
@@ -47,12 +47,15 @@ export class PetStoreDatabase {
     pet.photoUrls = new Array<string>();
     pet.photoUrls.push("string");
     pet.status = status;
-    if (tag) {
-      const tagObj = new Tag();
-      tagObj.id = 0;
-      tagObj.name = tag;
+    if (tags.length > 0) {
       pet.tags = new Array<Tag>();
-      pet.tags.push(tagObj);
+      let tagId = 0;
+      tags.forEach((tag) => {
+        const tagObj = new Tag();
+        tagObj.id = tagId++;
+        tagObj.name = tag;
+        pet.tags?.push(tagObj);
+      });
     }
     this.addPet(pet);
   }
