@@ -32,7 +32,12 @@ export class PetStoreDatabase {
     this.registerPet(12, "dog", StatusEnum.Sold);
   }
 
-  private registerPet(id: number, name: string, status: StatusEnum, tag?: string): void {
+  private registerPet(
+    id: number,
+    name: string,
+    status: StatusEnum,
+    tag?: string,
+  ): void {
     const pet = new Pet();
     pet.id = id;
     pet.name = name;

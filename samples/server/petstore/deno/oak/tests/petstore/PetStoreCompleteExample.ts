@@ -74,6 +74,7 @@ class MyPetService implements PetService {
     );
   }
   findPetsByTags(tags: Array<string>): Array<Pet> {
+    // TODO ERROR 400: Invalid tag value (no idea how...)
     const petStoreDB = new PetStoreDatabase();
 
     return Array.from(
@@ -81,13 +82,17 @@ class MyPetService implements PetService {
         petStoreDB.allPetsIterator(),
         (pet) => {
           if (pet.tags) {
-            const petTags: Array<string | undefined> = pet.tags.map(tag => tag.name);
-            const filteredArray = petTags.filter(tag => tag !== undefined && tags.includes(tag));
+            const petTags: Array<string | undefined> = pet.tags.map((tag) =>
+              tag.name
+            );
+            const filteredArray = petTags.filter((tag) =>
+              tag !== undefined && tags.includes(tag)
+            );
             return filteredArray.length > 0;
           } else {
             return false;
           }
-        }
+        },
       ),
     );
   }
