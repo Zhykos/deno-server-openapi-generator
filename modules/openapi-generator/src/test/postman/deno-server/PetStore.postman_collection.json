@@ -2549,8 +2549,149 @@
 					]
 				},
 				{
-					"name": "-----TODO [DELETE] Delete purchase order by ID",
-					"item": []
+					"name": "[DELETE] Delete purchase order by ID",
+					"item": [
+						{
+							"name": "Errors",
+							"item": [
+								{
+									"name": "Delete purchase order by ID - ID not found",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.message).to.eql(\"Cannot delete order with ID: 3\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}store/order/3",
+											"host": [
+												"{{baseUrl}}store"
+											],
+											"path": [
+												"order",
+												"3"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete purchase order by ID - ID wrong format",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const jsonData = pm.response.json();\r",
+													"    pm.expect(jsonData.message).to.eql(\"Invalid ID to delete order: 'NaN'\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}store/order/foo",
+											"host": [
+												"{{baseUrl}}store"
+											],
+											"path": [
+												"order",
+												"foo"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete purchase order by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.be.undefined;\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}store/order/0",
+									"host": [
+										"{{baseUrl}}store"
+									],
+									"path": [
+										"order",
+										"0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "-----TODO [GET] Returns pet inventories by status",

@@ -25,8 +25,21 @@ export class MyStoreService implements StoreService {
     petStoreDB.addOrder(order);
     return order;
   }
-  deleteOrder(_orderId: string): void {
-    throw new Error("Method not implemented yet: StoreService >> deleteOrder");
+  deleteOrder(orderId: string): void {
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+
+    const orderNb = Number(orderId);
+    if (isNaN(orderNb)) {
+      throw new Deno.errors.InvalidData(
+        `Invalid ID to delete order: '${orderNb}'`,
+      );
+    }
+    const order: Order | undefined = petStoreDB.getOrder(orderNb);
+    if (!order) {
+      throw new Deno.errors.NotFound(
+        `Cannot delete order with ID: ${orderNb}`,
+      );
+    }
   }
   getOrderById(orderId: number): Order {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
