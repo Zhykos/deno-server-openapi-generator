@@ -3,7 +3,10 @@ import { User } from "../../models/User.ts";
 import { PetStoreCompleteExampleDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 
 export class MyUserService implements UserService {
-  private createUserInTransaction(user: User, petStoreDB: PetStoreCompleteExampleDatabase): void {
+  private createUserInTransaction(
+    user: User,
+    petStoreDB: PetStoreCompleteExampleDatabase,
+  ): void {
     // TODO ERROR 405: Validation exception (model format / JSON format)
     if (!user.username) {
       throw new Deno.errors.InvalidData(`Cannot create user`);
@@ -26,11 +29,8 @@ export class MyUserService implements UserService {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
     users.forEach((user) => this.createUserInTransaction(user, petStoreDB));
   }
-  createUsersWithListInput(_user: Array<User>): void {
-    // TODO ERROR 405: Validation exception (model format / JSON format)
-    throw new Error(
-      "Method not implemented yet: UserService >> createUsersWithListInput",
-    );
+  createUsersWithListInput(user: Array<User>): void {
+    this.createUsersWithArrayInput(user);
   }
   loginUser(_username: string, _password: string): string {
     throw new Error("Method not implemented yet: UserService >> loginUser");
