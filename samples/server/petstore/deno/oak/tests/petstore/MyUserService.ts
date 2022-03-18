@@ -3,9 +3,20 @@ import { User } from "../../models/User.ts";
 import { PetStoreCompleteExampleDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 
 export class MyUserService implements UserService {
-  createUser(_user: User): void {
+  createUser(user: User): void {
     // TODO ERROR 405: Validation exception (model format / JSON format)
-    throw new Error("Method not implemented yet: UserService >> createUser");
+    if (!user.username) {
+      throw new Deno.errors.InvalidData(`Cannot create user`);
+    }
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+
+    const existingUser: User | undefined = petStoreDB.getUser(user.username);
+    if (existingUser) {
+      throw new Deno.errors.InvalidData(
+        `Cannot create user with username: '${user.username}'`,
+      );
+    }
+    petStoreDB.addUser(user);
   }
   createUsersWithArrayInput(_user: Array<User>): void {
     // TODO ERROR 405: Validation exception (model format / JSON format)
