@@ -5,8 +5,8 @@ import { MyUserService } from "./MyUserService.ts";
 
 // deno run --allow-net --watch PetStoreCompleteExample.ts
 
-const myPetService: MyPetService = new MyPetService();
-const myStoreService: MyStoreService = new MyStoreService();
-const myUserService: MyUserService = new MyUserService();
+const myPetService = new MyPetService();
+const myStoreService = new MyStoreService();
+const myUserService = new MyUserService();
 
 new DenoOakServer(3000, myPetService, myStoreService, myUserService).start();
