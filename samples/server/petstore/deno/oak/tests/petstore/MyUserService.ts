@@ -1,5 +1,6 @@
 import { UserService } from "../../services/UserService.ts";
 import { User } from "../../models/User.ts";
+import { PetStoreCompleteExampleDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 
 export class MyUserService implements UserService {
   createUser(_user: User): void {
@@ -27,8 +28,15 @@ export class MyUserService implements UserService {
   deleteUser(_username: string): void {
     throw new Error("Method not implemented yet: UserService >> deleteUser");
   }
-  getUserByName(_username: string): User {
-    throw new Error("Method not implemented yet: UserService >> getUserByName");
+  getUserByName(username: string): User {
+    // TODO ERROR 400: Invalid user name format (do not know how to check that)
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+
+    const user: User | undefined = petStoreDB.getUser(username);
+    if (user) {
+      return user;
+    }
+    throw new Deno.errors.NotFound(`Cannot find user with ID: ${username}`);
   }
   updateUser(_username: string, _user: User): void {
     throw new Error("Method not implemented yet: UserService >> updateUser");

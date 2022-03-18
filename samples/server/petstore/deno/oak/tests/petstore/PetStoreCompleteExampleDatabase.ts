@@ -2,14 +2,17 @@ import { Pet, StatusEnum as PetStatus } from "../../models/Pet.ts";
 import { Tag } from "../../models/Tag.ts";
 import { Category } from "../../models/Category.ts";
 import { Order, StatusEnum as OrderStatus } from "../../models/Order.ts";
+import { User } from "../../models/User.ts";
 
 export class PetStoreCompleteExampleDatabase {
   private petDatabase: Map<string, Pet>;
   private orderDatabase: Map<string, Order>;
+  private userDatabase: Map<string, User>;
 
   constructor() {
     this.petDatabase = new Map<string, Pet>();
     this.orderDatabase = new Map<string, Order>();
+    this.userDatabase = new Map<string, User>();
     this.initDatabase();
   }
 
@@ -96,6 +99,29 @@ export class PetStoreCompleteExampleDatabase {
     this.addOrder(order);
   }
 
+  // Users -------------------------------------------------------
+
+  getUser(username: string): User | undefined {
+    return this.userDatabase.get(username);
+  }
+
+  addUser(user: User): void {
+    this.userDatabase.set(user.username || "waldo", user);
+  }
+
+  private registerUser(username: string): void {
+    const user = new User();
+    user.email = "email@www.com";
+    user.firstName = "firstName";
+    user.id = 0;
+    user.lastName = "lastName";
+    user.password = "azerty";
+    user.phone = "+3306...";
+    user.userStatus = 0;
+    user.username = username;
+    this.addUser(user);
+  }
+
   // Misc. -------------------------------------------------------
 
   private initDatabase(): void {
@@ -106,5 +132,7 @@ export class PetStoreCompleteExampleDatabase {
     this.registerOrder(0, OrderStatus.Placed);
     this.registerOrder(1, OrderStatus.Placed);
     this.registerOrder(2, OrderStatus.Approved);
+
+    this.registerUser("zhykos");
   }
 }
