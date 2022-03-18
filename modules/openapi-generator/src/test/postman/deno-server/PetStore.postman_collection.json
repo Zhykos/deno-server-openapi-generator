@@ -2032,7 +2032,7 @@
 											"\r",
 											"pm.test(\"Check JSON\", function () {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.id).to.be.undefined;\r",
+											"    pm.expect(jsonData).to.eql({});\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2077,7 +2077,7 @@
 											"\r",
 											"pm.test(\"Check JSON\", function () {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.id).to.be.undefined;\r",
+											"    pm.expect(jsonData).to.eql({});\r",
 											"});"
 										],
 										"type": "text/javascript"
@@ -2663,7 +2663,7 @@
 											"\r",
 											"pm.test(\"Check JSON\", function () {\r",
 											"    const jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.id).to.be.undefined;\r",
+											"    pm.expect(jsonData).to.eql({});\r",
 											"});"
 										],
 										"type": "text/javascript"
