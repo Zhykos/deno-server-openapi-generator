@@ -2747,7 +2747,7 @@
 			]
 		},
 		{
-			"name": "-----TODO - User",
+			"name": "User",
 			"item": [
 				{
 					"name": "[POST] Creates list of users with given input array",
@@ -3951,8 +3951,53 @@
 					]
 				},
 				{
-					"name": "-----TODO [GET] Logs out current logged in user session",
-					"item": []
+					"name": "[GET] Logs out current logged in user session",
+					"item": [
+						{
+							"name": "Logs out current logged in user session",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const json = pm.response.json();\r",
+											"    pm.expect(json).to.eql({});\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}user/logout",
+									"host": [
+										"{{baseUrl}}user"
+									],
+									"path": [
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "[POST] Create user",

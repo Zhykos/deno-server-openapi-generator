@@ -40,7 +40,7 @@ export class MyUserService implements UserService {
     throw new Deno.errors.InvalidData("Wrong user identification");
   }
   logoutUser(): void {
-    throw new Error("Method not implemented yet: UserService >> logoutUser");
+    // Do nothing
   }
   deleteUser(username: string): void {
     // TODO ERROR 400: Invalid user name format (do not know how to check that)
