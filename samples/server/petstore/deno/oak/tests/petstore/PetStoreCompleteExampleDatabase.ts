@@ -81,6 +81,10 @@ export class PetStoreCompleteExampleDatabase {
     this.orderDatabase.set(this.getOrderIdForDatabaseFromObject(order), order);
   }
 
+  allOrdersIterator(): IterableIterator<Order> {
+    return this.orderDatabase.values();
+  }
+
   private registerOrder(id: number): void {
     const order = new Order();
     order.id = id;

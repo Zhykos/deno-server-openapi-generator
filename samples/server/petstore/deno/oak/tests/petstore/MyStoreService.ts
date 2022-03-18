@@ -4,7 +4,16 @@ import { Order } from "../../models/Order.ts";
 
 export class MyStoreService implements StoreService {
   getInventory(): { [key: string]: number } {
-    throw new Error("Method not implemented yet: StoreService >> getInventory");
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+
+    const inventory: { [key: string]: number } = {};
+    for (const order of petStoreDB.allOrdersIterator()) {
+      if (order.status) {
+        const nb: number | undefined = inventory[order.status?.toString()];
+        inventory[order.status?.toString()] = nb ? nb + 1 : 1;
+      }
+    }
+    return inventory;
   }
   placeOrder(order: Order): Order {
     // TODO ERROR 405: Validation exception (model format / JSON format)

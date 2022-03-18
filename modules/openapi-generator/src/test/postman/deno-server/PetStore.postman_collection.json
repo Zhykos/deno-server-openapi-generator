@@ -2115,7 +2115,7 @@
 			]
 		},
 		{
-			"name": "-----TODO - Store",
+			"name": "Store",
 			"item": [
 				{
 					"name": "[POST] Place an order for a pet",
@@ -2694,8 +2694,53 @@
 					]
 				},
 				{
-					"name": "-----TODO [GET] Returns pet inventories by status",
-					"item": []
+					"name": "[GET] Returns pet inventories by status",
+					"item": [
+						{
+							"name": "Returns pet inventories by status",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.placed).to.eql(2);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}store/inventory",
+									"host": [
+										"{{baseUrl}}store"
+									],
+									"path": [
+										"inventory"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
