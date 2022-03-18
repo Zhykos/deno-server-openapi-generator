@@ -2304,9 +2304,9 @@
 											"\r",
 											"pm.test(\"Check JSON\", function () {\r",
 											"    const order2 = pm.response.json();\r",
-											"    pm.expect(order2.id).to.eql(2);\r",
-											"    pm.expect(order2.petId).to.eql(2);\r",
-											"    pm.expect(order2.quantity).to.eql(2);\r",
+											"    pm.expect(order2.id).to.eql(3);\r",
+											"    pm.expect(order2.petId).to.eql(3);\r",
+											"    pm.expect(order2.quantity).to.eql(3);\r",
 											"    pm.expect(order2.shipDate).to.eql(\"2022-03-16T13:36:47.437Z\");\r",
 											"    pm.expect(order2.status).to.eql(\"placed\");\r",
 											"    pm.expect(order2.complete).to.be.true;\r",
@@ -2326,7 +2326,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": 2,\r\n  \"petId\": 2,\r\n  \"quantity\": 2,\r\n  \"shipDate\": \"2022-03-16T13:36:47.437Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+									"raw": "{\r\n  \"id\": 3,\r\n  \"petId\": 3,\r\n  \"quantity\": 3,\r\n  \"shipDate\": \"2022-03-16T13:36:47.437Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2371,7 +2371,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const order1 = pm.response.json();\r",
-													"    pm.expect(order1.message).to.eql(\"Cannot find order with ID: 2\");\r",
+													"    pm.expect(order1.message).to.eql(\"Cannot find order with ID: 3\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2387,13 +2387,13 @@
 											}
 										],
 										"url": {
-											"raw": "{{baseUrl}}store/order/2",
+											"raw": "{{baseUrl}}store/order/3",
 											"host": [
 												"{{baseUrl}}store"
 											],
 											"path": [
 												"order",
-												"2"
+												"3"
 											]
 										}
 									},
@@ -2714,6 +2714,8 @@
 											"pm.test(\"Check JSON\", function () {\r",
 											"    const jsonData = pm.response.json();\r",
 											"    pm.expect(jsonData.placed).to.eql(2);\r",
+											"    pm.expect(jsonData.approved).to.eql(1);\r",
+											"    pm.expect(jsonData.delivered).to.be.undefined;\r",
 											"});"
 										],
 										"type": "text/javascript"

@@ -85,13 +85,13 @@ export class PetStoreCompleteExampleDatabase {
     return this.orderDatabase.values();
   }
 
-  private registerOrder(id: number): void {
+  private registerOrder(id: number, status: OrderStatus): void {
     const order = new Order();
     order.id = id;
     order.petId = id;
     order.quantity = id;
     order.shipDate = "2022";
-    order.status = OrderStatus.Placed;
+    order.status = status;
     order.complete = true;
     this.addOrder(order);
   }
@@ -103,7 +103,8 @@ export class PetStoreCompleteExampleDatabase {
     this.registerPet(7, "doggo", PetStatus.Sold, ["yo", "cute"]);
     this.registerPet(12, "dog", PetStatus.Sold, []);
 
-    this.registerOrder(0);
-    this.registerOrder(1);
+    this.registerOrder(0, OrderStatus.Placed);
+    this.registerOrder(1, OrderStatus.Placed);
+    this.registerOrder(2, OrderStatus.Approved);
   }
 }
