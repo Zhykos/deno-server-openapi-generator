@@ -34,8 +34,8 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   createUsersWithArrayInput(...args: any): Promise<void> {
-    const { user } = args[0];
-    const userCast = this.fillArray(user);
+    const { objBody } = args[0];
+    const userCast = this.fillArray(objBody);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUsersWithArrayInput(userCast));
@@ -51,8 +51,8 @@ export class UserPrivateService {
    * no response value expected for this operation
    */
   createUsersWithListInput(...args: any): Promise<void> {
-    const { user } = args[0];
-    const userCast = this.fillArray(user);
+    const { objBody } = args[0];
+    const userCast = this.fillArray(objBody);
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customUserService.createUsersWithListInput(userCast));

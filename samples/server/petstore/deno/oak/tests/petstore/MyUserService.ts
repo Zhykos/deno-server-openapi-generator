@@ -18,11 +18,8 @@ export class MyUserService implements UserService {
     }
     petStoreDB.addUser(user);
   }
-  createUsersWithArrayInput(_user: Array<User>): void {
-    // TODO ERROR 405: Validation exception (model format / JSON format)
-    throw new Error(
-      "Method not implemented yet: UserService >> createUsersWithArrayInput",
-    );
+  createUsersWithArrayInput(users: Array<User>): void {
+    users.forEach((user) => this.createUser(user));
   }
   createUsersWithListInput(_user: Array<User>): void {
     // TODO ERROR 405: Validation exception (model format / JSON format)
@@ -55,7 +52,9 @@ export class MyUserService implements UserService {
     if (user) {
       return user;
     }
-    throw new Deno.errors.NotFound(`Cannot find user with username: '${username}'`);
+    throw new Deno.errors.NotFound(
+      `Cannot find user with username: '${username}'`,
+    );
   }
   updateUser(username: string, user: User): void {
     // TODO ERROR 400: Invalid format (do not know how to check that)

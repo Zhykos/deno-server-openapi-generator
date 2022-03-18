@@ -2750,11 +2750,65 @@
 			"name": "-----TODO - User",
 			"item": [
 				{
-					"name": "-----TODO [POST] Creates list of users with given input array 1",
-					"item": []
+					"name": "-----TODO [POST] Creates list of users with given input array",
+					"item": [
+						{
+							"name": "Creates list of users with given input array",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const json = pm.response.json();\r",
+											"    pm.expect(json).to.eql({});\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"id\": 0,\r\n        \"username\": \"string\",\r\n        \"firstName\": \"string\",\r\n        \"lastName\": \"string\",\r\n        \"email\": \"string\",\r\n        \"password\": \"string\",\r\n        \"phone\": \"string\",\r\n        \"userStatus\": 0\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}user/createWithArray",
+									"host": [
+										"{{baseUrl}}user"
+									],
+									"path": [
+										"createWithArray"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
-					"name": "-----TODO [POST] Creates list of users with given input array 2",
+					"name": "-----TODO [POST] Creates list of users with given input array list",
 					"item": []
 				},
 				{

@@ -28,6 +28,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
     private static final String DENO_SERVER = "deno-server";
     private static final String SERVICES_FOLDER_NAME = "services";
     private static final String TESTS_FOLDER_NAME = "tests";
+    private static final String OBJ_NAME_BODY = "objBody";
 
     protected static final String CONTROLLERS_FOLDER_NAME = "controllers";
 
@@ -213,9 +214,16 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
             } else if ("any".equals(valueType)) {
                 writer.write(valueName);
             } else if (valueType.startsWith("Array")) {
-                writer.write("this.fillArray(" + valueName + ");");
+                writer.write("this.fillArray(");
+                if (valueType.contains("<number>") || valueType.contains("<string>") || valueType.contains("<any>")
+                        || valueType.contains("<\"") || valueType.contains("<'")) {
+                    writer.write(valueName);
+                } else {
+                    writer.write(OBJ_NAME_BODY);
+                }
+                writer.write(");");
             } else {
-                writer.write("new " + valueType + "(); " + valueName + "Cast.copyFrom(objBody);");
+                writer.write("new " + valueType + "(); " + valueName + "Cast.copyFrom(" + OBJ_NAME_BODY + ");");
             }
         }
     }
@@ -227,11 +235,17 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
             final String[] split = text.split("---");
             final String valueType = split[0];
             final String valueName = split[1];
-            if ("number".equals(valueType) || "string".equals(valueType) || "any".equals(valueType)
-                    || valueType.startsWith("Array")) {
+            if ("number".equals(valueType) || "string".equals(valueType) || "any".equals(valueType)) {
                 writer.write(valueName);
+            } else if (valueType.startsWith("Array")) {
+                if (valueType.contains("<number>") || valueType.contains("<string>") || valueType.contains("<any>")
+                        || valueType.contains("<\"") || valueType.contains("<'")) {
+                    writer.write(valueName);
+                } else {
+                    writer.write(OBJ_NAME_BODY);
+                }
             } else {
-                writer.write("objBody");
+                writer.write(OBJ_NAME_BODY);
             }
         }
     }
