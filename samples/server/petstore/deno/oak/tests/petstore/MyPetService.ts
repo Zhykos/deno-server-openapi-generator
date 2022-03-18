@@ -116,10 +116,34 @@ export class MyPetService implements PetService {
     }
     throw new Deno.errors.NotFound(`Cannot find pet with ID: ${petId}`);
   }
-  updatePetWithForm(_petId: number, _name?: string, _status?: string): void {
-    throw new Error(
-      "Method not implemented yet: PetService >> updatePetWithForm",
-    );
+  updatePetWithForm(petId: number, name?: string, status?: string): void {
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+
+    if (isNaN(petId)) {
+      throw new Deno.errors.InvalidData(`Invalid ID to update pet: '${petId}'`);
+    }
+    const existingPet: Pet | undefined = petStoreDB.getPet(petId);
+    if (!existingPet) {
+      throw new Deno.errors.NotFound(`Cannot update pet with ID: ${petId}`);
+    }
+    if (name) {
+      existingPet.name = name;
+    }
+    if (status) {
+      switch (status) {
+        case StatusEnum.Available.toString():
+        existingPet.status = StatusEnum.Available;
+        break;
+        case StatusEnum.Pending.toString():
+        existingPet.status = StatusEnum.Pending;
+        break;
+        case StatusEnum.Sold.toString():
+        existingPet.status = StatusEnum.Sold;
+        break;
+        default:
+        throw new Deno.errors.InvalidData(`Invalid status to update pet: '${status}'`);
+      }
+    }
   }
   uploadFile(
     _petId: number,

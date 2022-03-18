@@ -1864,8 +1864,119 @@
 					]
 				},
 				{
-					"name": "-----TODO [POST] Updates a pet in the store with form data",
-					"item": []
+					"name": "------ WIP -- [POST] Updates a pet in the store with form data",
+					"item": [
+						{
+							"name": "Updates a pet in the store with form data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.eql({});\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "woof",
+											"type": "default"
+										},
+										{
+											"key": "status",
+											"value": "sold",
+											"type": "default"
+										}
+									],
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}pet/0",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Updates a pet in the store with form data - No data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.eql({});\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}pet/0",
+									"host": [
+										"{{baseUrl}}pet"
+									],
+									"path": [
+										"0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "[DELETE] Deletes a pet",

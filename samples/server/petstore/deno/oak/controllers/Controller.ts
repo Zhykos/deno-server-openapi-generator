@@ -31,6 +31,7 @@ export class Controller {
     } else if (error instanceof Deno.errors.PermissionDenied) {
       status = 403;
     }
+    console.error(error);
     return new Response(
       JSON.stringify({
         message: error.message,
@@ -53,6 +54,7 @@ export class Controller {
       if (isJsonBody(request)) {
         requestParams["objBody"] = JSON.parse(requestBody);
       } else {
+        console.log(requestBody)
         requestParams["objBody"] = requestBody;
         console.log("CAREFUL!!!!!!!!!");
       }
