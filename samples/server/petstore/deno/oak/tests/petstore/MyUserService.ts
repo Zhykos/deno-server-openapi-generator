@@ -3,12 +3,11 @@ import { User } from "../../models/User.ts";
 import { PetStoreCompleteExampleDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 
 export class MyUserService implements UserService {
-  createUser(user: User): void {
+  private createUserInTransaction(user: User, petStoreDB: PetStoreCompleteExampleDatabase): void {
     // TODO ERROR 405: Validation exception (model format / JSON format)
     if (!user.username) {
       throw new Deno.errors.InvalidData(`Cannot create user`);
     }
-    const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const existingUser: User | undefined = petStoreDB.getUser(user.username);
     if (existingUser) {
@@ -18,8 +17,14 @@ export class MyUserService implements UserService {
     }
     petStoreDB.addUser(user);
   }
+
+  createUser(user: User): void {
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+    this.createUserInTransaction(user, petStoreDB);
+  }
   createUsersWithArrayInput(users: Array<User>): void {
-    users.forEach((user) => this.createUser(user));
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+    users.forEach((user) => this.createUserInTransaction(user, petStoreDB));
   }
   createUsersWithListInput(_user: Array<User>): void {
     // TODO ERROR 405: Validation exception (model format / JSON format)
