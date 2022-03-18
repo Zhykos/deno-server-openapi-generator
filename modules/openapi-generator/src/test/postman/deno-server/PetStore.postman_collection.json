@@ -2864,7 +2864,61 @@
 				},
 				{
 					"name": "-----TODO [PUT] Updated user",
-					"item": []
+					"item": [
+						{
+							"name": "Updated user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const json = pm.response.json();\r",
+											"    pm.expect(json).to.eql({});\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 0,\r\n  \"username\": \"string\",\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"email\": \"string\",\r\n  \"password\": \"string\",\r\n  \"phone\": \"string\",\r\n  \"userStatus\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}user/zhykos",
+									"host": [
+										"{{baseUrl}}user"
+									],
+									"path": [
+										"zhykos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "-----TODO [DELETE] Delete user",
@@ -2881,399 +2935,6 @@
 				{
 					"name": "-----TODO [POST] Create user",
 					"item": []
-				},
-				{
-					"name": "Create a list of users with given input array",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Your test name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.message).to.eql(\"ok\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n  {\n    \"id\": 10,\n    \"username\": \"Nick\",\n    \"firstName\": \"Nicolas\",\n    \"lastName\": \"Garcia\",\n    \"email\": \"nickgarcia@gmail.com\",\n    \"password\": \"nick1234\",\n    \"phone\": \"688987845\",\n    \"userStatus\": 0\n  },\n  {\n    \"id\": 11,\n    \"username\": \"Kev\",\n    \"firstName\": \"Kevin\",\n    \"lastName\": \"Romano\",\n    \"email\": \"kevromano@gmail.com\",\n    \"password\": \"kev1234\",\n    \"phone\": \"645895214\",\n    \"userStatus\": 0\n  }\n]"
-						},
-						"url": {
-							"raw": "{{baseUrl}}user/createWithList",
-							"host": [
-								"{{baseUrl}}user"
-							],
-							"path": [
-								"createWithList"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get user Kev by username",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Your test name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.id).to.eql(parseInt(11));\r",
-									"    pm.expect(jsonData.username).to.eql(\"Kev\");\r",
-									"    pm.expect(jsonData.firstName).to.eql(\"Kevin\");\r",
-									"    pm.expect(jsonData.lastName).to.eql(\"Romano\");\r",
-									"    pm.expect(jsonData.email).to.eql(\"kevromano@gmail.com\");\r",
-									"    pm.expect(jsonData.password).to.eql(\"kev1234\");\r",
-									"    pm.expect(jsonData.phone).to.eql(\"645895214\");\r",
-									"    pm.expect(jsonData.userStatus).to.eql(parseInt(0));\r",
-									"    \r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}v2/user/Kev",
-							"host": [
-								"{{baseUrl}}v2"
-							],
-							"path": [
-								"user",
-								"Kev"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Kev´s password",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Your test name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.message).to.eql(\"11\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "  {\n    \"id\": 11,\n    \"username\": \"Kev\",\n    \"firstName\": \"Kevin\",\n    \"lastName\": \"Romano\",\n    \"email\": \"kevromano@gmail.com\",\n    \"password\": \"kev123456\",\n    \"phone\": \"645895214\",\n    \"userStatus\": 0\n  }"
-						},
-						"url": {
-							"raw": "{{baseUrl}}user/Kev",
-							"host": [
-								"{{baseUrl}}user"
-							],
-							"path": [
-								"Kev"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get user Kev by username with new password",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Your test name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.id).to.eql(parseInt(11));\r",
-									"    pm.expect(jsonData.username).to.eql(\"Kev\");\r",
-									"    pm.expect(jsonData.firstName).to.eql(\"Kevin\");\r",
-									"    pm.expect(jsonData.lastName).to.eql(\"Romano\");\r",
-									"    pm.expect(jsonData.email).to.eql(\"kevromano@gmail.com\");\r",
-									"    pm.expect(jsonData.password).to.eql(\"kev123456\");\r",
-									"    pm.expect(jsonData.phone).to.eql(\"645895214\");\r",
-									"    pm.expect(jsonData.userStatus).to.eql(parseInt(0));\r",
-									"    \r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}v2/user/Kev",
-							"host": [
-								"{{baseUrl}}v2"
-							],
-							"path": [
-								"user",
-								"Kev"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Logs Kev into the system",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Your test name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.message).contains(\"logged in user session:\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}user/login?username=Kev&password=kev123456",
-							"host": [
-								"{{baseUrl}}user"
-							],
-							"path": [
-								"login"
-							],
-							"query": [
-								{
-									"key": "username",
-									"value": "Kev"
-								},
-								{
-									"key": "password",
-									"value": "kev123456"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Logs Kev out of the system",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Your test name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.message).to.eql(\"ok\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}user/logout",
-							"host": [
-								"{{baseUrl}}user"
-							],
-							"path": [
-								"logout"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deletes Nick",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Your test name\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.message).to.eql(\"Nick\");\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}user/Nick",
-							"host": [
-								"{{baseUrl}}user"
-							],
-							"path": [
-								"Nick"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get user Nick after delete",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 404\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
-									"});\r",
-									"pm.test(\"Response time is less than 500ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}user/Nick",
-							"host": [
-								"{{baseUrl}}user"
-							],
-							"path": [
-								"Nick"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
 				}
 			]
 		}

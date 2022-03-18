@@ -38,7 +38,13 @@ export class MyUserService implements UserService {
     }
     throw new Deno.errors.NotFound(`Cannot find user with ID: ${username}`);
   }
-  updateUser(_username: string, _user: User): void {
-    throw new Error("Method not implemented yet: UserService >> updateUser");
+  updateUser(username: string, user: User): void {
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+
+    const existingUser: User | undefined = petStoreDB.getUser(username);
+    if (!existingUser) {
+      throw new Deno.errors.NotFound(`Cannot update user with ID: ${username}`);
+    }
+    existingUser.copyFrom(user);
   }
 }
