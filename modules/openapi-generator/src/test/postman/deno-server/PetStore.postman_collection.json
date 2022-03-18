@@ -2979,8 +2979,102 @@
 					]
 				},
 				{
-					"name": "-----TODO [DELETE] Delete user",
-					"item": []
+					"name": "[DELETE] Delete user",
+					"item": [
+						{
+							"name": "Errors",
+							"item": [
+								{
+									"name": "Delete user - Not found",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const json = pm.response.json();\r",
+													"    pm.expect(json.message).to.eql(\"Cannot delete user with ID: 'Nick'\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}user/Nick",
+											"host": [
+												"{{baseUrl}}user"
+											],
+											"path": [
+												"Nick"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Delete user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const json = pm.response.json();\r",
+											"    pm.expect(json).to.eql({});\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}user/zhykos",
+									"host": [
+										"{{baseUrl}}user"
+									],
+									"path": [
+										"zhykos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "-----TODO [GET] Logs user into the system",
