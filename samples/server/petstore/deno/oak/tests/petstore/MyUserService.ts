@@ -36,14 +36,15 @@ export class MyUserService implements UserService {
     if (user) {
       return user;
     }
-    throw new Deno.errors.NotFound(`Cannot find user with ID: ${username}`);
+    throw new Deno.errors.NotFound(`Cannot find user with ID: '${username}'`);
   }
   updateUser(username: string, user: User): void {
+    // TODO ERROR 400: Invalid format (do not know how to check that)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const existingUser: User | undefined = petStoreDB.getUser(username);
     if (!existingUser) {
-      throw new Deno.errors.NotFound(`Cannot update user with ID: ${username}`);
+      throw new Deno.errors.NotFound(`Cannot update user with ID: '${username}'`);
     }
     existingUser.copyFrom(user);
   }
