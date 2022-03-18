@@ -7,6 +7,8 @@ export class Controller {
     let bodyResponse = "{}";
     if (body instanceof Object) {
       bodyResponse = JSON.stringify(body);
+    } else if (typeof(body) === "string") {
+      bodyResponse = JSON.stringify(body as string);
     }
     return new Response(bodyResponse, {
       status: 200,

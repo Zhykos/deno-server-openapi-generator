@@ -32,8 +32,12 @@ export class MyUserService implements UserService {
   createUsersWithListInput(user: Array<User>): void {
     this.createUsersWithArrayInput(user);
   }
-  loginUser(_username: string, _password: string): string {
-    throw new Error("Method not implemented yet: UserService >> loginUser");
+  loginUser(username: string, password: string): string {
+    // TODO Set Headers: X-Expires-After and X-Rate-Limit
+    if (username === "zhykos" && password === "azerty") {
+      return '{ "status": "logged" }';
+    }
+    throw new Deno.errors.InvalidData("Wrong user identification");
   }
   logoutUser(): void {
     throw new Error("Method not implemented yet: UserService >> logoutUser");

@@ -3725,8 +3725,230 @@
 					]
 				},
 				{
-					"name": "-----TODO [GET] Logs user into the system",
-					"item": []
+					"name": "[GET] Logs user into the system",
+					"item": [
+						{
+							"name": "Errors",
+							"item": [
+								{
+									"name": "Logs user into the system - Wrong password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const json = pm.response.json();\r",
+													"    pm.expect(json.message).to.eql(\"Wrong user identification\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}user/login?username=zhykos&password=foo",
+											"host": [
+												"{{baseUrl}}user"
+											],
+											"path": [
+												"login"
+											],
+											"query": [
+												{
+													"key": "username",
+													"value": "zhykos"
+												},
+												{
+													"key": "password",
+													"value": "foo"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Logs user into the system - Wrong user",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const json = pm.response.json();\r",
+													"    pm.expect(json.message).to.eql(\"Wrong user identification\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}user/login?username=foo&password=azerty",
+											"host": [
+												"{{baseUrl}}user"
+											],
+											"path": [
+												"login"
+											],
+											"query": [
+												{
+													"key": "username",
+													"value": "foo"
+												},
+												{
+													"key": "password",
+													"value": "azerty"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Logs user into the system - Wrong user & password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Check status code\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check response time\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Check JSON\", function () {\r",
+													"    const json = pm.response.json();\r",
+													"    pm.expect(json.message).to.eql(\"Wrong user identification\");\r",
+													"});"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}user/login?username=foo&password=foo",
+											"host": [
+												"{{baseUrl}}user"
+											],
+											"path": [
+												"login"
+											],
+											"query": [
+												{
+													"key": "username",
+													"value": "foo"
+												},
+												{
+													"key": "password",
+													"value": "foo"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Logs user into the system",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Check status code\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check response time\", function () {\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check JSON\", function () {\r",
+											"    const json = pm.response.json();\r",
+											"    pm.expect(json.status).to.eql(\"logged\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}user/login?username=zhykos&password=azerty",
+									"host": [
+										"{{baseUrl}}user"
+									],
+									"path": [
+										"login"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "zhykos"
+										},
+										{
+											"key": "password",
+											"value": "azerty"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "-----TODO [GET] Logs out current logged in user session",
