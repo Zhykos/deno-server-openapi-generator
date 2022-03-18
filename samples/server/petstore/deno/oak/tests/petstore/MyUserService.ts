@@ -43,7 +43,7 @@ export class MyUserService implements UserService {
     const user: User | undefined = petStoreDB.getUser(username);
     if (!user) {
       throw new Deno.errors.NotFound(
-        `Cannot delete user with ID: '${username}'`,
+        `Cannot delete user with username: '${username}'`,
       );
     }
   }
@@ -55,7 +55,7 @@ export class MyUserService implements UserService {
     if (user) {
       return user;
     }
-    throw new Deno.errors.NotFound(`Cannot find user with ID: '${username}'`);
+    throw new Deno.errors.NotFound(`Cannot find user with username: '${username}'`);
   }
   updateUser(username: string, user: User): void {
     // TODO ERROR 400: Invalid format (do not know how to check that)
@@ -64,7 +64,7 @@ export class MyUserService implements UserService {
     const existingUser: User | undefined = petStoreDB.getUser(username);
     if (!existingUser) {
       throw new Deno.errors.NotFound(
-        `Cannot update user with ID: '${username}'`,
+        `Cannot update user with username: '${username}'`,
       );
     }
     existingUser.copyFrom(user);

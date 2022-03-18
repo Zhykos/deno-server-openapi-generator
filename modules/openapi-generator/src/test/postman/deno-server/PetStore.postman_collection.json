@@ -2780,7 +2780,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const json = pm.response.json();\r",
-													"    pm.expect(json.message).to.eql(\"Cannot find user with ID: 'Nick'\");\r",
+													"    pm.expect(json.message).to.eql(\"Cannot find user with username: 'Nick'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -2885,7 +2885,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const json = pm.response.json();\r",
-													"    pm.expect(json.message).to.eql(\"Cannot update user with ID: 'Nick'\");\r",
+													"    pm.expect(json.message).to.eql(\"Cannot update user with username: 'Nick'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
@@ -3001,7 +3001,7 @@
 													"\r",
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const json = pm.response.json();\r",
-													"    pm.expect(json.message).to.eql(\"Cannot delete user with ID: 'Nick'\");\r",
+													"    pm.expect(json.message).to.eql(\"Cannot delete user with username: 'Nick'\");\r",
 													"});"
 												],
 												"type": "text/javascript"
