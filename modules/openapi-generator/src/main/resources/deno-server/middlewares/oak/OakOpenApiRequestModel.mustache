@@ -36,20 +36,26 @@ export class OakOpenApiRequest implements OpenApiRequest {
       return;
     }
 
-    const headerContentType: string | null = request.headers.get("Content-Type");
+    const headerContentType: string | null = request.headers.get(
+      "Content-Type",
+    );
     if (Helpers.isJsonBody(request.headers)) {
       const responseValue = await request.body({ type: "json" }).value;
       this.body = JSON.stringify(responseValue);
     } else if (Helpers.isFormDataBody(request.headers)) {
       const responseValue = request.body({ type: "form-data" }).value;
-      const formRecords: Record<string, string> = (await responseValue.read()).fields;
-      const bodyObj: {[index: string]: string} = {};
+      const formData = await responseValue.read();
+      const formRecords: Record<string, string> = formData.fields;
+      const bodyObj: { [index: string]: any } = {};
       for (const keyForm in formRecords) {
         bodyObj[keyForm] = formRecords[keyForm];
       }
+      formData.files?.forEach(fileData => bodyObj[fileData.name] = fileData);
       this.body = JSON.stringify(bodyObj);
     } else if (headerContentType) {
-      throw new Error(`Cannot read body with header content-type: '${headerContentType}'`);
+      throw new Error(
+        `Cannot read body with header content-type: '${headerContentType}'`,
+      );
     }
   }
 

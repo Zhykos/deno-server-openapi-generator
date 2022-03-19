@@ -3,7 +3,7 @@ import { MyPetService } from "./MyPetService.ts";
 import { MyStoreService } from "./MyStoreService.ts";
 import { MyUserService } from "./MyUserService.ts";
 
-// deno run --allow-net --watch PetStoreCompleteExample.ts
+// deno run --allow-net --allow-write --watch PetStoreCompleteExample.ts
 
 const myPetService = new MyPetService();
 const myStoreService = new MyStoreService();

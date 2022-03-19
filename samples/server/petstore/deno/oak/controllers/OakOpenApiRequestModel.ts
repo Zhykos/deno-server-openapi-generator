@@ -39,12 +39,13 @@ export class OakOpenApiRequest implements OpenApiRequest {
       this.body = JSON.stringify(responseValue);
     } else if (Helpers.isFormDataBody(request.headers)) {
       const responseValue = request.body({ type: "form-data" }).value;
-      const formRecords: Record<string, string> =
-        (await responseValue.read()).fields;
-      const bodyObj: { [index: string]: string } = {};
+      const formData = await responseValue.read();
+      const formRecords: Record<string, string> = formData.fields;
+      const bodyObj: { [index: string]: any } = {};
       for (const keyForm in formRecords) {
         bodyObj[keyForm] = formRecords[keyForm];
       }
+      formData.files?.forEach((fileData) => bodyObj[fileData.name] = fileData);
       this.body = JSON.stringify(bodyObj);
     } else if (headerContentType) {
       throw new Error(

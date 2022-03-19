@@ -154,10 +154,35 @@ export class MyPetService implements PetService {
     }
   }
   uploadFile(
-    _petId: number,
-    _additionalMetadata?: string,
-    _file?: any,
+    petId: number,
+    additionalMetadata?: string,
+    file?: any,
   ): ApiResponse {
-    throw new Error("Method not implemented yet: PetService >> uploadFile");
+    const petStoreDB = new PetStoreCompleteExampleDatabase();
+
+    if (isNaN(petId)) {
+      throw new Deno.errors.InvalidData(
+        `Invalid ID to upload file for pet: '${petId}'`,
+      );
+    }
+    const existingPet: Pet | undefined = petStoreDB.getPet(petId);
+    if (!existingPet) {
+      throw new Deno.errors.NotFound(
+        `Cannot upload file for pet with ID: ${petId}`,
+      );
+    }
+
+    const response = new ApiResponse();
+    response.code = 0;
+    if (additionalMetadata) {
+      response.type = additionalMetadata;
+    }
+
+    if (file) {
+      response.message = file.filename + ";" + file.originalName + ";" +
+        file.contentType;
+    }
+
+    return response;
   }
 }
