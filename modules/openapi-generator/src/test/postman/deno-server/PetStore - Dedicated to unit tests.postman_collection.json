@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6ab1ef19-cd94-463d-aeed-641c710bd2a0",
+		"_postman_id": "3e950ffa-5aa8-411a-8f11-5e1412995f42",
 		"name": "PetStore - Dedicated to unit tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -196,9 +196,16 @@
 										{
 											"key": "file",
 											"contentType": "image/jpeg",
+											"description": "Used with newman on GitHub Workflow",
 											"type": "file",
-											"enabled": true,
 											"src": "pexels-lucas-andrade-4681107.jpg"
+										},
+										{
+											"key": "file",
+											"description": "Manullay used in Postman",
+											"type": "file",
+											"src": "/C:/Users/Zhykos/Documents/dev/deno-server-openapi-generator/modules/openapi-generator/src/test/postman/deno-server/pexels-lucas-andrade-4681107.jpg",
+											"disabled": true
 										}
 									],
 									"options": {
