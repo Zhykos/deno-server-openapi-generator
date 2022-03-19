@@ -54,7 +54,6 @@ export class Controller {
       if (isJsonBody(request)) {
         requestParams["objBody"] = JSON.parse(requestBody);
       } else {
-        console.log(requestBody)
         requestParams["objBody"] = requestBody;
         console.log("CAREFUL!!!!!!!!!");
       }
