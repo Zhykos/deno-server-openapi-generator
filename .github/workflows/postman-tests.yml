@@ -27,6 +27,8 @@ jobs:
     - name: Install node packages
       run: npm i
     - name: Build Docker image for the server
-      run: docker build -f ./PetStoreCompleteExample.dockerfile . -t deno-oak-petstore-server:0.1.0-beta
+      run: |
+        cd ./samples/server/petstore/deno/oak
+        docker build -f ./PetStoreCompleteExample.dockerfile . -t deno-oak-petstore-server:0.1.0-beta
     - name: Launch Deno server
       run: docker run deno-oak-petstore-server:0.1.0-beta -p3000:3000
