@@ -31,4 +31,4 @@ jobs:
         cd ./samples/server/petstore/deno/oak
         docker build -f ./PetStoreCompleteExample.dockerfile . -t deno-oak-petstore-server:0.1.0-beta
     - name: Launch Deno server
-      run: docker run deno-oak-petstore-server:0.1.0-beta -p3000:3000
+      run: docker run -p 3000:3000 deno-oak-petstore-server:0.1.0-beta
