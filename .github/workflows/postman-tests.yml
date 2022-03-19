@@ -31,6 +31,8 @@ jobs:
         cd ./samples/server/petstore/deno/oak
         docker build -f ./PetStoreCompleteExample.dockerfile . -t deno-oak-petstore-server:0.1.0-beta
     - name: Launch Deno server
-      run: docker run -d -p 3000:3000 deno-oak-petstore-server:0.1.0-beta
+      run: docker run -d -p 3000:3000 --name oak-server deno-oak-petstore-server:0.1.0-beta
     - name: Launch Postman with newman
       run: npm run postman-tests
+    - name: Stop Deno server
+      run: docker stop oak-server
