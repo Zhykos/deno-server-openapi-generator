@@ -1,0 +1,32 @@
+name: Postman tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron:  '0 0 * * MON'
+  workflow_dispatch:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install Deno
+      run: curl -fsSL https://deno.land/install.sh | sh
+    - name: Install NodeJS/npm
+      run: |
+        curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+    - name: Checkout repo
+      uses: actions/checkout@v2
+    - name: Install node packages
+      run: npm i
+    - name: Launch Deno server
+      run: |
+        cd tests/petstore
+        deno run --allow-net --allow-write --watch PetStoreCompleteExample.ts
