@@ -29,4 +29,4 @@ jobs:
     - name: Launch Deno server
       run: |
         cd ./samples/server/petstore/deno/oak/tests/petstore
-        deno run --allow-net --allow-write --watch PetStoreCompleteExample.ts
+        /home/runner/.deno/bin/deno run --allow-net --allow-write --watch PetStoreCompleteExample.ts
