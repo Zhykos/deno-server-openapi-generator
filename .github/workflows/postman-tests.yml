@@ -38,6 +38,6 @@ jobs:
     - name: Launch Postman with newman
       run: |
         cd ./modules/openapi-generator/src/test/postman/deno-server/
-        newman run ./PetStore\\ -\\ Dedicated\\ to\\ unit\\ tests.postman_collection.json -e ./PetStore.postman_environment.json
+        newman run ./PetStore\ -\ Dedicated\ to\ unit\ tests.postman_collection.json -e ./PetStore.postman_environment.json
     - name: Stop Deno server
       run: docker stop oak-server
