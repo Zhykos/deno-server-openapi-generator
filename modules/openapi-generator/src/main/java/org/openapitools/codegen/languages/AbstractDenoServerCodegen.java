@@ -66,15 +66,6 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
                 .add(new SupportingFile(CONTROLLERS_FOLDER_NAME + File.separator + "helpers.mustache",
                         CONTROLLERS_FOLDER_NAME, "Helpers.ts"));
 
-        // Tests folder
-        super.supportingFiles
-                .add(new SupportingFile(TESTS_FOLDER_NAME + File.separator + "DummyRoutesTests.mustache",
-                        TESTS_FOLDER_NAME,
-                        "DummyRoutesTests.ts"));
-        super.supportingFiles
-                .add(new SupportingFile(TESTS_FOLDER_NAME + File.separator + "deps.mustache", TESTS_FOLDER_NAME,
-                        "deps.ts"));
-
         // Additional properties
         super.additionalProperties.put("lowercase", new LowercaseLambda());
         super.additionalProperties.put("castForType", new CastForTypeLambda());
