@@ -1,8 +1,8 @@
 import {
-  isJsonBody,
   OpenApiRequest,
   ParameterObject,
 } from "./OpenApiRequestModel.ts";
+import { Helpers } from "./Helpers.ts";
 
 export class Controller {
   static sendResponse(body: any): Response {
@@ -51,14 +51,16 @@ export class Controller {
     const requestParams: { [index: string]: any } = {};
     const requestBody = request.body;
     if (requestBody) {
-      if (isJsonBody(request)) {
+      if (Helpers.isJsonBody(request.headers)) {
         requestParams["objBody"] = JSON.parse(requestBody);
+      } else if (Helpers.isFormDataBody(request.headers)) {
+        const objBody = JSON.parse(requestBody);
+        for (const key in objBody) {
+          requestParams[key] = objBody[key];
+        }
       } else {
-        requestParams["objBody"] = requestBody;
-        console.log("CAREFUL!!!!!!!!!");
+        throw new Error(`Cannot collect request parameters from body: '${requestBody}'`);
       }
-    } else {
-      // TODO?
     }
 
     const openApi = request.openapi;

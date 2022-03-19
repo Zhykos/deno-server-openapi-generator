@@ -126,22 +126,28 @@ export class MyPetService implements PetService {
     if (!existingPet) {
       throw new Deno.errors.NotFound(`Cannot update pet with ID: ${petId}`);
     }
+
     if (name) {
+      if (name === "foo") {
+        throw new Deno.errors.InvalidData(`Invalid name to update pet: '${name}'`);
+      }
       existingPet.name = name;
     }
     if (status) {
       switch (status) {
         case StatusEnum.Available.toString():
-        existingPet.status = StatusEnum.Available;
-        break;
+          existingPet.status = StatusEnum.Available;
+          break;
         case StatusEnum.Pending.toString():
-        existingPet.status = StatusEnum.Pending;
-        break;
+          existingPet.status = StatusEnum.Pending;
+          break;
         case StatusEnum.Sold.toString():
-        existingPet.status = StatusEnum.Sold;
-        break;
+          existingPet.status = StatusEnum.Sold;
+          break;
         default:
-        throw new Deno.errors.InvalidData(`Invalid status to update pet: '${status}'`);
+          throw new Deno.errors.InvalidData(
+            `Invalid status to update pet: '${status}'`,
+          );
       }
     }
   }

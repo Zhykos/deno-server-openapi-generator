@@ -6,11 +6,10 @@ import {
 } from "./OpenApiRequestModel.ts";
 import {
   OakRequest,
-  readAll,
-  readerFromStreamReader,
   RouterContext,
 } from "../deps-oak.ts";
 import { camelCaseSync } from "../deps.ts";
+import { Helpers } from "./Helpers.ts";
 
 export class OakOpenApiRequest implements OpenApiRequest {
   openapi?: OpenApiRequestMetadata | undefined;
@@ -35,27 +34,20 @@ export class OakOpenApiRequest implements OpenApiRequest {
       return;
     }
 
-    const responseReader = request.body({ type: "stream" }).value.getReader();
-    if (responseReader) {
-      const headerContentType: string | null = request.headers.get(
-        "Content-Type",
-      );
-      const reader: Deno.Reader = readerFromStreamReader(responseReader);
-      const bodyRaw: Uint8Array = await readAll(reader);
-
-      if (bodyRaw.length > 0) {
-        if (headerContentType === "application/json") {
-          this.body = new TextDecoder().decode(bodyRaw);
-        } else {
-          // TODO?
-          console.error(
-            "TODO: readBody with header accept: " + headerContentType,
-          );
-        }
+    const headerContentType: string | null = request.headers.get("Content-Type");
+    if (Helpers.isJsonBody(request.headers)) {
+      const responseValue = await request.body({ type: "json" }).value;
+      this.body = JSON.stringify(responseValue);
+    } else if (Helpers.isFormDataBody(request.headers)) {
+      const responseValue = request.body({ type: "form-data" }).value;
+      const formRecords: Record<string, string> = (await responseValue.read()).fields;
+      const bodyObj: {[index: string]: string} = {};
+      for (const keyForm in formRecords) {
+        bodyObj[keyForm] = formRecords[keyForm];
       }
-    } else {
-      // TODO?
-      console.error("TODO: empty body");
+      this.body = JSON.stringify(bodyObj);
+    } else if (headerContentType) {
+      throw new Error(`Cannot read body with header content-type: '${headerContentType}'`);
     }
   }
 
