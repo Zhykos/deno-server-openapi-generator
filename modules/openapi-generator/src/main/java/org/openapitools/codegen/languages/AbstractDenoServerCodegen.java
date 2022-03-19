@@ -51,7 +51,6 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         super.additionalProperties.put("implFolder", SERVICES_FOLDER_NAME);
 
         // Root folder
-        super.supportingFiles.add(new SupportingFile("config.mustache", "", "config.ts"));
         super.supportingFiles.add(new SupportingFile("README.mustache", "", "README.md"));
         super.supportingFiles.add(new SupportingFile("deps.mustache", "", "deps.ts"));
         super.supportingFiles.add(new SupportingFile("DenoServer.mustache", "", "DenoServer.ts"));

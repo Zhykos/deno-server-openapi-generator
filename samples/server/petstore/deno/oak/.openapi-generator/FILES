@@ -1,7 +1,6 @@
 DenoOakServer.ts
 DenoServer.ts
 README.md
-config.ts
 controllers/Controller.ts
 controllers/Helpers.ts
 controllers/OakOpenApiRequestModel.ts
