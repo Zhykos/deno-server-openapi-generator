@@ -6,6 +6,7 @@
 !package.json
 !package-lock.json
 !init-project.js
+!PetStoreCompleteExample.dockerfile
 
 !.vscode/
 .vscode/*
