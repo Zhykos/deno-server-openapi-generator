@@ -17,7 +17,7 @@
 !.github/workflows/
 .github/workflows/*
 
-!.github/workflows/maven.yml
+!.github/workflows/codegen.yml
 
 !modules/
 modules/*
