@@ -32,6 +32,9 @@ jobs:
         docker build -f ./PetStoreCompleteExample.dockerfile . -t deno-oak-petstore-server:0.1.0-beta
     - name: Launch Deno server
       run: docker run -d -p 3000:3000 --name oak-server deno-oak-petstore-server:0.1.0-beta
+    - name: Sleep for 30 seconds waiting for server to start
+      run: sleep 30s
+      shell: bash
     - name: Launch Postman with newman
       run: npm run postman-tests
     - name: Stop Deno server
