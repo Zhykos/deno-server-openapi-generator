@@ -36,6 +36,8 @@ jobs:
       run: sleep 30s
       shell: bash
     - name: Launch Postman with newman
-      run: npm run postman-tests
+      run: |
+        cd ./modules/openapi-generator/src/test/postman/deno-server/
+        newman run ./PetStore\\ -\\ Dedicated\\ to\\ unit\\ tests.postman_collection.json -e ./PetStore.postman_environment.json
     - name: Stop Deno server
       run: docker stop oak-server

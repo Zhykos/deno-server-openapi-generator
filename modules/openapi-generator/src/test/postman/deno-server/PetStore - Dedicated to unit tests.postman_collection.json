@@ -197,7 +197,8 @@
 											"key": "file",
 											"contentType": "image/jpeg",
 											"type": "file",
-											"src": "/C:/Users/Zhykos/Documents/dev/deno-server-openapi-generator/modules/openapi-generator/src/test/postman/deno-server/pexels-lucas-andrade-4681107.jpg"
+											"enabled": true,
+											"src": "pexels-lucas-andrade-4681107.jpg"
 										}
 									],
 									"options": {
