@@ -28,5 +28,5 @@ jobs:
       run: npm i
     - name: Launch Deno server
       run: |
-        cd tests/petstore
+        cd ./tests/petstore
         deno run --allow-net --allow-write --watch PetStoreCompleteExample.ts
