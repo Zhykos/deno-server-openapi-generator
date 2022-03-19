@@ -158,7 +158,7 @@
 									"script": {
 										"exec": [
 											"pm.test(\"Check response time\", function () {\r",
-											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+											"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Check status code\", function () {\r",
