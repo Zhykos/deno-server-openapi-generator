@@ -12,7 +12,7 @@ export class Controller {
     return new Response(bodyResponse, {
       status: 200,
       headers: {
-        "content-type": "application/json; charset=utf-8",
+        "content-type": "application/json; charset=utf-8", //TODO must match header accept from request?
       },
     });
   }
@@ -36,7 +36,7 @@ export class Controller {
       {
         status: status,
         headers: {
-          "content-type": "application/json; charset=utf-8",
+          "content-type": "application/json; charset=utf-8", //TODO must match header accept from request?
         },
       },
     );
@@ -55,10 +55,6 @@ export class Controller {
         for (const key in objBody) {
           requestParams[key] = objBody[key];
         }
-      } else {
-        throw new Error(
-          `Cannot collect request parameters from body: '${requestBody}'`,
-        );
       }
     }
 

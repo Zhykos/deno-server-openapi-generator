@@ -154,6 +154,7 @@ export class DenoOakServer extends DenoServer {
     const middlewarePromise = async (
       context: RouterContext<string, any, Record<string, any>>,
     ) => {
+      try {
       const openApiRequest = await OakOpenApiRequest.build(context);
       const response: Response = await this.executeController(
         controllerId,
@@ -163,6 +164,10 @@ export class DenoOakServer extends DenoServer {
       context.response.status = response.status;
       context.response.body = await response.json();
       context.response.headers = response.headers;
+      } catch(e) {
+        context.response.status = 500;
+        context.response.body = { error: e.message };
+      }
     };
     if (httpMethod == "get") {
       router.get(localVarPath, middlewarePromise);

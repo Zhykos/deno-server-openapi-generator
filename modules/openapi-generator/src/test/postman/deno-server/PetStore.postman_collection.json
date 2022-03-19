@@ -4496,6 +4496,107 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "-- Errors --",
+			"item": [
+				{
+					"name": "Endpoint not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check response time\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check status code\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check data\", function () {\r",
+									"    const data = pm.response.text();\r",
+									"    pm.expect(data).to.eql(\"\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}foo",
+							"host": [
+								"{{baseUrl}}foo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Content type not implemented yet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check response time\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check status code\", function () {\r",
+									"    pm.response.to.have.status(500);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check data\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.error).to.eql(\"Cannot read body with header content-type: 'application/xml'\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/xml"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tag>foo</tag>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}pet",
+							"host": [
+								"{{baseUrl}}pet"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
