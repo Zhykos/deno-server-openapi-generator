@@ -14,18 +14,24 @@ public class DenoOakServerCodegen extends AbstractDenoServerCodegen {
         super.outputFolder = "generated-code" + File.separator + DENO_OAK_SERVER;
 
         // Files to add in the root folder
-        super.supportingFiles.add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "DenoOakServer.mustache", "",
-                "DenoOakServer.ts"));
+        super.supportingFiles.add(
+                new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "DenoOakServer.mustache", "",
+                        "DenoOakServer.ts"));
         super.supportingFiles
-                .add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "DenoOakDummyRoutesExample.mustache", "",
+                .add(new SupportingFile(
+                        MIDDLEWARE_FOLDER + File.separator
+                                + "DenoOakDummyRoutesExample.mustache",
+                        "",
                         "DenoOakDummyRoutesExample.ts"));
         super.supportingFiles
-                .add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "deps.mustache", "", "deps-oak.ts"));
+                .add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "deps.mustache", "",
+                        "deps-oak.ts"));
 
         // Files to add in the controllers folder
         super.supportingFiles
-                .add(new SupportingFile(MIDDLEWARE_FOLDER + File.separator + "OakOpenApiRequest.mustache",
-                        CONTROLLERS_FOLDER_NAME, "OakOpenApiRequest.ts"));
+                .add(new SupportingFile(
+                        MIDDLEWARE_FOLDER + File.separator + "OakOpenApiRequestModel.mustache",
+                        CONTROLLERS_FOLDER_NAME, "OakOpenApiRequestModel.ts"));
     }
 
     @Override

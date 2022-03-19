@@ -129,7 +129,9 @@ export class MyPetService implements PetService {
 
     if (name) {
       if (name === "foo") {
-        throw new Deno.errors.InvalidData(`Invalid name to update pet: '${name}'`);
+        throw new Deno.errors.InvalidData(
+          `Invalid name to update pet: '${name}'`,
+        );
       }
       existingPet.name = name;
     }

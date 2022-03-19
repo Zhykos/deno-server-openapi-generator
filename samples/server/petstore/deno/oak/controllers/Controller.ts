@@ -1,7 +1,4 @@
-import {
-  OpenApiRequest,
-  ParameterObject,
-} from "./OpenApiRequestModel.ts";
+import { OpenApiRequest, ParameterObject } from "./OpenApiRequestModel.ts";
 import { Helpers } from "./Helpers.ts";
 
 export class Controller {
@@ -59,7 +56,9 @@ export class Controller {
           requestParams[key] = objBody[key];
         }
       } else {
-        throw new Error(`Cannot collect request parameters from body: '${requestBody}'`);
+        throw new Error(
+          `Cannot collect request parameters from body: '${requestBody}'`,
+        );
       }
     }
 

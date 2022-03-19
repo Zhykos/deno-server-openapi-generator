@@ -62,6 +62,9 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
         super.supportingFiles
                 .add(new SupportingFile(CONTROLLERS_FOLDER_NAME + File.separator + "OpenApiRequestModel.mustache",
                         CONTROLLERS_FOLDER_NAME, "OpenApiRequestModel.ts"));
+        super.supportingFiles
+                .add(new SupportingFile(CONTROLLERS_FOLDER_NAME + File.separator + "helpers.mustache",
+                        CONTROLLERS_FOLDER_NAME, "Helpers.ts"));
 
         // Tests folder
         super.supportingFiles

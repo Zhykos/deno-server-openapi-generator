@@ -4,7 +4,7 @@ import { UserService } from "./services/UserService.ts";
 import { DenoServer } from "./DenoServer.ts";
 import { Application, Router } from "./deps-oak.ts";
 import type { RouterContext } from "./deps-oak.ts";
-import { OakOpenApiRequest } from "./controllers/OakOpenApiRequest.ts";
+import { OakOpenApiRequest } from "./controllers/OakOpenApiRequestModel.ts";
 
 export class DenoOakServer extends DenoServer {
   private app: Application;
