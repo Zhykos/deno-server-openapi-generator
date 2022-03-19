@@ -37,19 +37,18 @@ export class OakOpenApiRequest implements OpenApiRequest {
       return;
     }
 
-    const headerAccept: string | null = request.headers.get("accept");
-
     const responseReader = request.body({ type: "stream" }).value.getReader();
     if (responseReader) {
+      const headerContentType: string | null = request.headers.get("Content-Type");
       const reader: Deno.Reader = readerFromStreamReader(responseReader);
       const bodyRaw: Uint8Array = await readAll(reader);
 
       if (bodyRaw.length > 0) {
-        if (headerAccept === "application/json") {
+        if (headerContentType === "application/json") {
           this.body = new TextDecoder().decode(bodyRaw);
         } else {
           // TODO?
-          console.error("TODO: readBody with header accept: " + headerAccept);
+          console.error("TODO: readBody with header accept: " + headerContentType);
         }
       }
     } else {

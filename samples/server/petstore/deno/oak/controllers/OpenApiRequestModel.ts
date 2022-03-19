@@ -19,6 +19,6 @@ export interface OpenApiRequest {
 }
 
 export function isJsonBody(openApi: OpenApiRequest): boolean {
-  const contentType: string | null = openApi.headers.get("Content-Type");
-  return openApi.body !== null && contentType === "application/json";
+  const headerContentType: string | null = openApi.headers.get("Content-Type");
+  return openApi.body !== null && headerContentType === "application/json";
 }
