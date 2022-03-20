@@ -40,6 +40,7 @@ jobs:
     - name: Create the release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "modules/openapi-generator/target/openapi-generator-5.4.0.jar"
+        artifacts: "modules/openapi-generator/target/openapi-generator-5.4.0-SNAPSHOT.jar"
         bodyFile: "doc/changelog.md"
         token: ${{ secrets.GITHUB_TOKEN }}
+        artifactErrorsFailBuild: true
