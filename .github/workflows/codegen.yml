@@ -49,3 +49,5 @@ jobs:
         chmod +x ./bin/generate-samples.sh
         ./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml
         /home/runner/.deno/bin/deno fmt samples/server/petstore/deno/
+    - name: Check generation with Git
+      run: if [[ `git status` == *"Changes"* ]]; then echo "There are some files changes" && exit 1; fi
