@@ -18,6 +18,12 @@ jobs:
     steps:
     - name: Install Deno
       run: curl -fsSL https://deno.land/x/install/install.sh | sh
+    - name: Use Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+    - name: Init Node
+      run: npm ci
     - name: Checkout current repo
       uses: actions/checkout@v2
       with:
@@ -53,7 +59,16 @@ jobs:
         chmod +x ./bin/generate-samples.sh
         ./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml
         /home/runner/.deno/bin/deno fmt samples/server/petstore/deno/
+    - name: List generation differences
+      run: diff -qr petstore-backup/deno/oak samples/server/petstore/deno/oak/
+    - name: Install diff package with npm
+      run: npm install dir-compare
     - name: Check generation
-      run: |
-        diff -qr petstore-backup/deno/oak samples/server/petstore/deno/oak/
-        [[ ! -z `diff -qr petstore-backup/deno/oak samples/server/petstore/deno/oak/` ]] && exit 1
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const dircompare = require('dir-compare');
+          const res = dircompare.compareSync('petstore-backup/deno/oak', 'samples/server/petstore/deno/oak/');
+          if (res.differences > 0) {
+            core.setFailed('There are some generation differences');
+          }
