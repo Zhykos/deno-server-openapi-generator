@@ -44,12 +44,16 @@ jobs:
       run: echo "org.openapitools.codegen.languages.DenoOakServerCodegen" >> ./modules/openapi-generator/src/main/resources/META-INF/services/org.openapitools.codegen.CodegenConfig
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Save PetStore for future comparison
+      run: |
+        mkdir petstore-backup
+        cp -R samples/server/petstore/deno/ petstore-backup/
     - name: Generate Pet store
       run: |
         chmod +x ./bin/generate-samples.sh
         ./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml
         /home/runner/.deno/bin/deno fmt samples/server/petstore/deno/
-    - name: Check generation with Git
+    - name: Check generation
       run: |
-        git status
-        if [[ `git status` == *"Changes"* ]]; then echo "There are some files changes" && exit 1; fi
+        diff -qr petstore-backup/deno/oak samples/server/petstore/deno/oak/
+        [[ ! -z `diff -qr petstore-backup/deno/oak samples/server/petstore/deno/oak/` ]] && exit 1
