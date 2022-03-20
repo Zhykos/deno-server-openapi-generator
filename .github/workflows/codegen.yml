@@ -48,4 +48,4 @@ jobs:
       run: |
         chmod +x ./bin/generate-samples.sh
         ./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml
-        deno fmt samples/server/petstore/deno/
+        /home/runner/.deno/bin/deno fmt samples/server/petstore/deno/
