@@ -27,7 +27,7 @@ jobs:
       with:
         repository: 'OpenAPITools/openapi-generator'
         path: openapi-generator
-        ref: '5.4.x'
+        ref: 'v5.4.0'
     - name: Set up working directory
       run: |
         mv -f openapi-generator/* .
