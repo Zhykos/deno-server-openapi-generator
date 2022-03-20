@@ -16,10 +16,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install NodeJS
-      run: |
-        curl -fsSL https://deb.nodesource.com/setup_17.x | sudo -E bash -
-        sudo apt-get install -y nodejs
     - name: Install Deno
       run: curl -fsSL https://deno.land/x/install/install.sh | sh
     - name: Checkout current repo
@@ -52,3 +48,4 @@ jobs:
       run: |
         chmod +x ./bin/generate-samples.sh
         ./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml
+        deno fmt samples/server/petstore/deno/
