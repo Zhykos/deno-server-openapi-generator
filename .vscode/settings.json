@@ -14,6 +14,7 @@
         "iservice",
         "Mockito",
         "mvnw",
+        "ncipollo",
         "openapi",
         "openapitools",
         "petstore",

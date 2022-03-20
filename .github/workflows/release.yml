@@ -1,0 +1,45 @@
+name: Create a release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout current repo
+      uses: actions/checkout@v2
+      with:
+        path: deno-oak-openapi-generator
+    - name: Checkout OpenApi Generator repo
+      uses: actions/checkout@v2
+      with:
+        repository: 'OpenAPITools/openapi-generator'
+        path: openapi-generator
+        ref: '5.4.x'
+    - name: Set up working directory
+      run: |
+        mv -f openapi-generator/* .
+        cp -a deno-oak-openapi-generator/. .
+        rm -fr openapi-generator
+        rm -fr deno-oak-openapi-generator
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+    - name: Add new data into OpenApi Generator Manifest
+      run: echo "org.openapitools.codegen.languages.DenoOakServerCodegen" >> ./modules/openapi-generator/src/main/resources/META-INF/services/org.openapitools.codegen.CodegenConfig
+    - name: Build with Maven
+      run: mvn -B -DskipTests package --file pom.xml
+    - name: Create the release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "modules/openapi-generator/target/openapi-generator-5.4.0.jar"
+        bodyFile: "body.md"
+        token: ${{ secrets.GITHUB_TOKEN }}

@@ -20,6 +20,7 @@
 
 !.github/workflows/codegen.yml
 !.github/workflows/postman-tests.yml
+!.github/workflows/release.yml
 
 !modules/
 modules/*
