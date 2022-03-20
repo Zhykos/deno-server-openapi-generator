@@ -22,8 +22,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 16
-    - name: Init Node
-      run: npm ci
     - name: Checkout current repo
       uses: actions/checkout@v2
       with:
@@ -59,6 +57,8 @@ jobs:
         chmod +x ./bin/generate-samples.sh
         ./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml
         /home/runner/.deno/bin/deno fmt samples/server/petstore/deno/
+    - name: Init Node
+      run: npm ci
     - name: List generation differences
       run: diff -qr petstore-backup/deno/oak samples/server/petstore/deno/oak/
     - name: Install diff package with npm
