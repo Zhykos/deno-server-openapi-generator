@@ -36,7 +36,7 @@ jobs:
     - name: Add new data into OpenApi Generator Manifest
       run: echo "org.openapitools.codegen.languages.DenoOakServerCodegen" >> ./modules/openapi-generator/src/main/resources/META-INF/services/org.openapitools.codegen.CodegenConfig
     - name: Build with Maven
-      run: mvn -B -DskipTests package --file pom.xml
+      run: mvn clean package -DskipTests
     - name: Create the release
       uses: ncipollo/release-action@v1
       with:
