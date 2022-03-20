@@ -8,6 +8,8 @@
 !init-project.js
 !PetStoreCompleteExample.dockerfile
 
+!doc/
+
 !.vscode/
 .vscode/*
 
