@@ -38,11 +38,11 @@ jobs:
     - name: Build with Maven
       run: mvn clean package -DskipTests
     - name: Generate SHA-256 hash
-      run: sha256sum "modules/openapi-generator/target/openapi-generator-5.4.0-SNAPSHOT.jar" > "openapi-generator-5.4.0-SNAPSHOT.sha256"
+      run: sha256sum "modules/openapi-generator-cli/target/openapi-generator-cli.jar" > "openapi-generator-cli.sha256"
     - name: Create the release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "modules/openapi-generator/target/openapi-generator-5.4.0-SNAPSHOT.jar,openapi-generator-5.4.0-SNAPSHOT.sha256"
+        artifacts: "modules/openapi-generator-cli/target/openapi-generator-cli.jar,openapi-generator-cli.sha256"
         bodyFile: "doc/changelog.md"
         token: ${{ secrets.GITHUB_TOKEN }}
         artifactErrorsFailBuild: true
