@@ -23,6 +23,8 @@
 
 ## Table des matières
 
+TODO
+
 - [À propos du projet](#à-propos-du-projet)
 - [Commencer à utiliser le projet](#commencer-à-utiliser-le-projet)
   - [Prérequis](#prérequis)
@@ -43,11 +45,11 @@ Projet basé sur <a href="https://github.com/OpenAPITools/openapi-generator">Ope
 
 J'ai eu envie d'apprendre TypeScript et Deno, deux technologies que je trouve intéressantes. C'est au détour d'un projet professionnel que j'ai encore découvert des projets avec une API mais où le code est totalement écrit à la main (dans un contexte Spring). Pour moi, les projets devraient toujours définir ses API via OpenAPI, puis générer le code. C'est via ce simple contexte et ma volonté d'apprendre que j'ai mixé Deno, oak, TypeScript et OpenAPI Generator pour créer ce projet.
 
-## Commencer à utiliser le projet
+## Générer le code d'un serveur basé sur Deno et oak
 
 ### Prérequis
 
-Java version 11.
+Java version 11 : à récupérer sur le site de l'<a href="https://openjdk.java.net/projects/jdk/11/">OpenJDK</a>, mais vous pouvez prendre une autre implémentation.
 
 ### Téléchargement
 
@@ -55,19 +57,85 @@ Vous devez récupérer une version du générateur sur votre machine pour l'util
 voir les _Releases_ dans
 <a href="https://github.com/Zhykos/deno-server-openapi-generator/releases">GitHub</a>.
 
-## Utilisation du projet
+Télécharger alors un fichier ***openapi-generator-cli.jar*** dans la version que vous souhaitez (la plus récente est bien sûr recommandée). Vous pouvez vérifier l'authenticité du fichier grâce au <a href="https://fr.wikipedia.org/wiki/SHA-2#SHA-256">hash SHA-256</a> fourni dans un fichier à côté.
+
+### Génération
 
 *Aide basée de la documentation officielle <a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator</a>. Pour plus d'informations, n'hésitez pas à lire cette page.*
 
-After downloading the JAR, run java -jar openapi-generator-cli.jar help to show the usage.
+Après avoir téléchargé le fichier JAR, vous pouvez lancer la commande `java -jar openapi-generator-cli.jar help` pour prendre connaissance des options de lancement.
 
-Exemple pour générer l'exemple habituel (du monde OpenAPI) ***PetStore*** :
+Exemple pour générer l'exemple ***PetStore*** proposé par <a href="https://petstore.swagger.io">OpenAPI</a> :
 ```
-java -jar <CHEMIN>/openapi-generator-cli.jar generate \
-  -i https://raw.githubusercontent.com/openapitools/openapi-generator/master/modules/openapi-generator/src/test/resources/3_0/petstore.yaml \
+mkdir petstore-server-deno-oak/
+java -jar openapi-generator-cli.jar generate \
+  -i https://petstore.swagger.io/v2/swagger.json \
   -g deno-oak \
-  -o <CHEMIN_CIBLE>
+  -o petstore-server-deno-oak/
 ```
+
+Adaptez bien sûr les chemins du JAR et du dossier cible de la génération (précisé par l'option `-o`) selon vos besoins.
+
+## Lancer un serveur Deno oak généré
+
+### Prérequis
+
+Deno : à récupérer sur le <a href="https://deno.land">site officiel</a>.
+
+### Implémentation du code nécessaire et obligatoire
+
+#### Les services
+
+Cette section est plus détaillée dans le paragraphe lié à l'architecture du code générée, mais dans un premier temps, vous avez juste à savoir que chaque mot clé (*tag*) du fichier de description OpenAPI permet de définir un service, c'est une façon de ranger le métier en groupes logiques.
+
+Ainsi une interface est générée par regroupement et il vous faudra implémenter ces services. Vous les trouverez dans le dossier `services` généré.
+
+L'exemple du ***PetStore*** génère trois services :
+
+```
+$ ls -l services/ --hide=*Private*
+total 12
+-rwxr-xr-x 1 Zhykos Aucun 2079 22 mars  19:26 PetService.ts
+-rwxr-xr-x 1 Zhykos Aucun 1011 22 mars  19:26 StoreService.ts
+-rwxr-xr-x 1 Zhykos Aucun 1740 22 mars  19:26 UserService.ts
+```
+
+Chaque service a alors plusieurs méthodes à implémenter correspondant à ce qui a été décrit dans le fichier OpenAPI. Reportez vous au <a href="https://petstore.swagger.io">site contenant l'exemple</a> si vous voulez plus de détails.
+
+Vous pouvez également découvrir ces mêmes services que j'ai implémentés pour des besoins de tests unitaires, sur le dépôt <a href="https://github.com/Zhykos/deno-server-openapi-generator/tree/main/samples/server/petstore/deno/oak/tests/petstore">GitHub</a> du projet.
+
+#### Initialisation et lancement du serveur
+
+Une fois que vos services ont été codés, vous pourrez les fournir à la méthode d'initialisation et de démarrage du serveur Deno oak. Vous devrez également fournir le port d'écoute du serveur.
+
+Voici un exemple avec les trois services implémentés et un serveur sur le port 3000 :
+
+```typescript
+import { DenoOakServer } from "./DenoOakServer.ts";
+import { MyPetService } from "./MyPetService.ts";
+import { MyStoreService } from "./MyStoreService.ts";
+import { MyUserService } from "./MyUserService.ts";
+
+const myPetService = new MyPetService();
+const myStoreService = new MyStoreService();
+const myUserService = new MyUserService();
+
+new DenoOakServer(3000, myPetService, myStoreService, myUserService).start();
+```
+
+Vous pouvez ensuite lancer le serveur avec la ligne de commande suivante (à adapter en fonction du nom du fichier et des <a href="https://deno.land/manual/getting_started/permissions">options de sécurité Deno</a>):
+
+```
+deno run --allow-net MyGeneratedServerDenoOak.ts
+```
+
+## Architecture du code généré
+
+TODO
+
+## Utiliser un autre middleware que oak
+
+TODO
 
 ## Feuille de route
 
@@ -80,7 +148,43 @@ voir la liste des évolutions et des bugs.
 
 ## Contribuer au projet
 
+Vous souhaitez tester, développer, contribuer à ce projet ? Suivez les étapes suivantes.
+
 ### Initialiser un espace de travail
+
+TODO
+
+#### Prérequis
+
+NodeJS : à récupérer sur le <a href="https://nodejs.org/">site officiel</a>.
+
+#### Script d'initialisation
+
+TODO
+
+#### Structure du projet
+
+TODO
+
+### Lancer les tests
+
+Voici les démarches pour lancer les tests.
+
+#### Prérequis
+
+Java version 11 : à récupérer sur le site de l'<a href="https://openjdk.java.net/projects/jdk/11/">OpenJDK</a>, mais vous pouvez prendre une autre implémentation.
+
+NodeJS : à récupérer sur le <a href="https://nodejs.org/">site officiel</a>.
+
+#### Logiciel recommandé
+
+TODO Postman
+
+#### Lancement des tests unitaires Java
+
+TODO
+
+#### Lancement des tests unitaires Postman
 
 TODO
 
@@ -103,8 +207,6 @@ TODO
 
 Projet distribué avec la licence AGPL-3.0. Ouvrez le fichier `LICENSE` pour plus
 d'informations.
-
-<!-- CONTACT -->
 
 ## Contact
 
