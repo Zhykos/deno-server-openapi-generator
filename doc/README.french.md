@@ -23,7 +23,7 @@
 
 ## Table des matières
 
-- [À propos du projet](#[à-propos-du-projet)
+- [À propos du projet](#à-propos-du-projet)
 - [Générer le code d'un serveur basé sur Deno et oak](#générer-le-code-dun-serveur-basé-sur-deno-et-oak)
 - [Lancer un serveur Deno oak généré](#lancer-un-serveur-deno-oak-généré)
 - [Architecture du code généré](#architecture-du-code-généré)
