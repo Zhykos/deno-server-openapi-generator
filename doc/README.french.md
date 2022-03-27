@@ -466,7 +466,7 @@ Lien du projet :
 [issues-url]: https://github.com/Zhykos/deno-server-openapi-generator/issues
 [license-shield]: https://img.shields.io/github/license/Zhykos/deno-server-openapi-generator.svg?style=for-the-badge
 [license-url]: https://github.com/Zhykos/deno-server-openapi-generator/blob/main/LICENSE.txt
-[workflow-shield]: https://img.shields.io/github/workflow/status/Zhykos/deno-server-openapi-generator/CI?style=for-the-badge&logo=Node.js
-[workflow-url]: https://github.com/Zhykos/deno-server-openapi-generator/actions/workflows/node.js.yml
+[workflow-shield]: https://img.shields.io/github/workflow/status/Zhykos/deno-server-openapi-generator/CI?style=for-the-badge&logo=Maven
+[workflow-url]: https://github.com/Zhykos/deno-server-openapi-generator/actions/workflows/codegen.yml
 [release-url]: https://github.com/Zhykos/deno-server-openapi-generator/releases
 [release-stable-shield]: https://img.shields.io/badge/Release-orange?style=for-the-badge
