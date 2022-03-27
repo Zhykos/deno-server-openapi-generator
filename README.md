@@ -1,13 +1,12 @@
 <p align="center">
-  <img src="./images/logo.png" alt="Logo" width="100" height="100" />
+  <img src="./doc/images/logo.png" alt="Logo" width="100" height="100" />
   <h3 align="center">OpenAPI Generator</h3>
   <h2 align="center">🦖 Serveur Deno oak 🌳</h2>
   <br />
+  <strong>&raquo; English documentation IS COMING! &laquo;</strong>
+  <br />
   <p align="center">
     <i>Implémentation d'un générateur OpenAPI pour produire un serveur backend basé sur Deno et le middleware oak</i>
-    <br />
-    <strong>&raquo; English documentation IS COMING!&laquo;</strong>
-    <br />
     <br />
     <a href="https://github.com/Zhykos/deno-server-openapi-generator/issues">Reporter un bug</a>
     ·
@@ -17,14 +16,14 @@
 <br />
 
 [![Workflow][workflow-shield]][workflow-url]
-[![MIT License][license-shield]][license-url]
+[![License][license-shield]][license-url]
 [![Issues][issues-shield]][issues-url]
 [![Stable release][release-stable-shield]][release-url]
 
 ## Table des matières
 
-- [À propos du projet](#contact)
-- [Générer le code d'un serveur basé sur Deno et oak](#générer-le-code-d-un-serveur-basé-sur-deno-et-oak)
+- [À propos du projet](#[à-propos-du-projet)
+- [Générer le code d'un serveur basé sur Deno et oak](#générer-le-code-dun-serveur-basé-sur-deno-et-oak)
 - [Lancer un serveur Deno oak généré](#lancer-un-serveur-deno-oak-généré)
 - [Architecture du code généré](#architecture-du-code-généré)
 - [Utiliser un autre middleware que oak](#utiliser-un-autre-middleware-que-oak)
@@ -469,4 +468,4 @@ Lien du projet :
 [workflow-shield]: https://img.shields.io/github/workflow/status/Zhykos/deno-server-openapi-generator/CI?style=for-the-badge&logo=Node.js
 [workflow-url]: https://github.com/Zhykos/deno-server-openapi-generator/actions/workflows/node.js.yml
 [release-url]: https://github.com/Zhykos/deno-server-openapi-generator/releases
-[release-draft-shield]: https://img.shields.io/badge/Release-DRAFT-orange?style=for-the-badge
+[release-stable-shield]: https://img.shields.io/badge/Release-orange?style=for-the-badge
