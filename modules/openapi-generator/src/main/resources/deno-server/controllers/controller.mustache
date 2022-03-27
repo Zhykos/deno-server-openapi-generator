@@ -30,7 +30,7 @@ export class Controller {
       bodyResponse = JSON.stringify(body as string);
     }
     return new Response(bodyResponse, {
-      status: 200,
+      status: 200, // TODO Other codes (eg. 201 for created objects...)
       headers: {
         "content-type": "application/json; charset=utf-8", //TODO must match header accept from request?
       },
