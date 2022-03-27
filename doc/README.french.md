@@ -1,10 +1,10 @@
 <p align="center">
   <img src="./images/logo.png" alt="Logo" width="100" height="100" />
   <h3 align="center">OpenAPI Generator</h3>
-  <h2 align="center">🦖 Deno oak 🌳</h2>
+  <h2 align="center">🦖 Serveur Deno oak 🌳</h2>
   <br />
   <p align="center">
-    <i>Implémentation d'un générateur OpenAPI basé sur Deno et le middleware oak</i>
+    <i>Implémentation d'un générateur OpenAPI pour produire un serveur backend basé sur Deno et le middleware oak</i>
     <br />
     <a href="https://github.com/Zhykos/deno-server-openapi-generator/blob/main/README.md"><strong>&raquo; English documentation &laquo;</strong></a>
     <br />
@@ -23,15 +23,16 @@
 
 ## Table des matières
 
-TODO
-
-- [À propos du projet](#à-propos-du-projet)
-- [Commencer à utiliser le projet](#commencer-à-utiliser-le-projet)
-  - [Prérequis](#prérequis)
-  - [Installation](#installation)
-- [Utilisation du projet](#utilisation-du-projet)
+- [À propos du projet](#contact)
+- [Générer le code d'un serveur basé sur Deno et oak](#générer-le-code-d-un-serveur-basé-sur-deno-et-oak)
+- [Lancer un serveur Deno oak généré](#lancer-un-serveur-deno-oak-généré)
+- [Architecture du code généré](#architecture-du-code-généré)
+- [Utiliser un autre middleware que oak](#utiliser-un-autre-middleware-que-oak)
 - [Feuille de route](#feuille-de-route)
 - [Contribuer au projet](#contribuer-au-projet)
+	- [Créer le JAR de génération](#créer-le-jar-de-génération)
+	- [Générer le PetStore](#générer-le-petstore)
+	- [Envoyer votre contribution](#envoyer-votre-contribution)
 - [Licence](#licence)
 - [Contact](#contact)
 
@@ -274,11 +275,47 @@ Java version 11 : à récupérer sur le site de l'<a href="https://openjdk.java.
 
 #### Lancer la création du JAR
 
-TODO
+La création se fait à l'aide de Maven (à la racine du projet, où se trouve le fichier `pom.xml`) :
+
+```
+mvn clean package -DskipTests
+```
+
+Notez que je ne lance pas les tests par défaut (avec `-DskipTests`) car je n'ai jamais réussi à les lancer sur ma machine personnelle. Mais comme ça fonctionne dans l'intégration continue sur GitHub, ce n'est pas très grave...
+
+Si jamais vous n'avez pas Maven installé sur votre machine, vous pouvez utiliser la version présente dans votre projet.
+
+Sous Windows :
+
+```
+mvnw.cmd clean package -DskipTests
+```
+
+Sous Unix (Linux, MacOS, etc.) :
+
+```
+./mvnw clean package -DskipTests
+```
+
+Le JAR produit se trouve dans le dossier : `modules/openapi-generator-cli/target/openapi-generator-cli.jar`.
 
 ### Générer le PetStore
 
-TODO
+Une fois le JAR créé, vous pouvez générer le PetStore inclus dans le projet, avec la cible Deno oak.
+
+Lancez la commande suivante (sous Unix) :
+
+```
+./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml
+```
+
+Si vous êtes sous Windows ou si vous souhaitez un script npm que j'ai ajouté, je vous recommande d'utiliser la commande suivante :
+
+```
+npm run generate-pet-store-deno-oak-server
+```
+
+Le code généré se trouve alors dans `/samples/server/petstore/deno/oak/`.
 
 ### Lancer les tests
 
@@ -292,15 +329,101 @@ NodeJS : à récupérer sur le <a href="https://nodejs.org/">site officiel</a>.
 
 #### Logiciel recommandé
 
-TODO Postman
+Postman est un logiciel permettant, notamment, d'exécuter des requêtes HTTP vers un serveur web. Il est aussi possible d'ajouter des tests afin de vérifier la réponse du serveur visé. De plus, une collection de requêtes peut être lancée et vérifiée automatiquement ensuite en intégration continue, c'est pourquoi j'ai choisi ce logiciel.
+
+Postman : à récupérer sur le <a href="https://www.postman.com/downloads/">site officiel</a>.
 
 #### Lancement des tests unitaires Java
 
-TODO
+Comme je le disais plus tôt, je n'arrive pas à lancer les tests en local, je fais donc confiance à mon intégration continue via GitHub Workflow.
+
+Mais si vous souhaitez tenter l'aventure, tout se fait normalement simplement à l'aide de Maven :
+
+```
+mvn clean test
+```
+
+Si jamais vous n'avez pas Maven installé sur votre machine, vous pouvez utiliser la version présente dans votre projet.
+
+Sous Windows :
+
+```
+mvnw.cmd clean test
+```
+
+Sous Unix (Linux, MacOS, etc.) :
+
+```
+./mvnw clean test
+```
+
+#### Ajouter des tests unitaires dans le projet
+
+Si vous souhaitez contribuer au projet et ajouter des tests unitaires, les classes se trouvent ici : `modules/openapi-generator/src/test/java/org/openapitools/codegen/deno/` :
+
+* `DenoServerCodegenTest.java` : teste le code de génération agnostique ;
+* `DenoOakServerCodegenTest.java` : teste le code spécifique au middleware oak.
 
 #### Lancement des tests unitaires Postman
 
-TODO
+En local, pour tester le serveur généré (uniquement le *PetStore*), il existe un exemple démarrant le PetStore avec des services très simples.
+
+Ce code TypeScript est présent dans le projet ici : `samples/server/petstore/deno/oak/tests/petstore/`. Vous y trouverez les trois services implémentés (`User`, `Store` et `Pet`), le code principal initialisant et démarrant le serveur Deno oak (`PetStoreCompleteExample.ts`), une classe gérant une pseudo base de données (c'est une simple *<a href="https://fr.wikipedia.org/wiki/Tableau_associatif">Map</a>* : `PetStoreCompleteExampleDatabase.ts`) et un fichier gérant les dépendances externes (`deps.ts`, c'est une quasi convention Deno).
+
+Pour démarrer le serveur, allez dans le dossier `samples/server/petstore/deno/oak/tests/petstore/` et lancez la commande :
+
+```
+deno run --allow-net --allow-write PetStoreCompleteExample.ts
+```
+
+Ensuite, ouvrez Postman et importez les deux fichiers nécessaires qui se trouvent dans le projet : `modules/openapi-generator/src/test/postman/deno-server/`.
+
+![Postman](images/readme-postman-import-button.jpg)
+
+Ajoutez les deux fichiers `.json` du dossier cité auparavant.
+
+Vous verrez apparaître une collection et un environnement de travail :
+
+![Postman](images/readme-postman-collection.jpg)
+
+![Postman](images/readme-postman-environment.jpg)
+
+Une collection Postman est un regroupement de requêtes (et d'autres choses qui ne nous intéressent pas nécessairement ici), tandis qu'un environnement contient des variables spécifiques pour l'exécution de nos tests (dans notre cas, c'est uniquement l'URL pour accéder au serveur).
+
+Pour lancer tous les tests, on va utiliser un *Runner*, un système propre à Postman qui va lancer toutes les requêtes les unes après les autres. Chaque test au sein des requêtes sera vérifié et un résumé sera donné à la fin. Le but est bien entendu que tous les tests soient corrects pour considérer que notre implémentation d'un serveur Deno oak à partir d'une définition OpenAPI soit bonne.
+
+Ouvrez donc l'interface du *Runner* en sélectionnant le dossier parent de la collection, puis le bouton *Run* (attention, l'interface a eu tendance à changer depuis quelques versions [ici Postman 9.14.0]).
+
+![Postman](images/readme-postman-select-run.jpg)
+
+Vous verrez toutes les requêtes à lancer : votre sélection du dossier parcourt en profondeur tous les sous-dossiers et affiche tout de façon hiérarchique.
+
+![Postman](images/readme-postman-runner.jpg)
+
+Vous pouvez alors décocher des requêtes que vous ne souhaitez pas exécuter (on y reviendra) et sélectionner certaines options sur la droite. Pour ma part, je laisse comme ça et j'appuie sur le bouton bleu à droite.
+
+Cela prend quelques secondes pour tout exécuter et voyons les résultats.
+
+![Postman](images/readme-postman-run-results.jpg)
+
+On remarque plusieurs choses :
+
+* Le format des tests est quasiment toujours le même avec trois vérifications :
+  * Test du <a href="https://developer.mozilla.org/fr/docs/Web/HTTP/Status">code retour HTTP</a> du serveur ;
+  * Test du temps de réponse du serveur ;
+  * Test de la réponse (généralement du code JSON).
+* Il y a 254 tests qui passent ;
+* Il y a 1 test qui ne passe pas.
+
+Le test qui ne passe pas est spécial car il a été codé de manière à passer correctement en intégration continue (toujours avec GitHub Workflow), mais ne fonctionne pas correctement dans Postman. Si vous souhaitez tester unitaire ce cas, un contournement est présent au sein de la requête. Pour cela, ouvrez-la en la sélectionnant dans le dossier `PetStore - Dedicated to unit tests/Pet/[POST] Uploads an image` et la requête `Uploads an image`.
+
+![Postman](images/readme-postman-request-upload-image.jpg)
+
+Vous pouvez voir deux clés (*KEY*) `file`. Comme le décrivent les descriptions, la second clé permet de tester cette requête manuellement. Cochez la case à gauche et décochez la précédente juste au-dessus, puis pressez `Send` (bouton bleu à droite).
+
+![Postman](images/readme-postman-request-upload-image-results.jpg)
+
+On voit bien que tous les tests se sont bien déroulés (`Tests Results (3/3)`).
 
 ### Envoyer votre contribution
 
@@ -317,10 +440,9 @@ d'autant plus que je n'ai que très peu de temps à m'y consacrer.
 
 ## Licence
 
-TODO
+Projet distribué avec la licence Apache 2.0. Ouvrez le fichier `LICENSE` pour plus d'informations.
 
-Projet distribué avec la licence AGPL-3.0. Ouvrez le fichier `LICENSE` pour plus
-d'informations.
+Cette licence est exactement la même que le projet <a href="https://github.com/OpenAPITools/openapi-generator/blob/master/LICENSE">OpenAPI Generator</a>.
 
 ## Contact
 
