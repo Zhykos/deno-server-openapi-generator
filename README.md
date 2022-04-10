@@ -1,16 +1,17 @@
 <p align="center">
   <img src="./doc/images/logo.png" alt="Logo" width="100" height="100" />
   <h3 align="center">OpenAPI Generator</h3>
-  <h2 align="center">🦖 Serveur Deno oak 🌳</h2>
-  <br />
-  <strong>&raquo; English documentation IS COMING! &laquo;</strong>
+  <h2 align="center">🦖 Deno oak server 🌳</h2>
   <br />
   <p align="center">
-    <i>Implémentation d'un générateur OpenAPI pour produire un serveur backend basé sur Deno et le middleware oak</i>
+    <i>Generate a backend server based on Deno and the middleware oak</i>
     <br />
-    <a href="https://github.com/Zhykos/deno-server-openapi-generator/issues">Reporter un bug</a>
+    <a href="https://github.com/Zhykos/deno-server-openapi-generator/blob/main/doc/README.french.md"><strong>&raquo; Documentation en français &laquo;</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/Zhykos/deno-server-openapi-generator/issues">Report a bug</a>
     ·
-    <a href="https://github.com/Zhykos/deno-server-openapi-generator/issues">Proposer une évolution</a>
+    <a href="https://github.com/Zhykos/deno-server-openapi-generator/issues">Request a feature</a>
   </p>
 </p>
 <br />
@@ -20,9 +21,9 @@
 [![Issues][issues-shield]][issues-url]
 [![Stable release][release-stable-shield]][release-url]
 
-## Table des matières
+## Table of contents
 
-- [À propos du projet](#à-propos-du-projet)
+- [About the project](#about-the-project)
 - [Générer le code d'un serveur basé sur Deno et oak](#générer-le-code-dun-serveur-basé-sur-deno-et-oak)
 - [Lancer un serveur Deno oak généré](#lancer-un-serveur-deno-oak-généré)
 - [Architecture du code généré](#architecture-du-code-généré)
@@ -35,13 +36,13 @@
 - [Licence](#licence)
 - [Contact](#contact)
 
-## À propos du projet
+## About the project
 
-**Deno oak OpenAPI Generator** vous permet de générer un serveur auto-configuré, basé sur <a href="https://deno.land">Deno</a> et le middleware <a href="https://github.com/oakserver/oak">oak</a>, à partir d'une spécification <a href="https://swagger.io/specification/">OpenAPI</a>.
+**Deno oak OpenAPI Generator** generates an autoconfigured server based on <a href="https://deno.land">Deno</a> and the middleware <a href="https://github.com/oakserver/oak">oak</a>, and from an <a href="https://swagger.io/specification/">OpenAPI</a> specification.
 
-Projet basé sur <a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator</a> version 5.4 : on ajoute un générateur de serveur.
+Project based on <a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator</a> version 5.4.
 
-### Contexte personnel
+### Personnal context
 
 J'ai eu envie d'apprendre TypeScript et Deno, deux technologies que je trouve intéressantes. C'est au détour d'un projet professionnel que j'ai encore découvert des projets avec une API mais où le code est totalement écrit à la main (dans un contexte Spring). Pour moi, les projets devraient toujours définir ses API via OpenAPI, puis générer le code. C'est via ce simple contexte et ma volonté d'apprendre que j'ai mixé Deno, oak, TypeScript et OpenAPI Generator pour créer ce projet.
 
