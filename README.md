@@ -6,6 +6,8 @@
   <p align="center">
     <i>Generate a backend server based on Deno and the middleware oak</i>
     <br />
+    <strong>&raquo; English documentation in progress &laquo;</strong>
+    <br />
     <a href="https://github.com/Zhykos/deno-server-openapi-generator/blob/main/doc/README.french.md"><strong>&raquo; Documentation en français &laquo;</strong></a>
     <br />
     <br />
@@ -24,7 +26,7 @@
 ## Table of contents
 
 - [About the project](#about-the-project)
-- [Générer le code d'un serveur basé sur Deno et oak](#générer-le-code-dun-serveur-basé-sur-deno-et-oak)
+- [Generate server source code based on Deno and oak](#generate-server-source-code-based-on-deno-and-oak)
 - [Lancer un serveur Deno oak généré](#lancer-un-serveur-deno-oak-généré)
 - [Architecture du code généré](#architecture-du-code-généré)
 - [Utiliser un autre middleware que oak](#utiliser-un-autre-middleware-que-oak)
@@ -44,21 +46,19 @@ Project based on <a href="https://github.com/OpenAPITools/openapi-generator">Ope
 
 ### Personnal context
 
-J'ai eu envie d'apprendre TypeScript et Deno, deux technologies que je trouve intéressantes. C'est au détour d'un projet professionnel que j'ai encore découvert des projets avec une API mais où le code est totalement écrit à la main (dans un contexte Spring). Pour moi, les projets devraient toujours définir ses API via OpenAPI, puis générer le code. C'est via ce simple contexte et ma volonté d'apprendre que j'ai mixé Deno, oak, TypeScript et OpenAPI Generator pour créer ce projet.
+I wanted to learn TypeScript and Deno, two technologies I appreciate. In my work I found some projects with an hand written Rest API (with Spring). I'm pretty sure all projects have to define APIs with OpenAPI then generate base code with it. It's that context and my will to learn I've develop with project with Deno, oak, TypeScript and OpenAPI.
 
-## Générer le code d'un serveur basé sur Deno et oak
+## Generate server source code based on Deno and oak
 
-### Prérequis
+### Prerequisites
 
-Java version 11 : à récupérer sur le site de l'<a href="https://openjdk.java.net/projects/jdk/11/">OpenJDK</a>, mais vous pouvez prendre une autre implémentation.
+Java version 11: download it on <a href="https://openjdk.java.net/projects/jdk/11/">OpenJDK website</a>, but you can use a different implementation.
 
-### Téléchargement
+### Download this generator
 
-Vous devez récupérer une version du générateur sur votre machine pour l'utiliser :
-voir les _Releases_ dans
-<a href="https://github.com/Zhykos/deno-server-openapi-generator/releases">GitHub</a>.
+You must download the generator to use it: see _Releases_ on <a href="https://github.com/Zhykos/deno-server-openapi-generator/releases">GitHub</a>.
 
-Télécharger alors un fichier ***openapi-generator-cli.jar*** dans la version que vous souhaitez (la plus récente est bien sûr recommandée). Vous pouvez vérifier l'authenticité du fichier grâce au <a href="https://fr.wikipedia.org/wiki/SHA-2#SHA-256">hash SHA-256</a> fourni dans un fichier à côté.
+Download a file named ***openapi-generator-cli.jar*** with the wanted version (newer is recommanded). You can check the authenticity of the file with the <a href="https://fr.wikipedia.org/wiki/SHA-2#SHA-256">SHA-256 hash</a> in the specific file nearby.
 
 ### Génération
 
