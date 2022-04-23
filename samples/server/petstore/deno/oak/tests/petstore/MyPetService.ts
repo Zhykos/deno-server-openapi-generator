@@ -18,9 +18,10 @@ import { Pet, StatusEnum } from "../../models/Pet.ts";
 import { PetStoreCompleteExampleDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 import { ApiResponse } from "../../models/ApiResponse.ts";
 import { iterFilter } from "./deps.ts";
+import { Helpers } from "../../controllers/Helpers.ts";
 
 export class MyPetService implements PetService {
-  addPet(pet: Pet): Pet {
+  addPet(pet: Pet): Promise<Pet> {
     // TODO ERROR 405: Validation exception (model format / JSON format)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
@@ -35,9 +36,9 @@ export class MyPetService implements PetService {
       );
     }
     petStoreDB.addPet(pet);
-    return pet;
+    return Helpers.wrapPromise(pet);
   }
-  updatePet(pet: Pet): Pet {
+  updatePet(pet: Pet): Promise<Pet> {
     // TODO ERROR 405: Validation exception (model format / JSON format)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
@@ -48,13 +49,13 @@ export class MyPetService implements PetService {
     const petInDB: Pet | undefined = petStoreDB.getPet(petId);
     if (petInDB) {
       petInDB.copyFrom(pet);
-      return petInDB;
+      return Helpers.wrapPromise(petInDB);
     }
     throw new Deno.errors.NotFound(`Cannot update pet with ID: ${petId}`);
   }
   findPetsByStatus(
     status: Array<"available" | "pending" | "sold">,
-  ): Array<Pet> {
+  ): Promise<Array<Pet>> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const checkStatus = status.filter((statusStr) => {
@@ -72,18 +73,18 @@ export class MyPetService implements PetService {
       statusStr as StatusEnum
     );
 
-    return Array.from(
+    return Helpers.wrapPromise(Array.from(
       iterFilter<Pet>(
         petStoreDB.allPetsIterator(),
         (pet) => pet.status !== undefined && wishedStatus.includes(pet.status),
       ),
-    );
+    ));
   }
-  findPetsByTags(tags: Array<string>): Array<Pet> {
+  findPetsByTags(tags: Array<string>): Promise<Array<Pet>> {
     // TODO ERROR 400: Invalid tag value (no idea how...)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
-    return Array.from(
+    return Helpers.wrapPromise(Array.from(
       iterFilter<Pet>(
         petStoreDB.allPetsIterator(),
         (pet) => {
@@ -100,9 +101,9 @@ export class MyPetService implements PetService {
           }
         },
       ),
-    );
+    ));
   }
-  deletePet(petId: number, apiKey?: string): void {
+  deletePet(petId: number, apiKey?: string): Promise<void> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (apiKey !== undefined && apiKey !== "secret-token") {
@@ -118,8 +119,9 @@ export class MyPetService implements PetService {
         `Cannot delete pet with ID: ${petId}`,
       );
     }
+    return Helpers.wrapPromise();
   }
-  getPetById(petId: number): Pet {
+  getPetById(petId: number): Promise<Pet> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (isNaN(petId)) {
@@ -127,11 +129,15 @@ export class MyPetService implements PetService {
     }
     const pet: Pet | undefined = petStoreDB.getPet(petId);
     if (pet) {
-      return pet;
+      return Helpers.wrapPromise(pet);
     }
     throw new Deno.errors.NotFound(`Cannot find pet with ID: ${petId}`);
   }
-  updatePetWithForm(petId: number, name?: string, status?: string): void {
+  updatePetWithForm(
+    petId: number,
+    name?: string,
+    status?: string,
+  ): Promise<void> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (isNaN(petId)) {
@@ -167,12 +173,13 @@ export class MyPetService implements PetService {
           );
       }
     }
+    return Helpers.wrapPromise();
   }
   uploadFile(
     petId: number,
     additionalMetadata?: string,
     file?: any,
-  ): ApiResponse {
+  ): Promise<ApiResponse> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (isNaN(petId)) {
@@ -198,6 +205,6 @@ export class MyPetService implements PetService {
         file.contentType;
     }
 
-    return response;
+    return Helpers.wrapPromise(response);
   }
 }

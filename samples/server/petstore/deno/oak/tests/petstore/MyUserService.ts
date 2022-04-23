@@ -16,6 +16,7 @@
 import { UserService } from "../../services/UserService.ts";
 import { User } from "../../models/User.ts";
 import { PetStoreCompleteExampleDatabase } from "./PetStoreCompleteExampleDatabase.ts";
+import { Helpers } from "../../controllers/Helpers.ts";
 
 export class MyUserService implements UserService {
   private createUserInTransaction(
@@ -36,28 +37,31 @@ export class MyUserService implements UserService {
     petStoreDB.addUser(user);
   }
 
-  createUser(user: User): void {
+  createUser(user: User): Promise<void> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
     this.createUserInTransaction(user, petStoreDB);
+    return Helpers.wrapPromise();
   }
-  createUsersWithArrayInput(users: Array<User>): void {
+  createUsersWithArrayInput(users: Array<User>): Promise<void> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
     users.forEach((user) => this.createUserInTransaction(user, petStoreDB));
+    return Helpers.wrapPromise();
   }
-  createUsersWithListInput(user: Array<User>): void {
+  createUsersWithListInput(user: Array<User>): Promise<void> {
     this.createUsersWithArrayInput(user);
+    return Helpers.wrapPromise();
   }
-  loginUser(username: string, password: string): string {
+  loginUser(username: string, password: string): Promise<string> {
     // TODO Set Headers: X-Expires-After and X-Rate-Limit
     if (username === "zhykos" && password === "azerty") {
-      return '{ "status": "logged" }';
+      return Helpers.wrapPromise('{ "status": "logged" }');
     }
     throw new Deno.errors.InvalidData("Wrong user identification");
   }
-  logoutUser(): void {
-    // Do nothing
+  logoutUser(): Promise<void> {
+    return Helpers.wrapPromise();
   }
-  deleteUser(username: string): void {
+  deleteUser(username: string): Promise<void> {
     // TODO ERROR 400: Invalid user name format (do not know how to check that)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
@@ -67,20 +71,21 @@ export class MyUserService implements UserService {
         `Cannot delete user with username: '${username}'`,
       );
     }
+    return Helpers.wrapPromise();
   }
-  getUserByName(username: string): User {
+  getUserByName(username: string): Promise<User> {
     // TODO ERROR 400: Invalid user name format (do not know how to check that)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const user: User | undefined = petStoreDB.getUser(username);
     if (user) {
-      return user;
+      return Helpers.wrapPromise(user);
     }
     throw new Deno.errors.NotFound(
       `Cannot find user with username: '${username}'`,
     );
   }
-  updateUser(username: string, user: User): void {
+  updateUser(username: string, user: User): Promise<void> {
     // TODO ERROR 400: Invalid format (do not know how to check that)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
@@ -91,5 +96,6 @@ export class MyUserService implements UserService {
       );
     }
     existingUser.copyFrom(user);
+    return Helpers.wrapPromise();
   }
 }

@@ -16,9 +16,10 @@
 import { StoreService } from "../../services/StoreService.ts";
 import { PetStoreCompleteExampleDatabase } from "./PetStoreCompleteExampleDatabase.ts";
 import { Order } from "../../models/Order.ts";
+import { Helpers } from "../../controllers/Helpers.ts";
 
 export class MyStoreService implements StoreService {
-  getInventory(): { [key: string]: number } {
+  getInventory(): Promise<{ [key: string]: number }> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const inventory: { [key: string]: number } = {};
@@ -28,9 +29,9 @@ export class MyStoreService implements StoreService {
         inventory[order.status?.toString()] = nb ? nb + 1 : 1;
       }
     }
-    return inventory;
+    return Helpers.wrapPromise(inventory);
   }
-  placeOrder(order: Order): Order {
+  placeOrder(order: Order): Promise<Order> {
     // TODO ERROR 405: Validation exception (model format / JSON format)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
@@ -47,9 +48,9 @@ export class MyStoreService implements StoreService {
       );
     }
     petStoreDB.addOrder(order);
-    return order;
+    return Helpers.wrapPromise(order);
   }
-  deleteOrder(orderId: string): void {
+  deleteOrder(orderId: string): Promise<void> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     const orderNb = Number(orderId);
@@ -64,8 +65,9 @@ export class MyStoreService implements StoreService {
         `Cannot delete order with ID: ${orderNb}`,
       );
     }
+    return Helpers.wrapPromise();
   }
-  getOrderById(orderId: number): Order {
+  getOrderById(orderId: number): Promise<Order> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
     if (isNaN(orderId)) {
@@ -75,7 +77,7 @@ export class MyStoreService implements StoreService {
     }
     const order: Order | undefined = petStoreDB.getOrder(orderId);
     if (order) {
-      return order;
+      return Helpers.wrapPromise(order);
     }
     throw new Deno.errors.NotFound(`Cannot find order with ID: ${orderId}`);
   }
