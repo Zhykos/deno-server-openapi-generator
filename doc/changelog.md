@@ -1,4 +1,5 @@
-OpenAPI generator Deno oak server first version!
+Version 0.2.0:
+- Services are now async.
 
 This is still a beta version: a simple JSON server will work but be warned: complex requests may fail.
 
