@@ -6,7 +6,7 @@
   <p align="center">
     <i>Generate a backend server based on Deno and the middleware oak</i>
     <br />
-    <strong>&raquo; English documentation in progress &laquo;</strong>
+    <strong>&raquo; English documentation in progress &laquo;</strong> (English is not my first language)
     <br />
     <a href="https://github.com/Zhykos/deno-server-openapi-generator/blob/main/doc/README.french.md"><strong>&raquo; Documentation en français &laquo;</strong></a>
     <br />
@@ -27,9 +27,9 @@
 
 - [About the project](#about-the-project)
 - [Generate server source code based on Deno and oak](#generate-server-source-code-based-on-deno-and-oak)
-- [Lancer un serveur Deno oak généré](#lancer-un-serveur-deno-oak-généré)
-- [Architecture du code généré](#architecture-du-code-généré)
-- [Utiliser un autre middleware que oak](#utiliser-un-autre-middleware-que-oak)
+- [Start a generated Deno oak server](#start-a-generated-deno-oak-server)
+- [Generated code architecture](#generated-code-architecture)
+- [Use another middleware to replace oak](#use-another-middleware-to-replace-oak)
 - [Feuille de route](#feuille-de-route)
 - [Contribuer au projet](#contribuer-au-projet)
 	- [Créer le JAR de génération](#créer-le-jar-de-génération)
@@ -60,13 +60,13 @@ You must download the generator to use it: see _Releases_ on <a href="https://gi
 
 Download a file named ***openapi-generator-cli.jar*** with the wanted version (newer is recommanded). You can check the authenticity of the file with the <a href="https://fr.wikipedia.org/wiki/SHA-2#SHA-256">SHA-256 hash</a> in the specific file nearby.
 
-### Génération
+### Generation
 
-*Aide basée de la documentation officielle <a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator</a>. Pour plus d'informations, n'hésitez pas à lire cette page.*
+*Documentation partially based on the official <a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator</a> documentation. For more information, please read this page.*
 
-Après avoir téléchargé le fichier JAR, vous pouvez lancer la commande `java -jar openapi-generator-cli.jar help` pour prendre connaissance des options de lancement.
+When the JAR file is downloaded you can type this command `java -jar openapi-generator-cli.jar help` to list all available options.
 
-Exemple pour générer l'exemple ***PetStore*** proposé par <a href="https://petstore.swagger.io">OpenAPI</a> :
+Example to generate the ***PetStore*** proposed by <a href="https://petstore.swagger.io">OpenAPI</a>:
 ```
 mkdir petstore-server-deno-oak/
 java -jar openapi-generator-cli.jar generate \
@@ -75,23 +75,23 @@ java -jar openapi-generator-cli.jar generate \
   -o petstore-server-deno-oak/
 ```
 
-Adaptez bien sûr les chemins du JAR et du dossier cible de la génération (précisé par l'option `-o`) selon vos besoins.
+Don't forget to adapt JAR and target directory (option `-o`) paths.
 
-## Lancer un serveur Deno oak généré
+## Start a generated Deno oak server
 
-### Prérequis
+### Prerequisites
 
-Deno : à récupérer sur le <a href="https://deno.land">site officiel</a>.
+Deno: download it on the <a href="https://deno.land">official website</a>.
 
-### Implémentation du code nécessaire et obligatoire
+### Mandatory implementation to code
 
-#### Les services
+#### Services
 
-Cette section est plus détaillée dans le paragraphe lié à l'architecture du code générée, mais dans un premier temps, vous avez juste à savoir que chaque mot clé (*tag*) du fichier de description OpenAPI permet de définir un service, c'est une façon de ranger le métier en groupes logiques.
+This part has more details in the *generated code architecture part*. The only thing you have to know right now is the API is divided with tags into the OpenAPI description file.
 
-Ainsi une interface est générée par regroupement et il vous faudra implémenter ces services. Vous les trouverez dans le dossier `services` généré.
+Each tag allows the code to be divided into features, like logical groups. You have to implement one service per tag. You'll find these services into the generated `services` directory.
 
-L'exemple du ***PetStore*** génère trois services :
+The ***PetStore*** example generate three services:
 
 ```
 $ ls -l services/ --hide=*Private*
@@ -101,15 +101,15 @@ total 12
 -rwxr-xr-x 1 Zhykos Aucun 1740 22 mars  19:26 UserService.ts
 ```
 
-Chaque service a alors plusieurs méthodes à implémenter correspondant à ce qui a été décrit dans le fichier OpenAPI. Reportez vous au <a href="https://petstore.swagger.io">site contenant l'exemple</a> si vous voulez plus de détails.
+Each service has several methods to implement which match the OpenAPI file description. Check the <a href="https://petstore.swagger.io">example website</a> if you want to know more.
 
-Vous pouvez également découvrir ces mêmes services que j'ai implémentés pour des besoins de tests unitaires, sur le dépôt <a href="https://github.com/Zhykos/deno-server-openapi-generator/tree/main/samples/server/petstore/deno/oak/tests/petstore">GitHub</a> du projet.
+You also can see my implemented services used for unitary tests in the <a href="https://github.com/Zhykos/deno-server-openapi-generator/tree/main/samples/server/petstore/deno/oak/tests/petstore">GitHub</a> project to understand how to implement the services.
 
-#### Initialisation et lancement du serveur
+#### Initialize and start a server
 
-Une fois que vos services ont été codés, vous pourrez les fournir à la méthode d'initialisation et de démarrage du serveur Deno oak. Vous devrez également fournir le port d'écoute du serveur.
+After implementing the services, you use them to initialize and to start a server. You also have to use a web port.
 
-Voici un exemple avec les trois services implémentés et un serveur sur le port 3000 :
+Example with your implemented services and the port 3000:
 
 ```typescript
 import { DenoOakServer } from "./DenoOakServer.ts";
@@ -124,25 +124,25 @@ const myUserService = new MyUserService();
 new DenoOakServer(3000, myPetService, myStoreService, myUserService).start();
 ```
 
-Vous pouvez ensuite lancer le serveur avec la ligne de commande suivante (à adapter en fonction du nom du fichier et des <a href="https://deno.land/manual/getting_started/permissions">options de sécurité Deno</a>):
+Then you launch the Deno server with this command (to adapt with your file name and if your services use specific <a href="https://deno.land/manual/getting_started/permissions">Deno security options</a>):
 
 ```
 deno run --allow-net MyDenoOakServer.ts
 ```
 
-## Architecture du code généré
+## Generated code architecture
 
-La principale différence par rapport aux autres projets de génération est que j'ai souhaité que le code généré ne soit jamais modifié par les développeurs (en dehors des modifications des templates de génération, bien sûr).
+The main difference with the majority of code generation projects is I wanted the generated code must not be modified by developers (except this project of course).
 
-Ainsi le constructeur de la classe `DenoOakServer` prend en paramètres tous les services à implémenter dans le cadre de votre projet. Ce n'est pas parfait, surtout si vous avez beaucoup de services, mais c'est une solution que j'ai trouvée acceptable dans le cadre d'une première version.
+So the `DenoOakServer` class constructor has all the services as arguments. This is not perfect (especially if you have a tons of services), mais I think it's the best solution I've found for a first version of this project.
 
-Le code est découpé en services et contrôleurs. Les services correspondent au code que vous devez implémenter : vous récupérer les informations passés par le client web, puis vous lui répondez en fonction de ce qui a été déclaré dans votre fichier OpenAPI. Les contrôleurs (dans le dossier `controllers`) permettent d'interpréter les informations qui circulent sur le réseau (dans l'URL, dans l'entête de la requête HTTP, etc.) pour les passer aux services.
+Code is split with services and controllers. Services must be implemented with your needs: there are the brains of your applications, the places where you put the algorythms, the database accesses, and so on. Controllers (in the directory `controllers`) interpret the data from the network (from the URL, HTTP headers...) and translate them to communicate with the services.
 
-Des services privés et internes sont également présents afin d'avoir une couche intermédiaire de gestion des paramètres issus des contrôleurs. Ce n'est pas parfait, mais c'est aussi acceptable pour une première version.
+Private services are also generated to simplify your services implementations. Once again it's not perfect but OK for a first version.
 
-Enfin, il faut avoir en tête que le projet a d'abord été pensé pour être agnostique vis-à-vis des middlewares réseau. Si vous regardez le code en détail, il n'y a pas beaucoup de code spécifique oak : le serveur `DenoOakServer` est une extension d'un autre plus générique, le modèle de données interprétés `OakOpenApiRequestModel` transforme des objets oak en objets plus génériques et il y a un fichier de gestion de dépendances `deps-oak`.
+The main idea was to create an agnostic generation project. In fact it's very easy to generate code for another network middleware (other than oak). If you watch the generated code you'll see there is not so much oak dependencies: server `DenoOakServer` is only an extension, the model `OakOpenApiRequestModel` transforms oak objects into generic ones and the dependencies `deps-oak` file is tiny.
 
-## Utiliser un autre middleware que oak
+## Use another middleware to replace oak
 
 Ce paragraphe n'a pas vocation à vous expliquer comment développer un générateur. Pour cela, veuillez vous renseigner dans le projet OpenAPI generator.
 
