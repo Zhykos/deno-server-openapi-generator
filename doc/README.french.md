@@ -124,7 +124,7 @@ const myUserService = new MyUserService();
 new DenoOakServer(3000, myPetService, myStoreService, myUserService).start();
 ```
 
-Vous pouvez ensuite lancer le serveur avec la ligne de commande suivante (à adapter en fonction du nom du fichier et des <a href="https://deno.land/manual/getting_started/permissions">options de sécurité Deno</a>):
+Vous pouvez ensuite lancer le serveur avec la ligne de commande suivante (à adapter en fonction du nom du fichier et des <a href="https://deno.land/manual/getting_started/permissions">options de sécurité Deno</a>) :
 
 ```
 deno run --allow-net MyDenoOakServer.ts
