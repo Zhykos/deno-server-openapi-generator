@@ -209,7 +209,7 @@ npm run init-project
 
 #### Structure du projet
 
-Le projet est final est plutôt volumineux, mais vous n'avez pas besoin de tout connaitre.
+Le projet final est plutôt volumineux, mais vous n'avez pas besoin de tout connaitre.
 
 ```
 Zhykos@XXXXXXXXXX /cygdrive/c/Users/Zhykos/Documents/dev/deno-server-openapi-generator
