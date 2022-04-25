@@ -36,8 +36,22 @@ jobs:
         # Learn more about CodeQL language support at https://git.io/codeql-language-support
 
     steps:
-    - name: Checkout repository
+    - name: Checkout current repo
       uses: actions/checkout@v3
+      with:
+        path: deno-oak-openapi-generator
+    - name: Checkout OpenApi Generator repo
+      uses: actions/checkout@v3
+      with:
+        repository: 'OpenAPITools/openapi-generator'
+        path: openapi-generator
+        ref: 'v5.4.0'
+    - name: Set up working directory
+      run: |
+        mv -f openapi-generator/* .
+        cp -a deno-oak-openapi-generator/. .
+        rm -fr openapi-generator
+        rm -fr deno-oak-openapi-generator
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
