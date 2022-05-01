@@ -147,6 +147,11 @@ export class DenoOakServer extends DenoServer {
       "updateUser",
     );
 
+    this.app.use(async (_ctx, next) => {
+      await next();
+      super.notifyAllEndRouteListeners();
+    });
+
     this.app.use(router.routes());
     this.app.use(router.allowedMethods());
   }

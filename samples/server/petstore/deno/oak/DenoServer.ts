@@ -18,6 +18,7 @@ import { OpenApiRequest } from "./controllers/OpenApiRequestModel.ts";
 
 export abstract class DenoServer {
   private port: number;
+  private endRouteListeners: Array<() => void> = [];
   private privatePetController: PetController;
   private privateStoreController: StoreController;
   private privateUserController: UserController;
@@ -146,5 +147,13 @@ export abstract class DenoServer {
       return this.privateUserController.updateUser(openApiRequest);
     }
     throw new Error("Unknown service: User >> " + operation);
+  }
+
+  addEndRouteListener(callback: () => void) {
+    this.endRouteListeners.push(callback);
+  }
+
+  notifyAllEndRouteListeners() {
+    this.endRouteListeners.forEach((callback) => callback());
   }
 }

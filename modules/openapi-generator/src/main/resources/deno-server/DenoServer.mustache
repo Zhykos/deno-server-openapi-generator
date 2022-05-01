@@ -35,6 +35,7 @@ import { OpenApiRequest } from "./controllers/OpenApiRequestModel.ts";
 
 export abstract class DenoServer {
   private port: number;
+  private endRouteListeners: Array<() => void> = [];
   {{#apiInfo}}
   {{#apis}}
   {{#operations}}
@@ -105,4 +106,14 @@ export abstract class DenoServer {
 
   {{/apis}}
   {{/apiInfo}}
+
+  addEndRouteListener(callback: () => void) {
+    this.endRouteListeners.push(callback);
+  }
+
+  notifyAllEndRouteListeners() {
+    this.endRouteListeners.forEach(callback => 
+      callback()
+    )
+  }
 }
