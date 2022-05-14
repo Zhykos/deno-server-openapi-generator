@@ -34,24 +34,25 @@ import { Application, Router } from "./deps-oak.ts";
 import type { RouterContext } from "./deps-oak.ts";
 import { OakOpenApiRequest } from "./controllers/OakOpenApiRequestModel.ts";
 
-export class DenoOakServer extends DenoServer<Application> {
+export class DenoOakServer extends DenoServer<Application, Router> {
 
   private app: Application;
+  private router: Router;
 
   constructor(
     port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}) {
       super(port{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}});
       this.app = new Application();
+      this.router = new Router();
   }
 
   protected generateRoutes(): void {
-    const router = new Router();
 
     {{#apiInfo}}
     {{#apis}}
     {{#operations}}
     {{#operation}}
-    this.createRoute(router, '{{{path}}}'{{#pathParams}}.replace(`{${"{{baseName}}"}}`, ":{{baseName}}"){{/pathParams}}, "{{#lowercase}}{{httpMethod}}{{/lowercase}}", "{{classname}}", "{{operationId}}");
+    this.createRoute('{{{path}}}'{{#pathParams}}.replace(`{${"{{baseName}}"}}`, ":{{baseName}}"){{/pathParams}}, "{{#lowercase}}{{httpMethod}}{{/lowercase}}", "{{classname}}", "{{operationId}}");
 
     {{/operation}}
     {{/operations}}
@@ -63,11 +64,11 @@ export class DenoOakServer extends DenoServer<Application> {
       super.notifyAllEndRouteListeners();
     });
 
-    this.app.use(router.routes());
-    this.app.use(router.allowedMethods());
+    this.app.use(this.router.routes());
+    this.app.use(this.router.allowedMethods());
   }
 
-  private createRoute(router: Router, localVarPath: string, httpMethod: string, controllerId: string, operationId: string): void {
+  private createRoute(localVarPath: string, httpMethod: string, controllerId: string, operationId: string): void {
     const middlewarePromise = async (
       context: RouterContext<string, any, Record<string, any>>,
     ) => {
@@ -88,13 +89,13 @@ export class DenoOakServer extends DenoServer<Application> {
     };
 
     if (httpMethod == "get") {
-      router.get(localVarPath, middlewarePromise);
+      this.router.get(localVarPath, middlewarePromise);
     } else if (httpMethod == "post") {
-      router.post(localVarPath, middlewarePromise);
+      this.router.post(localVarPath, middlewarePromise);
     } else if (httpMethod == "delete") {
-      router.delete(localVarPath, middlewarePromise);
+      this.router.delete(localVarPath, middlewarePromise);
     } else if (httpMethod == "put") {
-      router.put(localVarPath, middlewarePromise);
+      this.router.put(localVarPath, middlewarePromise);
     } else {
       throw new Error("Unknown HTTP verb: " + httpMethod);
     }
@@ -104,7 +105,7 @@ export class DenoOakServer extends DenoServer<Application> {
     return await this.app.listen({ port });
   }
 
-  execOnMiddleware(callback: (middleware: Application) => void): void {
-    callback(this.app);
+  execOnMiddleware(callback: (middleware: Application, router: Router) => void): void {
+    callback(this.app, this.router);
   }
 }

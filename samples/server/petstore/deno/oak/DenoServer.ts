@@ -16,7 +16,7 @@ import { UserPrivateService } from "./services/UserPrivateService.ts";
 import { UserController } from "./controllers/UserController.ts";
 import { OpenApiRequest } from "./controllers/OpenApiRequestModel.ts";
 
-export abstract class DenoServer<T> {
+export abstract class DenoServer<M, R> {
   private port: number;
   private endRouteListeners: Array<() => void> = [];
   private privatePetController: PetController;
@@ -162,5 +162,5 @@ export abstract class DenoServer<T> {
    * Often used for your server implementation if this class does not have enough features.
    * @param callback Your code with the middleware object in argument.
    */
-  abstract execOnMiddleware(callback: (middleware: T) => void): void;
+  abstract execOnMiddleware(callback: (middleware: M, router: R) => void): void;
 }

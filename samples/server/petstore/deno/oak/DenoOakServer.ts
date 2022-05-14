@@ -13,8 +13,9 @@ import { Application, Router } from "./deps-oak.ts";
 import type { RouterContext } from "./deps-oak.ts";
 import { OakOpenApiRequest } from "./controllers/OakOpenApiRequestModel.ts";
 
-export class DenoOakServer extends DenoServer<Application> {
+export class DenoOakServer extends DenoServer<Application, Router> {
   private app: Application;
+  private router: Router;
 
   constructor(
     port: number,
@@ -24,27 +25,19 @@ export class DenoOakServer extends DenoServer<Application> {
   ) {
     super(port, myPetService, myStoreService, myUserService);
     this.app = new Application();
+    this.router = new Router();
   }
 
   protected generateRoutes(): void {
-    const router = new Router();
+    this.createRoute("/pet", "post", "Pet", "addPet");
 
-    this.createRoute(router, "/pet", "post", "Pet", "addPet");
+    this.createRoute("/pet", "put", "Pet", "updatePet");
 
-    this.createRoute(router, "/pet", "put", "Pet", "updatePet");
+    this.createRoute("/pet/findByStatus", "get", "Pet", "findPetsByStatus");
 
-    this.createRoute(
-      router,
-      "/pet/findByStatus",
-      "get",
-      "Pet",
-      "findPetsByStatus",
-    );
-
-    this.createRoute(router, "/pet/findByTags", "get", "Pet", "findPetsByTags");
+    this.createRoute("/pet/findByTags", "get", "Pet", "findPetsByTags");
 
     this.createRoute(
-      router,
       "/pet/{petId}".replace(`{${"petId"}}`, ":petId"),
       "delete",
       "Pet",
@@ -52,7 +45,6 @@ export class DenoOakServer extends DenoServer<Application> {
     );
 
     this.createRoute(
-      router,
       "/pet/{petId}".replace(`{${"petId"}}`, ":petId"),
       "get",
       "Pet",
@@ -60,7 +52,6 @@ export class DenoOakServer extends DenoServer<Application> {
     );
 
     this.createRoute(
-      router,
       "/pet/{petId}".replace(`{${"petId"}}`, ":petId"),
       "post",
       "Pet",
@@ -68,25 +59,17 @@ export class DenoOakServer extends DenoServer<Application> {
     );
 
     this.createRoute(
-      router,
       "/pet/{petId}/uploadImage".replace(`{${"petId"}}`, ":petId"),
       "post",
       "Pet",
       "uploadFile",
     );
 
-    this.createRoute(
-      router,
-      "/store/inventory",
-      "get",
-      "Store",
-      "getInventory",
-    );
+    this.createRoute("/store/inventory", "get", "Store", "getInventory");
 
-    this.createRoute(router, "/store/order", "post", "Store", "placeOrder");
+    this.createRoute("/store/order", "post", "Store", "placeOrder");
 
     this.createRoute(
-      router,
       "/store/order/{orderId}".replace(`{${"orderId"}}`, ":orderId"),
       "delete",
       "Store",
@@ -94,17 +77,15 @@ export class DenoOakServer extends DenoServer<Application> {
     );
 
     this.createRoute(
-      router,
       "/store/order/{orderId}".replace(`{${"orderId"}}`, ":orderId"),
       "get",
       "Store",
       "getOrderById",
     );
 
-    this.createRoute(router, "/user", "post", "User", "createUser");
+    this.createRoute("/user", "post", "User", "createUser");
 
     this.createRoute(
-      router,
       "/user/createWithArray",
       "post",
       "User",
@@ -112,19 +93,17 @@ export class DenoOakServer extends DenoServer<Application> {
     );
 
     this.createRoute(
-      router,
       "/user/createWithList",
       "post",
       "User",
       "createUsersWithListInput",
     );
 
-    this.createRoute(router, "/user/login", "get", "User", "loginUser");
+    this.createRoute("/user/login", "get", "User", "loginUser");
 
-    this.createRoute(router, "/user/logout", "get", "User", "logoutUser");
+    this.createRoute("/user/logout", "get", "User", "logoutUser");
 
     this.createRoute(
-      router,
       "/user/{username}".replace(`{${"username"}}`, ":username"),
       "delete",
       "User",
@@ -132,7 +111,6 @@ export class DenoOakServer extends DenoServer<Application> {
     );
 
     this.createRoute(
-      router,
       "/user/{username}".replace(`{${"username"}}`, ":username"),
       "get",
       "User",
@@ -140,7 +118,6 @@ export class DenoOakServer extends DenoServer<Application> {
     );
 
     this.createRoute(
-      router,
       "/user/{username}".replace(`{${"username"}}`, ":username"),
       "put",
       "User",
@@ -152,12 +129,11 @@ export class DenoOakServer extends DenoServer<Application> {
       super.notifyAllEndRouteListeners();
     });
 
-    this.app.use(router.routes());
-    this.app.use(router.allowedMethods());
+    this.app.use(this.router.routes());
+    this.app.use(this.router.allowedMethods());
   }
 
   private createRoute(
-    router: Router,
     localVarPath: string,
     httpMethod: string,
     controllerId: string,
@@ -183,13 +159,13 @@ export class DenoOakServer extends DenoServer<Application> {
     };
 
     if (httpMethod == "get") {
-      router.get(localVarPath, middlewarePromise);
+      this.router.get(localVarPath, middlewarePromise);
     } else if (httpMethod == "post") {
-      router.post(localVarPath, middlewarePromise);
+      this.router.post(localVarPath, middlewarePromise);
     } else if (httpMethod == "delete") {
-      router.delete(localVarPath, middlewarePromise);
+      this.router.delete(localVarPath, middlewarePromise);
     } else if (httpMethod == "put") {
-      router.put(localVarPath, middlewarePromise);
+      this.router.put(localVarPath, middlewarePromise);
     } else {
       throw new Error("Unknown HTTP verb: " + httpMethod);
     }
@@ -199,7 +175,9 @@ export class DenoOakServer extends DenoServer<Application> {
     return await this.app.listen({ port });
   }
 
-  execOnMiddleware(callback: (middleware: Application) => void): void {
-    callback(this.app);
+  execOnMiddleware(
+    callback: (middleware: Application, router: Router) => void,
+  ): void {
+    callback(this.app, this.router);
   }
 }
