@@ -48,7 +48,7 @@ export abstract class DenoServer {
   {{/apis}}
   {{/apiInfo}}
 
-  constructor(
+  protected constructor(
     port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}) {
       this.port = port;
       {{#apiInfo}}
@@ -70,11 +70,11 @@ export abstract class DenoServer {
     return this.startServer(this.port);
   }
 
-  abstract generateRoutes(): void;
+  protected abstract generateRoutes(): void;
 
-  abstract startServer(port: number): Promise<void>;
+  protected abstract startServer(port: number): Promise<void>;
 
-  executeController(
+  protected executeController(
     controllerId: string,
     operationId: string,
     openApiRequest: OpenApiRequest): Promise<Response> {
@@ -111,7 +111,7 @@ export abstract class DenoServer {
     this.endRouteListeners.push(callback);
   }
 
-  notifyAllEndRouteListeners() {
+  protected notifyAllEndRouteListeners() {
     this.endRouteListeners.forEach(callback => 
       callback()
     )

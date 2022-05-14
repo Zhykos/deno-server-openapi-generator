@@ -44,7 +44,7 @@ export class DenoOakServer extends DenoServer {
       this.app = new Application();
   }
 
-  generateRoutes(): void {
+  protected generateRoutes(): void {
     const router = new Router();
 
     {{#apiInfo}}
@@ -100,7 +100,7 @@ export class DenoOakServer extends DenoServer {
     }
   }
 
-  async startServer(port: number): Promise<void> {
+  protected async startServer(port: number): Promise<void> {
     return await this.app.listen({ port });
   }
 
