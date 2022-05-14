@@ -34,7 +34,7 @@ import { Application, Router } from "./deps-oak.ts";
 import type { RouterContext } from "./deps-oak.ts";
 import { OakOpenApiRequest } from "./controllers/OakOpenApiRequestModel.ts";
 
-export class DenoOakServer extends DenoServer {
+export class DenoOakServer extends DenoServer<Application> {
 
   private app: Application;
 
@@ -104,4 +104,7 @@ export class DenoOakServer extends DenoServer {
     return await this.app.listen({ port });
   }
 
+  execOnMiddleware(callback: (middleware: Application) => void): void {
+    callback(this.app);
+  }
 }

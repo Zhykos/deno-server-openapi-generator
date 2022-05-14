@@ -13,7 +13,7 @@ import { Application, Router } from "./deps-oak.ts";
 import type { RouterContext } from "./deps-oak.ts";
 import { OakOpenApiRequest } from "./controllers/OakOpenApiRequestModel.ts";
 
-export class DenoOakServer extends DenoServer {
+export class DenoOakServer extends DenoServer<Application> {
   private app: Application;
 
   constructor(
@@ -26,7 +26,7 @@ export class DenoOakServer extends DenoServer {
     this.app = new Application();
   }
 
-  generateRoutes(): void {
+  protected generateRoutes(): void {
     const router = new Router();
 
     this.createRoute(router, "/pet", "post", "Pet", "addPet");
@@ -195,7 +195,11 @@ export class DenoOakServer extends DenoServer {
     }
   }
 
-  async startServer(port: number): Promise<void> {
+  protected async startServer(port: number): Promise<void> {
     return await this.app.listen({ port });
+  }
+
+  execOnMiddleware(callback: (middleware: Application) => void): void {
+    callback(this.app);
   }
 }

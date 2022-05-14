@@ -1,5 +1,6 @@
-Version 0.3.0:
-- New listener system to notify callbacks when a request is done.
+Version 0.4.0:
+- Protect some server methods to be used by developers who implement this spec
+- Add a method to execute any code within the middleware
 
 This is still a beta version: a simple JSON server will work but be warned: complex requests may fail.
 

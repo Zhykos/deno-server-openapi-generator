@@ -33,7 +33,7 @@ import { {{classname}}Controller } from './controllers/{{classname}}Controller.t
 {{/apiInfo}}
 import { OpenApiRequest } from "./controllers/OpenApiRequestModel.ts";
 
-export abstract class DenoServer {
+export abstract class DenoServer<T> {
   private port: number;
   private endRouteListeners: Array<() => void> = [];
   {{#apiInfo}}
@@ -107,13 +107,20 @@ export abstract class DenoServer {
   {{/apis}}
   {{/apiInfo}}
 
-  addEndRouteListener(callback: () => void) {
+  addEndRouteListener(callback: () => void): void {
     this.endRouteListeners.push(callback);
   }
 
-  protected notifyAllEndRouteListeners() {
+  protected notifyAllEndRouteListeners(): void {
     this.endRouteListeners.forEach(callback => 
       callback()
     )
   }
+
+  /**
+   * Execute something you want on the implemented middleware.
+   * Often used for your server implementation if this class does not have enough features.
+   * @param callback Your code with the middleware object in argument.
+   */
+  abstract execOnMiddleware(callback: (middleware: T) => void): void;
 }

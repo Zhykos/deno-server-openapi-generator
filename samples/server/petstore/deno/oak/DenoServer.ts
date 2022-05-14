@@ -16,14 +16,14 @@ import { UserPrivateService } from "./services/UserPrivateService.ts";
 import { UserController } from "./controllers/UserController.ts";
 import { OpenApiRequest } from "./controllers/OpenApiRequestModel.ts";
 
-export abstract class DenoServer {
+export abstract class DenoServer<T> {
   private port: number;
   private endRouteListeners: Array<() => void> = [];
   private privatePetController: PetController;
   private privateStoreController: StoreController;
   private privateUserController: UserController;
 
-  constructor(
+  protected constructor(
     port: number,
     myPetService: PetService,
     myStoreService: StoreService,
@@ -43,11 +43,11 @@ export abstract class DenoServer {
     return this.startServer(this.port);
   }
 
-  abstract generateRoutes(): void;
+  protected abstract generateRoutes(): void;
 
-  abstract startServer(port: number): Promise<void>;
+  protected abstract startServer(port: number): Promise<void>;
 
-  executeController(
+  protected executeController(
     controllerId: string,
     operationId: string,
     openApiRequest: OpenApiRequest,
@@ -149,11 +149,18 @@ export abstract class DenoServer {
     throw new Error("Unknown service: User >> " + operation);
   }
 
-  addEndRouteListener(callback: () => void) {
+  addEndRouteListener(callback: () => void): void {
     this.endRouteListeners.push(callback);
   }
 
-  notifyAllEndRouteListeners() {
+  protected notifyAllEndRouteListeners(): void {
     this.endRouteListeners.forEach((callback) => callback());
   }
+
+  /**
+   * Execute something you want on the implemented middleware.
+   * Often used for your server implementation if this class does not have enough features.
+   * @param callback Your code with the middleware object in argument.
+   */
+  abstract execOnMiddleware(callback: (middleware: T) => void): void;
 }
