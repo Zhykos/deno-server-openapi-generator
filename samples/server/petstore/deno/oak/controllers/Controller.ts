@@ -34,8 +34,11 @@ export class Controller {
       status = 405;
     } else if (error instanceof Deno.errors.PermissionDenied) {
       status = 403;
+    } else if (error instanceof Deno.errors.AlreadyExists) {
+      status = 409;
+    } else {
+      console.error(error);
     }
-    console.error(error);
     return new Response(
       JSON.stringify({
         message: error.message,
