@@ -12,60 +12,60 @@ export interface UserService {
    * Create user
    * This can only be done by the logged in user.
    *
-   * user User Created user object
-   * no response value expected for this operation
+   * @param user User Created user object
+   * @returns void: no response value expected for this operation
    */
   createUser(user: User): Promise<void>;
   /**
    * Creates list of users with given input array
    *
-   * user Array<User> List of user object
-   * no response value expected for this operation
+   * @param user Array<User> List of user object
+   * @returns void: no response value expected for this operation
    */
   createUsersWithArrayInput(user: Array<User>): Promise<void>;
   /**
    * Creates list of users with given input array
    *
-   * user Array<User> List of user object
-   * no response value expected for this operation
+   * @param user Array<User> List of user object
+   * @returns void: no response value expected for this operation
    */
   createUsersWithListInput(user: Array<User>): Promise<void>;
   /**
    * Logs user into the system
    *
-   * username string The user name for login
-   * password string The password for login in clear text
-   * returns string
+   * @param username string The user name for login
+   * @param password string The password for login in clear text
+   * @returns string
    */
   loginUser(username: string, password: string): Promise<string>;
   /**
    * Logs out current logged in user session
    *
-   * no response value expected for this operation
+   * @returns void: no response value expected for this operation
    */
   logoutUser(): Promise<void>;
   /**
    * Delete user
    * This can only be done by the logged in user.
    *
-   * username string The name that needs to be deleted
-   * no response value expected for this operation
+   * @param username string The name that needs to be deleted
+   * @returns void: no response value expected for this operation
    */
   deleteUser(username: string): Promise<void>;
   /**
    * Get user by user name
    *
-   * username string The name that needs to be fetched. Use user1 for testing.
-   * returns User
+   * @param username string The name that needs to be fetched. Use user1 for testing.
+   * @returns User
    */
   getUserByName(username: string): Promise<User>;
   /**
    * Updated user
    * This can only be done by the logged in user.
    *
-   * username string name that need to be deleted
-   * user User Updated user object
-   * no response value expected for this operation
+   * @param username string name that need to be deleted
+   * @param user User Updated user object
+   * @returns void: no response value expected for this operation
    */
   updateUser(username: string, user: User): Promise<void>;
 }

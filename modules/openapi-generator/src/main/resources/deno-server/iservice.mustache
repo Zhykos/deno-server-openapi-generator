@@ -35,13 +35,13 @@ export interface {{classname}}Service {
   {{/notes}}
   *
   {{#allParams}}
-  * {{paramName}} {{{dataType}}} {{{description}}}{{^required}} (optional){{/required}}
+  * @param {{paramName}} {{{dataType}}} {{{description}}}{{^required}} (optional){{/required}}
   {{/allParams}}
   {{^returnType}}
-  * no response value expected for this operation
+  * @returns void: no response value expected for this operation
   {{/returnType}}
   {{#returnType}}
-  * returns {{{.}}}
+  * @returns {{{.}}}
   {{/returnType}}
   * */
   {{{operationId}}} ({{#allParams}}{{paramName}}{{^required}}?{{/required}}: {{{dataType}}}{{^-last}}, {{/-last}}{{/allParams}}) : Promise<{{^returnType}}void{{/returnType}}{{#returnType}}{{{.}}}{{/returnType}}>;
