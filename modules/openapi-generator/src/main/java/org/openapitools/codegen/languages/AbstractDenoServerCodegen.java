@@ -34,6 +34,9 @@ import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.SupportingFile;
 import org.openapitools.codegen.meta.GeneratorMetadata;
 import org.openapitools.codegen.meta.Stability;
+import org.openapitools.codegen.model.ModelMap;
+import org.openapitools.codegen.model.ModelsMap;
+import org.openapitools.codegen.model.OperationsMap;
 import org.openapitools.codegen.templating.mustache.LowercaseLambda;
 import org.openapitools.codegen.utils.StringUtils;
 
@@ -88,8 +91,8 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
 
     @Override
     @SuppressWarnings("unchecked")
-    public Map<String, Object> postProcessAllModels(final Map<String, Object> objs) {
-        final Map<String, Object> result = super.postProcessAllModels(objs);
+    public Map<String, ModelsMap> postProcessAllModels(final Map<String, ModelsMap> objs) {
+        final Map<String, ModelsMap> result = super.postProcessAllModels(objs);
 
         result.values().stream().map(val -> (Map<String, Object>) val).forEach(inner -> {
             final List<Map<String, Object>> models = (List<Map<String, Object>>) inner.get("models");
@@ -169,13 +172,12 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
     }
 
     @Override
-    public Map<String, Object> postProcessOperationsWithModels(final Map<String, Object> objs,
-            final List<Object> allModels) {
+    public OperationsMap postProcessOperationsWithModels(final OperationsMap objs, final List<ModelMap> allModels) {
         overrideOperationsOrder(objs);
         return super.postProcessOperationsWithModels(objs, allModels);
     }
 
-    private static void overrideOperationsOrder(final Map<String, Object> objs) {
+    private static void overrideOperationsOrder(final OperationsMap objs) {
         @SuppressWarnings("unchecked")
         final Map<String, Object> operations = (Map<String, Object>) objs.get("operations");
         @SuppressWarnings("unchecked")

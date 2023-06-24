@@ -12,7 +12,7 @@ import { SingleBar, Presets } from "cli-progress";
 import ora from "ora";
 
 const openapiGeneratorURL =
-  "https://github.com/OpenAPITools/openapi-generator/archive/refs/tags/v5.4.0.zip";
+  "https://github.com/OpenAPITools/openapi-generator/archive/refs/tags/v6.6.0.zip";
 
 const file = createWriteStream("openapi-generator.zip");
 const spinner = ora("Downloading file: " + openapiGeneratorURL).start();

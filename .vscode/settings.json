@@ -27,5 +27,6 @@
     ],
     "yaml.schemas": {
         "https://json.schemastore.org/github-workflow.json": "file:///c%3A/Users/Zhykos/Documents/dev/deno-server-openapi-generator/.github/workflows/codegen.yml"
-    }
+    },
+    "java.compile.nullAnalysis.mode": "automatic"
 }

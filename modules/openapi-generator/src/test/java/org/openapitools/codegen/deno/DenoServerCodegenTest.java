@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- package org.openapitools.codegen.deno;
+package org.openapitools.codegen.deno;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,6 +29,9 @@ import org.openapitools.codegen.CodegenOperation;
 import org.openapitools.codegen.CodegenProperty;
 import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.languages.AbstractDenoServerCodegen;
+import org.openapitools.codegen.model.ModelMap;
+import org.openapitools.codegen.model.ModelsMap;
+import org.openapitools.codegen.model.OperationsMap;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -50,9 +53,9 @@ public class DenoServerCodegenTest {
     @Test
     public void postProcessAllModels() {
         // Given:
-        final Map<String, Object> objs = new HashMap<>();
+        final Map<String, ModelsMap> objs = new HashMap<>();
 
-        final Map<String, Object> inner = new HashMap<>();
+        final ModelsMap inner = new ModelsMap();
         objs.put("foo", inner);
 
         final List<Map<String, Object>> models = new ArrayList<>();
@@ -71,12 +74,11 @@ public class DenoServerCodegenTest {
         codegenModel.vars.add(property);
 
         // Where:
-        final Map<String, Object> result = this.codegen.postProcessAllModels(objs);
+        final Map<String, ModelsMap> result = this.codegen.postProcessAllModels(objs);
 
         // Then:
         Assert.assertEquals(result.size(), 1);
 
-        @SuppressWarnings("unchecked")
         final Map<String, Object> innerResult = (Map<String, Object>) result.get("foo");
         @SuppressWarnings("unchecked")
         final List<Map<String, Object>> modelsResult = (List<Map<String, Object>>) innerResult.get("models");
@@ -167,8 +169,8 @@ public class DenoServerCodegenTest {
     @Test
     public void overrideOperationsOrder() {
         // Given:
-        final Map<String, Object> objs = new HashMap<>();
-        final List<Object> allModels = Collections.emptyList();
+        final OperationsMap objs = new OperationsMap();
+        final List<ModelMap> allModels = Collections.emptyList();
 
         final Map<String, Object> operations = new HashMap<>();
         objs.put("operations", operations);
