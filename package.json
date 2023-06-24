@@ -3,7 +3,7 @@
     "version": "0.1.0-beta",
     "description": "OpenAPI Generator 🦖 Deno oak 🌳 : implémentation d'un générateur OpenAPI basé sur Deno et le middleware oak",
     "scripts": {
-        "mvn-clean-package-no-tests": "mvnw.cmd clean package -DskipTests",
+        "mvn-clean-package-no-tests": "./mvnw clean package -DskipTests",
         "generate-pet-store-deno-oak-server": "sh ./bin/generate-samples.sh bin/configs/deno-oak-server-petstore.yaml && npm run format-sample-deno-server-petstore",
         "build-then-generate-deno-oak-server": "npm run mvn-clean-package-no-tests && npm run generate-pet-store-deno-oak-server",
         "format-sample-deno-server-petstore": "deno fmt samples/server/petstore/deno/",

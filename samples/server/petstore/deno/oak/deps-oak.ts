@@ -12,5 +12,5 @@ export {
   Application,
   Request as OakRequest,
   Router,
-} from "https://deno.land/x/oak@v10.2.1/mod.ts";
-export type { RouterContext } from "https://deno.land/x/oak@v10.2.1/mod.ts";
+} from "https://deno.land/x/oak@v12.5.0/mod.ts";
+export type { RouterContext } from "https://deno.land/x/oak@v12.5.0/mod.ts";
