@@ -38,12 +38,14 @@ export class DenoOakServer extends DenoServer<Application, Router> {
 
   private app: Application;
   private router: Router;
+  private options?: DenoOakServerOptions;
 
   constructor(
-    port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}) {
+    port: number{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service: {{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}}, options?: DenoOakServerOptions) {
       super(port{{#apiInfo}}{{#apis}}{{#operations}}{{#operation}}{{#-first}}, my{{classname}}Service{{/-first}}{{/operation}}{{/operations}}{{/apis}}{{/apiInfo}});
       this.app = new Application();
       this.router = new Router();
+      this.options = options;
   }
 
   protected generateRoutes(): void {
@@ -53,6 +55,7 @@ export class DenoOakServer extends DenoServer<Application, Router> {
     {{#operations}}
     {{#operation}}
     this.createRoute('{{{path}}}'{{#pathParams}}.replace(`{${"{{baseName}}"}}`, ":{{baseName}}"){{/pathParams}}, "{{#lowercase}}{{httpMethod}}{{/lowercase}}", "{{classname}}", "{{operationId}}");
+    this.createRoute('{{{path}}}'{{#pathParams}}.replace(`{${"{{baseName}}"}}`, ":{{baseName}}"){{/pathParams}}, "options", "{{classname}}", "{{operationId}}");
 
     {{/operation}}
     {{/operations}}
@@ -82,6 +85,10 @@ export class DenoOakServer extends DenoServer<Application, Router> {
         context.response.status = response.status;
         context.response.body = await response.json();
         context.response.headers = response.headers;
+        this.checkAccessControlAllowOrigin(
+          context.request.headers,
+          context.response.headers,
+        );
       } catch(e) {
         context.response.status = 500;
         context.response.body = { error: e.message };
@@ -96,6 +103,8 @@ export class DenoOakServer extends DenoServer<Application, Router> {
       this.router.delete(localVarPath, middlewarePromise);
     } else if (httpMethod == "put") {
       this.router.put(localVarPath, middlewarePromise);
+    } else if (httpMethod == "options") {
+      this.router.options(localVarPath, middlewarePromise);
     } else {
       throw new Error("Unknown HTTP verb: " + httpMethod);
     }
@@ -108,4 +117,24 @@ export class DenoOakServer extends DenoServer<Application, Router> {
   execOnMiddleware(callback: (middleware: Application, router: Router) => void): void {
     callback(this.app, this.router);
   }
+
+  private checkAccessControlAllowOrigin(
+    requestHeaders: Headers,
+    responseHeaders: Headers,
+  ): void {
+    if (this.options?.allowCORS && requestHeaders.has("origin")) {
+      const origin: string | null = requestHeaders.get("origin");
+      if (origin && this.options.allowCORS.includes(origin)) {
+        responseHeaders.set("Access-Control-Allow-Origin", origin);
+        responseHeaders.set(
+          "Access-Control-Allow-Headers",
+          "cache-control,expires,pragma",
+        );
+      }
+    }
+  }
+}
+
+export interface DenoOakServerOptions {
+  allowCORS?: string[];
 }
