@@ -17,14 +17,14 @@
 import pkg from "follow-redirects";
 const { https } = pkg;
 import {
+  appendFileSync,
   createWriteStream,
   existsSync,
   mkdirSync,
   writeFileSync,
-  appendFileSync,
 } from "fs";
 import AdmZip from "adm-zip";
-import { SingleBar, Presets } from "cli-progress";
+import { Presets, SingleBar } from "cli-progress";
 import ora from "ora";
 
 const openapiGeneratorURL =
@@ -46,8 +46,7 @@ https.get(openapiGeneratorURL, (response) => {
       zipEntriesBar.start(zipEntries.length, 0);
 
       zipEntries.forEach(function (zipEntry) {
-        const targetFileOrDir =
-          "./" +
+        const targetFileOrDir = "./" +
           zipEntry.entryName.substring(zipEntry.entryName.indexOf("/") + 1);
         if (!existsSync(targetFileOrDir)) {
           if (zipEntry.isDirectory) {
@@ -64,7 +63,7 @@ https.get(openapiGeneratorURL, (response) => {
       console.log("Updating org.openapitools.codegen.CodegenConfig...");
       appendFileSync(
         "./modules/openapi-generator/src/main/resources/META-INF/services/org.openapitools.codegen.CodegenConfig",
-        "org.openapitools.codegen.languages.DenoOakServerCodegen"
+        "org.openapitools.codegen.languages.DenoOakServerCodegen",
       );
     } catch (e) {
       console.error(e.message);
