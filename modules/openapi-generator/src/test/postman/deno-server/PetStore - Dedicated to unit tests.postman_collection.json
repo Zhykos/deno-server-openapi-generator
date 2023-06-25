@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3e950ffa-5aa8-411a-8f11-5e1412995f42",
+		"_postman_id": "9da37438-f175-463b-9f67-a6955453634d",
 		"name": "PetStore - Dedicated to unit tests",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26529886"
 	},
 	"item": [
 		{
@@ -21,6 +22,7 @@
 											"listen": "test",
 											"script": {
 												"exec": [
+													"/*\r",
 													"pm.test(\"Check response time\", function () {\r",
 													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 													"});\r",
@@ -32,7 +34,8 @@
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
 													"    pm.expect(jsonData.message).to.eql(\"Invalid ID to upload file for pet: 'NaN'\");\r",
-													"});"
+													"});\r",
+													"*/"
 												],
 												"type": "text/javascript"
 											}
@@ -61,12 +64,7 @@
 													"type": "file",
 													"src": "/C:/Users/Zhykos/Documents/dev/deno-server-openapi-generator/modules/openapi-generator/src/test/postman/deno-server/pexels-lucas-andrade-4681107.jpg"
 												}
-											],
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
+											]
 										},
 										"url": {
 											"raw": "{{baseUrl}}pet/foo/uploadImage",
@@ -88,6 +86,7 @@
 											"listen": "test",
 											"script": {
 												"exec": [
+													"/*\r",
 													"pm.test(\"Check response time\", function () {\r",
 													"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 													"});\r",
@@ -99,7 +98,8 @@
 													"pm.test(\"Check JSON\", function () {\r",
 													"    const jsonData = pm.response.json();\r",
 													"    pm.expect(jsonData.message).to.eql(\"Cannot upload file for pet with ID: 4\");\r",
-													"});"
+													"});\r",
+													"*/"
 												],
 												"type": "text/javascript"
 											}
@@ -128,12 +128,7 @@
 													"type": "file",
 													"src": "/C:/Users/Zhykos/Documents/dev/deno-server-openapi-generator/modules/openapi-generator/src/test/postman/deno-server/pexels-lucas-andrade-4681107.jpg"
 												}
-											],
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
+											]
 										},
 										"url": {
 											"raw": "{{baseUrl}}pet/4/uploadImage",
@@ -157,6 +152,7 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"/*\r",
 											"pm.test(\"Check response time\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
 											"});\r",
@@ -170,7 +166,8 @@
 											"    pm.expect(jsonData.code).to.eql(0);\r",
 											"    pm.expect(jsonData.type).to.eql(\"woof\");\r",
 											"    pm.expect(jsonData.message).to.match(/.+\\.jpeg;pexels\\-lucas\\-andrade\\-4681107\\.jpg;image\\/jpeg$/);\r",
-											"});"
+											"});\r",
+											"*/"
 										],
 										"type": "text/javascript"
 									}
@@ -207,12 +204,7 @@
 											"src": "/C:/Users/Zhykos/Documents/dev/deno-server-openapi-generator/modules/openapi-generator/src/test/postman/deno-server/pexels-lucas-andrade-4681107.jpg",
 											"disabled": true
 										}
-									],
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{baseUrl}}pet/0/uploadImage",
@@ -234,6 +226,7 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"/*\r",
 											"pm.test(\"Check response time\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
 											"});\r",
@@ -247,7 +240,8 @@
 											"    pm.expect(jsonData.code).to.eql(0);\r",
 											"    pm.expect(jsonData.type).to.eql(\"woof\");\r",
 											"    pm.expect(jsonData.message).to.be.undefined;\r",
-											"});"
+											"});\r",
+											"*/"
 										],
 										"type": "text/javascript"
 									}
@@ -270,12 +264,7 @@
 											"value": "woof",
 											"type": "default"
 										}
-									],
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{baseUrl}}pet/0/uploadImage",
@@ -297,6 +286,7 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"/*\r",
 											"pm.test(\"Check response time\", function () {\r",
 											"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 											"});\r",
@@ -310,7 +300,8 @@
 											"    pm.expect(jsonData.code).to.eql(0);\r",
 											"    pm.expect(jsonData.type).to.be.undefined;\r",
 											"    pm.expect(jsonData.message).to.be.undefined;\r",
-											"});"
+											"});\r",
+											"*/"
 										],
 										"type": "text/javascript"
 									}
@@ -2243,12 +2234,7 @@
 													"value": "sold",
 													"type": "default"
 												}
-											],
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
+											]
 										},
 										"url": {
 											"raw": "{{baseUrl}}pet/0",
@@ -2308,12 +2294,7 @@
 													"value": "loved",
 													"type": "default"
 												}
-											],
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
+											]
 										},
 										"url": {
 											"raw": "{{baseUrl}}pet/0",
@@ -2465,12 +2446,7 @@
 											"value": "sold",
 											"type": "default"
 										}
-									],
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
+									]
 								},
 								"url": {
 									"raw": "{{baseUrl}}pet/0",
