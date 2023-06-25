@@ -58,10 +58,10 @@ public class DenoServerCodegenTest {
         final ModelsMap inner = new ModelsMap();
         objs.put("foo", inner);
 
-        final List<ModelsMap> models = new ArrayList<>();
+        final List<ModelMap> models = new ArrayList<>();
         inner.put("models", models);
 
-        final ModelsMap model = new ModelsMap();
+        final ModelMap model = new ModelMap();
         models.add(model);
 
         final CodegenModel codegenModel = new CodegenModel();
