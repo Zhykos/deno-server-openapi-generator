@@ -1,12 +1,12 @@
-Version 0.5.0:
+Version 0.6.0:
 
-- Returns a 409 error in case of a "Deno.errors.AlreadyExists" exception
-- Only log into the console if it's a code 500 error
-- Improve JDoc by adding @param and @returns keywords
+- Upgrade to 6.6.0 Codegen
+- Generate "options" route for caches
+- Add CORS options
 
 This is still a beta version: a simple JSON server will work but be warned:
 complex requests may fail.
 
-This version is valid with the OpenAPI PetStore example.
+This version is almost valid with the OpenAPI PetStore example (upload won't work).
 
 Check README for more details.
