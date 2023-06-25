@@ -218,7 +218,7 @@ export class DenoOakServer extends DenoServer<Application, Router> {
     operationId: string,
   ): void {
     const middlewarePromise = async (
-      context: RouterContext<string, any, Record<string, any>>,
+      context: RouterContext<string, never, Record<string, never>>,
     ) => {
       try {
         const openApiRequest = await OakOpenApiRequest.build(context);

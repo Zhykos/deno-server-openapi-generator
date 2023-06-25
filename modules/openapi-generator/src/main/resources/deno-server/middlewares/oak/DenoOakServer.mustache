@@ -1,4 +1,4 @@
-{{! Copyright 2022 Thomas "Zhykos" Cicognani
+{{! Copyright 2023 Thomas "Zhykos" Cicognani
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -73,7 +73,7 @@ export class DenoOakServer extends DenoServer<Application, Router> {
 
   private createRoute(localVarPath: string, httpMethod: string, controllerId: string, operationId: string): void {
     const middlewarePromise = async (
-      context: RouterContext<string, any, Record<string, any>>,
+      context: RouterContext<string, never, Record<string, never>>,
     ) => {
       try {
         const openApiRequest = await OakOpenApiRequest.build(context);

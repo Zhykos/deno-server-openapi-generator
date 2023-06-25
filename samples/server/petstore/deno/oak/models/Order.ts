@@ -10,6 +10,7 @@
  * An order for a pets from the pet store
  */
 export class Order {
+  "complete"?: boolean = false;
   "id"?: number;
   "petId"?: number;
   "quantity"?: number;
@@ -18,16 +19,21 @@ export class Order {
    * Order Status
    */
   "status"?: StatusEnum;
-  "complete"?: boolean = false;
 
-  copyFrom(anotherOrder: any): Order {
-    this.id = anotherOrder.id;
-    this.petId = anotherOrder.petId;
-    this.quantity = anotherOrder.quantity;
-    this.shipDate = anotherOrder.shipDate;
-    this.status = anotherOrder.status;
-    this.complete = anotherOrder.complete;
-    return this;
+  constructor(
+    complete?: boolean,
+    id?: number,
+    petId?: number,
+    quantity?: number,
+    shipDate?: string,
+    status?: StatusEnum,
+  ) {
+    this.complete = complete;
+    this.id = id;
+    this.petId = petId;
+    this.quantity = quantity;
+    this.shipDate = shipDate;
+    this.status = status;
   }
 }
 

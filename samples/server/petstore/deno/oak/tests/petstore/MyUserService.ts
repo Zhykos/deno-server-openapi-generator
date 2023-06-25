@@ -40,26 +40,26 @@ export class MyUserService implements UserService {
   createUser(user: User): Promise<void> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
     this.createUserInTransaction(user, petStoreDB);
-    return Helpers.wrapPromise();
+    return Promise.resolve();
   }
   createUsersWithArrayInput(users: Array<User>): Promise<void> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
     users.forEach((user) => this.createUserInTransaction(user, petStoreDB));
-    return Helpers.wrapPromise();
+    return Promise.resolve();
   }
   createUsersWithListInput(user: Array<User>): Promise<void> {
     this.createUsersWithArrayInput(user);
-    return Helpers.wrapPromise();
+    return Promise.resolve();
   }
   loginUser(username: string, password: string): Promise<string> {
     // TODO Set Headers: X-Expires-After and X-Rate-Limit
     if (username === "zhykos" && password === "azerty") {
-      return Helpers.wrapPromise('{ "status": "logged" }');
+      return Promise.resolve('{ "status": "logged" }');
     }
     throw new Deno.errors.InvalidData("Wrong user identification");
   }
   logoutUser(): Promise<void> {
-    return Helpers.wrapPromise();
+    return Promise.resolve();
   }
   deleteUser(username: string): Promise<void> {
     // TODO ERROR 400: Invalid user name format (do not know how to check that)
@@ -71,7 +71,7 @@ export class MyUserService implements UserService {
         `Cannot delete user with username: '${username}'`,
       );
     }
-    return Helpers.wrapPromise();
+    return Promise.resolve();
   }
   getUserByName(username: string): Promise<User> {
     // TODO ERROR 400: Invalid user name format (do not know how to check that)
@@ -79,7 +79,7 @@ export class MyUserService implements UserService {
 
     const user: User | undefined = petStoreDB.getUser(username);
     if (user) {
-      return Helpers.wrapPromise(user);
+      return Promise.resolve(user);
     }
     throw new Deno.errors.NotFound(
       `Cannot find user with username: '${username}'`,
@@ -95,7 +95,6 @@ export class MyUserService implements UserService {
         `Cannot update user with username: '${username}'`,
       );
     }
-    existingUser.copyFrom(user);
-    return Helpers.wrapPromise();
+    return Promise.resolve();
   }
 }

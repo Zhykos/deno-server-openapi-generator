@@ -25,11 +25,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.samskivert.mustache.Mustache;
-import com.samskivert.mustache.Template;
-
 import org.openapitools.codegen.CodegenModel;
 import org.openapitools.codegen.CodegenOperation;
+import org.openapitools.codegen.CodegenProperty;
 import org.openapitools.codegen.CodegenType;
 import org.openapitools.codegen.SupportingFile;
 import org.openapitools.codegen.meta.GeneratorMetadata;
@@ -39,6 +37,9 @@ import org.openapitools.codegen.model.ModelsMap;
 import org.openapitools.codegen.model.OperationsMap;
 import org.openapitools.codegen.templating.mustache.LowercaseLambda;
 import org.openapitools.codegen.utils.StringUtils;
+
+import com.samskivert.mustache.Mustache;
+import com.samskivert.mustache.Template;
 
 import io.swagger.v3.oas.models.media.Schema;
 
@@ -90,19 +91,32 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public Map<String, ModelsMap> postProcessAllModels(final Map<String, ModelsMap> objs) {
         final Map<String, ModelsMap> result = super.postProcessAllModels(objs);
 
-        result.values().stream().map(val -> (Map<String, Object>) val).forEach(inner -> {
-            final List<Map<String, Object>> models = (List<Map<String, Object>>) inner.get("models");
+        result.values().stream().forEach(inner -> {
+            final List<ModelMap> models = inner.getModels();
             models.forEach(model -> {
-                final CodegenModel codegenModel = (CodegenModel) model.get("model");
+                final CodegenModel codegenModel = model.getModel();
                 model.put("tsImports", toTsImports(codegenModel));
                 updateEnumQualifiedName(codegenModel);
+                overrideVariablesOrder(codegenModel.getVars());
             });
         });
         return result;
+    }
+
+    /*
+     * Order: required first ; name second
+     */
+    private void overrideVariablesOrder(final List<CodegenProperty> vars) {
+        Collections.sort(vars, (var1, var2) -> {
+            final int requiredCompare = Boolean.compare(var1.required, var2.required);
+            if (requiredCompare == 0) {
+                return var1.name.compareTo(var2.name);
+            }
+            return -requiredCompare;
+        });
     }
 
     private static void updateEnumQualifiedName(final CodegenModel cm) {
@@ -233,7 +247,7 @@ public abstract class AbstractDenoServerCodegen extends AbstractTypeScriptClient
                 }
                 writer.write(");");
             } else {
-                writer.write("new " + valueType + "(); " + valueName + "Cast.copyFrom(" + OBJ_NAME_BODY + ");");
+                writer.write(OBJ_NAME_BODY + " as " + valueType);
             }
         }
     }

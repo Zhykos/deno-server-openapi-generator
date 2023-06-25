@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 /*
  * OpenAPI service for Pet.
  *
@@ -24,8 +25,7 @@ export class PetPrivateService {
    */
   addPet(...args: any): Promise<Pet> {
     const { objBody } = args[0];
-    const petCast = new Pet();
-    petCast.copyFrom(objBody);
+    const petCast = objBody as Pet;
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.addPet(petCast));
@@ -42,8 +42,7 @@ export class PetPrivateService {
    */
   updatePet(...args: any): Promise<Pet> {
     const { objBody } = args[0];
-    const petCast = new Pet();
-    petCast.copyFrom(objBody);
+    const petCast = objBody as Pet;
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customPetService.updatePet(petCast));
@@ -166,8 +165,7 @@ export class PetPrivateService {
     const additionalMetadataCast = additionalMetadata === undefined
       ? undefined
       : String(additionalMetadata);
-    const fileCast = new File();
-    fileCast.copyFrom(objBody);
+    const fileCast = objBody as File;
     return new Promise((resolve, reject) => {
       try {
         resolve(

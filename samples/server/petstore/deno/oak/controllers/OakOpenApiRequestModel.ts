@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 /*
  * OpenAPI HTTP request model from oak middleware.
  *

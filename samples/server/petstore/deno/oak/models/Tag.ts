@@ -13,9 +13,11 @@ export class Tag {
   "id"?: number;
   "name"?: string;
 
-  copyFrom(anotherTag: any): Tag {
-    this.id = anotherTag.id;
-    this.name = anotherTag.name;
-    return this;
+  constructor(
+    id?: number,
+    name?: string,
+  ) {
+    this.id = id;
+    this.name = name;
   }
 }

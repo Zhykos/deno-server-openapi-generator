@@ -10,27 +10,35 @@
  * A User who is purchasing from the pet store
  */
 export class User {
-  "id"?: number;
-  "username"?: string;
-  "firstName"?: string;
-  "lastName"?: string;
   "email"?: string;
+  "firstName"?: string;
+  "id"?: number;
+  "lastName"?: string;
   "password"?: string;
   "phone"?: string;
   /**
    * User Status
    */
   "userStatus"?: number;
+  "username"?: string;
 
-  copyFrom(anotherUser: any): User {
-    this.id = anotherUser.id;
-    this.username = anotherUser.username;
-    this.firstName = anotherUser.firstName;
-    this.lastName = anotherUser.lastName;
-    this.email = anotherUser.email;
-    this.password = anotherUser.password;
-    this.phone = anotherUser.phone;
-    this.userStatus = anotherUser.userStatus;
-    return this;
+  constructor(
+    email?: string,
+    firstName?: string,
+    id?: number,
+    lastName?: string,
+    password?: string,
+    phone?: string,
+    userStatus?: number,
+    username?: string,
+  ) {
+    this.email = email;
+    this.firstName = firstName;
+    this.id = id;
+    this.lastName = lastName;
+    this.password = password;
+    this.phone = phone;
+    this.userStatus = userStatus;
+    this.username = username;
   }
 }

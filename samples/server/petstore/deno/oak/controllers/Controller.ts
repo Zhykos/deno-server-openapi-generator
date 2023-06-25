@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 /*
  * OpenAPI main controller.
  *

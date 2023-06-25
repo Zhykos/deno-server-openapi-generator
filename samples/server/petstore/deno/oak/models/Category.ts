@@ -13,9 +13,11 @@ export class Category {
   "id"?: number;
   "name"?: string;
 
-  copyFrom(anotherCategory: any): Category {
-    this.id = anotherCategory.id;
-    this.name = anotherCategory.name;
-    return this;
+  constructor(
+    id?: number,
+    name?: string,
+  ) {
+    this.id = id;
+    this.name = name;
   }
 }

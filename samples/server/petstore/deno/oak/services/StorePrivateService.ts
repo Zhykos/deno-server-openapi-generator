@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 /*
  * OpenAPI service for Store.
  *
@@ -38,8 +39,7 @@ export class StorePrivateService {
    */
   placeOrder(...args: any): Promise<Order> {
     const { objBody } = args[0];
-    const orderCast = new Order();
-    orderCast.copyFrom(objBody);
+    const orderCast = objBody as Order;
     return new Promise((resolve, reject) => {
       try {
         resolve(this.customStoreService.placeOrder(orderCast));

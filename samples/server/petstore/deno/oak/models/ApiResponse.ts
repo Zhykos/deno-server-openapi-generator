@@ -11,13 +11,16 @@
  */
 export class ApiResponse {
   "code"?: number;
-  "type"?: string;
   "message"?: string;
+  "type"?: string;
 
-  copyFrom(anotherApiResponse: any): ApiResponse {
-    this.code = anotherApiResponse.code;
-    this.type = anotherApiResponse.type;
-    this.message = anotherApiResponse.message;
-    return this;
+  constructor(
+    code?: number,
+    message?: string,
+    type?: string,
+  ) {
+    this.code = code;
+    this.message = message;
+    this.type = type;
   }
 }

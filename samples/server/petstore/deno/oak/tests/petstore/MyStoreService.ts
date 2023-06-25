@@ -29,7 +29,7 @@ export class MyStoreService implements StoreService {
         inventory[order.status?.toString()] = nb ? nb + 1 : 1;
       }
     }
-    return Helpers.wrapPromise(inventory);
+    return Promise.resolve(inventory);
   }
   placeOrder(order: Order): Promise<Order> {
     // TODO ERROR 405: Validation exception (model format / JSON format)
@@ -48,7 +48,7 @@ export class MyStoreService implements StoreService {
       );
     }
     petStoreDB.addOrder(order);
-    return Helpers.wrapPromise(order);
+    return Promise.resolve(order);
   }
   deleteOrder(orderId: string): Promise<void> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
@@ -65,7 +65,7 @@ export class MyStoreService implements StoreService {
         `Cannot delete order with ID: ${orderNb}`,
       );
     }
-    return Helpers.wrapPromise();
+    return Promise.resolve();
   }
   getOrderById(orderId: number): Promise<Order> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
@@ -77,7 +77,7 @@ export class MyStoreService implements StoreService {
     }
     const order: Order | undefined = petStoreDB.getOrder(orderId);
     if (order) {
-      return Helpers.wrapPromise(order);
+      return Promise.resolve(order);
     }
     throw new Deno.errors.NotFound(`Cannot find order with ID: ${orderId}`);
   }

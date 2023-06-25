@@ -32,10 +32,4 @@ export class Helpers {
   private static getHeaderContentType(headers: Headers): string {
     return headers.get("Content-Type") || "";
   }
-
-  static wrapPromise(obj?: any): Promise<any> {
-    return new Promise((resolve) => {
-      resolve(obj);
-    });
-  }
 }

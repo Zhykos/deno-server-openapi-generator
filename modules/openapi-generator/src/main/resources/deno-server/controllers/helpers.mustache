@@ -1,4 +1,4 @@
-{{! Copyright 2022 Thomas "Zhykos" Cicognani
+{{! Copyright 2023 Thomas "Zhykos" Cicognani
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -44,11 +44,5 @@ export class Helpers {
    */
   private static getHeaderContentType(headers: Headers): string {
     return headers.get("Content-Type") || "";
-  }
-
-  static wrapPromise(obj?: any): Promise<any> {
-    return new Promise((resolve) => {
-        resolve(obj);
-    });
   }
 }

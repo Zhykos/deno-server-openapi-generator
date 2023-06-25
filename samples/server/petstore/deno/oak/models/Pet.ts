@@ -12,24 +12,30 @@ import { Tag } from "./Tag.ts";
  * A pet for sale in the pet store
  */
 export class Pet {
-  "id"?: number;
-  "category"?: Category;
   "name": string;
   "photoUrls": Array<string>;
-  "tags"?: Array<Tag>;
+  "category"?: Category;
+  "id"?: number;
   /**
    * pet status in the store
    */
   "status"?: StatusEnum;
+  "tags"?: Array<Tag>;
 
-  copyFrom(anotherPet: any): Pet {
-    this.id = anotherPet.id;
-    this.category = anotherPet.category;
-    this.name = anotherPet.name;
-    this.photoUrls = anotherPet.photoUrls;
-    this.tags = anotherPet.tags;
-    this.status = anotherPet.status;
-    return this;
+  constructor(
+    name: string,
+    photoUrls: Array<string>,
+    category?: Category,
+    id?: number,
+    status?: StatusEnum,
+    tags?: Array<Tag>,
+  ) {
+    this.name = name;
+    this.photoUrls = photoUrls;
+    this.category = category;
+    this.id = id;
+    this.status = status;
+    this.tags = tags;
   }
 }
 

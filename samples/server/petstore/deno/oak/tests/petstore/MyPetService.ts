@@ -36,7 +36,7 @@ export class MyPetService implements PetService {
       );
     }
     petStoreDB.addPet(pet);
-    return Helpers.wrapPromise(pet);
+    return Promise.resolve(pet);
   }
   updatePet(pet: Pet): Promise<Pet> {
     // TODO ERROR 405: Validation exception (model format / JSON format)
@@ -48,8 +48,7 @@ export class MyPetService implements PetService {
     }
     const petInDB: Pet | undefined = petStoreDB.getPet(petId);
     if (petInDB) {
-      petInDB.copyFrom(pet);
-      return Helpers.wrapPromise(petInDB);
+      return Promise.resolve({ ...petInDB, ...pet });
     }
     throw new Deno.errors.NotFound(`Cannot update pet with ID: ${petId}`);
   }
@@ -73,7 +72,7 @@ export class MyPetService implements PetService {
       statusStr as StatusEnum
     );
 
-    return Helpers.wrapPromise(Array.from(
+    return Promise.resolve(Array.from(
       iterFilter<Pet>(
         petStoreDB.allPetsIterator(),
         (pet) => pet.status !== undefined && wishedStatus.includes(pet.status),
@@ -84,7 +83,7 @@ export class MyPetService implements PetService {
     // TODO ERROR 400: Invalid tag value (no idea how...)
     const petStoreDB = new PetStoreCompleteExampleDatabase();
 
-    return Helpers.wrapPromise(Array.from(
+    return Promise.resolve(Array.from(
       iterFilter<Pet>(
         petStoreDB.allPetsIterator(),
         (pet) => {
@@ -119,7 +118,7 @@ export class MyPetService implements PetService {
         `Cannot delete pet with ID: ${petId}`,
       );
     }
-    return Helpers.wrapPromise();
+    return Promise.resolve();
   }
   getPetById(petId: number): Promise<Pet> {
     const petStoreDB = new PetStoreCompleteExampleDatabase();
@@ -129,7 +128,7 @@ export class MyPetService implements PetService {
     }
     const pet: Pet | undefined = petStoreDB.getPet(petId);
     if (pet) {
-      return Helpers.wrapPromise(pet);
+      return Promise.resolve(pet);
     }
     throw new Deno.errors.NotFound(`Cannot find pet with ID: ${petId}`);
   }
@@ -173,7 +172,7 @@ export class MyPetService implements PetService {
           );
       }
     }
-    return Helpers.wrapPromise();
+    return Promise.resolve();
   }
   uploadFile(
     petId: number,
@@ -205,6 +204,6 @@ export class MyPetService implements PetService {
         file.contentType;
     }
 
-    return Helpers.wrapPromise(response);
+    return Promise.resolve(response);
   }
 }
